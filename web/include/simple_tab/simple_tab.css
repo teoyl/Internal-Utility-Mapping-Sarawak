@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Aug 5, 2014, 2:00:32 PM
+    Author     : sereneChye
+*/
+
+/*ul .tabs{
+	float:left;
+	margin-top:0px;	
+	padding:0;
+}*/
+.tabs li {	
+	list-style:none;
+	display:inline;
+}
+
+/*.tabs a {
+	width:100%;
+	display:inline-block;
+	background:#9aa282;
+        background:#fff;
+	color:#FFFFFF;
+	text-decoration:none;
+	margin-right: 0px;
+	margin-left: 0px;
+	box-shadow:10px 10px 50px 20px  #908f8f inset;
+	border-radius: 10px 0px 0px 10px;
+	border-color: #AAAAAA;
+	border-width: 1px 1px 1px 5px;
+	border-style: solid;    
+	padding: 0px 5px 10px 30px;
+}*/
+
+.tabs a {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    color: black;
+    display: inline-block;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px;
+    text-decoration: none;
+    width: 100%;
+    border-bottom:none;
+}
+
+.tabs a:hover{
+    color: #348017;
+    
+}
+
+/*.tabs a.active {
+        margin-right: 0px;
+	margin-left: 0px;
+	background-color:#9daf69;
+	color :  #ffffff;
+	border-top-color:#AAAAAA;
+	border-right-color: #AAAAAA;
+	border-bottom-color: #AAAAAA;
+	border-left-color: #348017;
+	box-shadow:none;
+	border-width: 1px 1px 1px 5px;
+	border-left-style: solid;
+        box-shadow:10px 10px 50px 20px  #a9e699 inset;
+	
+}*/
+
+.tabs a.active {
+    background-color: #2AAF62;
+    border: 1px solid #2AAF62;
+    box-shadow: none;
+    color: #ffffff;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/*-------------Common--------------------*/
+.space{
+    margin-bottom : 5px;
+}
+
+.space_left_5{
+    padding-left: 15px;
+}

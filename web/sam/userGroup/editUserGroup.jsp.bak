@@ -1,0 +1,195 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="/struts-tags" prefix="s"%>
+<html>
+<head>
+<script type="text/javascript" src="pages/scripts/common.js"></script>
+<script type="text/javascript" src="pages/scripts/validation.jsp"></script>
+<script type="text/javascript" src="pages/scripts/confirmation.js"></script>
+<SCRIPT language="Javascript">
+	function localValidateForm(form, operation) {
+		var errors = new Array();
+		
+		validateRequired(form, errors);
+		// sample to validate items.
+		//validateItems(form, errors);		
+		if (errors.length > 0) {
+			alert(errors.join('\n'));
+			setFocus(form);
+		}
+		return errors.length > 0 ? false : true;
+	}
+
+	function required(){
+		this.aa = new Array("group_code", "<s:text name='group.code' />");
+		this.ab = new Array("group_name", "<s:text name='group.name' />");
+	}
+
+	function validateItems(form, errors) {
+		if (!form.selected) {
+			errors[errors.length] = formatText(messageRequired, "Application");
+			return;
+		}
+		if (typeof(form.selected.type) == "string") {
+			validateItem(form.selected, 1, errors);
+		} else {
+			var isError = false;
+			for (var i=0; i < form.selected.length; i++) {
+				isError = validateItem(form.selected[i],i+1,errors);
+				if (isError) break;
+			}
+		}
+	}
+
+	function validateItem(selected, idx, errors) {
+		if (!selected.checked){
+		//if (selected.value == ""){
+			errors[errors.length] = "Application at row " + idx + " not checked.";
+		}
+	}
+</SCRIPT>
+<%--<s:head />--%>
+<style type="text/css">
+@import url(style.css);
+</style>
+</head>
+<body>
+	<jsp:include page="/pages/base/actionError.jsp"></jsp:include>
+	<s:form theme="simple" action="processUpdateUserGroup" name="userGroupForm">
+		<s:hidden name="action" />
+		<s:hidden name="searchCondition" />
+		<s:hidden name="ug_id" value="%{model.ug_id}" />
+		<div class="xbox">
+			<table cellspacing="0" cellpadding="2" border="0" width="100%" class="form">
+				<tr class="CLASS_TABLE_HEADER" >
+					<td width="70%"><s:text name="userGroup" /> - <s:text name="actionType.edit" /></td>
+					<td width="30%" align="right">
+						<s:submit type="image" src="images/save.gif" theme="simple" action="processUpdateUserGroup"/>
+						<s:submit type="image" src="images/cancel.gif" theme="simple" action="cancelUserGroup" />
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td align="right"><s:text name="group.code"/>:</td><td><s:textfield theme="simple" name="group_code" value="%{model.group_code}"/></td>
+				</tr>
+				<tr>
+					<td align="right"><s:text name="group.name"/>:</td><td><s:textfield theme="simple" name="group_name" value="%{model.group_name}"/></td>
+				</tr>
+			</table>
+			<hr>
+			<table width="100%" class="form">
+				<tr class="CLASS_TABLE_HEADER" >
+					<td><s:text name="userGroup.assignedApplication" /></td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td colspan="2">
+						<s:submit theme="simple" action="loadAddApplicationPageUserGroup" value="Add Application" />
+						<s:submit theme="simple" action="processDeleteApplicationUserGroup" value="Delete Application" 
+						onclick="if ( isCheckboxSelected(delApp_ids)) {return confirmDelete();} else {return false;}" />
+					</td>
+				</tr>
+				<tr>
+					<th width="10" align="center">
+	            		<s:if test="applicationList.size() > 0">
+	              			<input type="checkbox" id="cbselect" name="cbselect" onclick="toggleCheckbox(this, delApp_ids);">
+	              		</s:if>
+	              		<s:else>
+	              			<input type="checkbox" id="cbselect" name="cbselect" disabled >
+	              		</s:else>
+	            	</th>
+					<th width="100">Application Code</th>
+					<th width="200">Application Name</th>
+					<th width="60"><s:text name="right.create" /></th>
+					<th width="60"><s:text name="right.retrieve" /></th>
+					<th width="60"><s:text name="right.update" /></th>
+					<th width="60"><s:text name="right.delete" /></th>
+					<th width="60"><s:text name="right.print" /></th>
+				</tr>
+				<s:iterator value="applicationList" status="appStatus" id="userGroupApp">
+				<tr class="<s:if test="#appStatus.odd == true ">odd</s:if><s:else>even</s:else>">
+					<td align="center"><s:checkbox theme="simple" name="selected" id="delApp_ids" fieldValue="%{application.application_id}" onclick="checkToggleCheckbox(cbselect, delApp_ids)"/></td>
+					<td width="100"><s:property value="%{application.application_code}" />
+					</td>
+					<td width="200"><s:property value='%{application.application_name}' /></td>
+					<%int index=0; %>
+					<td align="center">
+						<s:checkbox theme="simple" name="accessRight_create_%{#appStatus.index}" id="create_ids" value='%{create_right.equals("Y")?"True":"false"}'
+						fieldValue="Y" disabled="%{application.create_right.equalsIgnoreCase('Y')?'false':'true'}" />
+					</td>
+					<td align="center">
+						<s:checkbox theme="simple" name="accessRight_retrieve_%{#appStatus.index}" id="retrieve_ids" value='%{retrieve_right.equals("Y")?"True":"false"}' 
+						fieldValue="Y" disabled="%{application.retrieve_right.equalsIgnoreCase('Y')?'false':'true'}" />
+					</td>
+					<td align="center">
+						<s:checkbox theme="simple" name="accessRight_update_%{#appStatus.index}" id="update_ids" value='%{update_right.equals("Y")?"True":"false"}' 
+						fieldValue="Y" disabled="%{application.update_right.equalsIgnoreCase('Y')?'false':'true'}" />
+					</td>
+					<td align="center">
+						<s:checkbox theme="simple" name="accessRight_delete_%{#appStatus.index}" id="delete_ids" value='%{delete_right.equals("Y")?"True":"false"}'
+						fieldValue="Y" disabled="%{application.delete_right.equalsIgnoreCase('Y')?'false':'true'}" />
+					</td>
+					<td align="center">
+						<s:checkbox theme="simple" name="accessRight_print_%{#appStatus.index}" id="print_ids" value='%{print_right.equals("Y")?"True":"false"}'
+						fieldValue="Y" disabled="%{application.print_right.equalsIgnoreCase('Y')?'false':'true'}" />
+					</td>
+				</tr>
+				<s:if test="application.rightsList.size > 0">
+				<s:iterator value="application.rightsList" status="rightsStatus" id="appRights">
+					<tr class="<s:if test="#appStatus.odd == true ">odd</s:if><s:else>even</s:else>">
+						<s:set name="rightsName">${application.application_id}_${appRights.app_rights_id}</s:set>
+						<s:if test="#rightsStatus.index == 0">
+							<td></td><td align="right"></td><td align="right"><s:property value="%{#appRights.app_rights_code}" />:</td>
+						</s:if>					
+						<s:else>
+							<td></td><td align="right"></td><td align="right"><s:property value="%{#appRights.app_rights_code}" />:</td>
+						</s:else>
+							<td align="center"><s:checkbox theme="simple" name="%{#rightsName}" id="rights_ids" value='%{checkSelected(#rightsName)}' fieldValue="Y" /></td>
+							<td colspan="4"></td>	
+					</tr>
+				</s:iterator>
+				</s:if>
+				</s:iterator>				
+			</table>
+			<hr>
+			<table width="100%" class="form">
+				<tr class="CLASS_TABLE_HEADER" >
+					<td><s:text name="userGroup.assignedUser" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<s:submit theme="simple" action="loadAddUserPageUserGroup" value='%{getText("button.add.user")}' />
+						<s:submit theme="simple" action="processDeleteUserUserGroup" value='%{getText("button.delete.user")}' 
+						onclick="if ( isCheckboxSelected(form.user_selected)) {return confirmDelete();} else {return false;}"/>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<th width="10">
+	            		<s:if test="userList.size() > 0">
+	              			<input type="checkbox" id="user_select" name="user_select" onclick="toggleCheckbox(this, delUser_ids);">
+	              		</s:if>
+	              		<s:else>
+	              			<input type="checkbox" id="user_select" name="user_select" disabled >
+	              		</s:else>
+	            	</th>
+					<th width="100"><s:text name="user.id" /></th>
+					<th width="100"><s:text name="user.name" /></th>
+				</tr>
+				<s:iterator value="userList" status="userStatus" id="userGroupUser">
+				<tr class="<s:if test="#userStatus.odd == true ">odd</s:if><s:else>even</s:else>">
+					<td><s:checkbox theme="simple" name="user_selected" id="delUser_ids" fieldValue="%{groupUser.us_id}" onclick="checkToggleCheckbox(user_select, delUser_ids)"/></td>
+					<td width="100"><s:property value="%{groupUser.us_user_id}" />
+					</td>
+					<td width="200"><s:property value='%{groupUser.us_user_name}' /></td>
+				</tr>
+				</s:iterator>				
+			</table>
+		</div>
+	</s:form>
+</body>
+</html>

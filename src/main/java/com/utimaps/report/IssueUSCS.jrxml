@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DocCheck_IssueSCS10" pageWidth="597" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="485" leftMargin="70" rightMargin="42" topMargin="42" bottomMargin="42" uuid="bb8aeaaf-0e97-4e35-a875-edd0c51aca34">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="pJobId" class="java.lang.String"/>
+	<parameter name="pType" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Projects\\internal-utility-mapping-sarawak\\src\\main\\java\\com\\utimaps\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT (uj.usj_job_type||'/'||ltrim(uj.usj_div,0)||'D/'||ltrim(uj.usj_seq,0)||'/'||uj.usj_year) as survey_job_number,
+(ltrim(uj.usj_div,0)||'D/'||ltrim(uj.usj_seq,0)||'/'||uj.usj_year) as cc_reference,
+uj.land_desc, TO_CHAR(uj.hardcopy_received_date, 'dd.MM.yyyy') as hardcopy_received_date,
+('USP-'||uj.usj_div||'-'||uj.plan_no) as cc_plan_no,
+uj.usj_year, uj.plan_no,
+TO_CHAR(uj.approval_date, 'dd.MM.yyyy') as approval_date, uj.CONTROL_SV_FLAG,
+(SELECT INITCAP(code_desc) FROM pubcode WHERE CODE_TYPE= 'DIV' AND code_1 = uap.CASE_DIV) AS cc_div,
+(select code_desc from pubcode where code_type = 'SOC' and code_1 = uj.us_so_id) as surveyFirm,
+uap.PJ_NAME,
+(SELECT CODE_DESC FROM pubcode WHERE CODE_TYPE='LTH' AND code_1 = uap.CASE_DIV AND code_2 = '00') AS cc_head1,
+(SELECT CODE_DESC FROM pubcode WHERE CODE_TYPE='LTH' AND code_1 = uap.CASE_DIV AND code_2 = '01') AS cc_head2,
+(SELECT CODE_DESC FROM pubcode WHERE CODE_TYPE='LTH' AND code_1 = uap.CASE_DIV AND code_2 = '02') AS cc_addr1,
+(SELECT CODE_DESC FROM pubcode WHERE CODE_TYPE='LTH' AND code_1 = uap.CASE_DIV AND code_2 = '03') AS cc_addr2,
+(SELECT CODE_DESC FROM pubcode WHERE CODE_TYPE='LTH' AND code_1 = uap.CASE_DIV AND code_2 = '04') AS cc_tel,
+TO_CHAR(sysdate+7, 'dd.MM.yyyy') AS cc_expiry,
+nvl(tcc.CO_REGISTERED_ADDRESS1, '') as co_addr1, nvl(tcc.CO_REGISTERED_ADDRESS2, ' ') as co_addr2, nvl(tcc.CO_REGISTERED_ADDRESS3, ' ') as co_addr3,
+tcc.CO_REGISTERED_POSTCODE, tcc.CO_REGISTERED_CITY, nvl(tcc.CO_REGISTERED_ADDRESS4, ' ') as co_addr4
+FROM US_JOBDETAIL uj
+INNER JOIN US_APPLICATION_P uap ON uap.CASE_ID = uj.CASE_ID
+INNER JOIN US_SURVEY_FIRM_P usfp ON usfp.CASE_ID = uj.CASE_ID
+INNER JOIN T_CUST_COMPANY tcc ON tcc.CO_ID = uap.CO_ID AND tcc.PS_ID = usfp.FIRM_SOC
+WHERE uj.JOB_ID = $P{pJobId}]]>
+	</queryString>
+	<field name="SURVEY_JOB_NUMBER" class="java.lang.String"/>
+	<field name="CC_REFERENCE" class="java.lang.String"/>
+	<field name="LAND_DESC" class="java.lang.String"/>
+	<field name="HARDCOPY_RECEIVED_DATE" class="java.lang.String"/>
+	<field name="CC_PLAN_NO" class="java.lang.String"/>
+	<field name="USJ_YEAR" class="java.lang.String"/>
+	<field name="PLAN_NO" class="java.lang.String"/>
+	<field name="APPROVAL_DATE" class="java.lang.String"/>
+	<field name="CONTROL_SV_FLAG" class="java.lang.String"/>
+	<field name="CC_DIV" class="java.lang.String"/>
+	<field name="SURVEYFIRM" class="java.lang.String"/>
+	<field name="PJ_NAME" class="java.lang.String"/>
+	<field name="CC_HEAD1" class="java.lang.String"/>
+	<field name="CC_HEAD2" class="java.lang.String"/>
+	<field name="CC_ADDR1" class="java.lang.String"/>
+	<field name="CC_ADDR2" class="java.lang.String"/>
+	<field name="CC_TEL" class="java.lang.String"/>
+	<field name="CC_EXPIRY" class="java.lang.String"/>
+	<field name="CO_ADDR1" class="java.lang.String"/>
+	<field name="CO_ADDR2" class="java.lang.String"/>
+	<field name="CO_ADDR3" class="java.lang.String"/>
+	<field name="CO_REGISTERED_POSTCODE" class="java.lang.String"/>
+	<field name="CO_REGISTERED_CITY" class="java.lang.String"/>
+	<field name="CO_ADDR4" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Bottom">
+				<reportElement x="0" y="6" width="85" height="85" uuid="babe6ff7-8b2c-4a9d-9c91-a50a7ad74b7a"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "state-crest.gif"]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Bottom">
+				<reportElement x="414" y="20" width="70" height="70" uuid="aaeaf95f-eccf-420e-ba7b-14e94f37325f"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "lns_logo.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="82" y="32" width="318" height="19" uuid="63ff2d5c-b565-4def-8fb6-f582d24d6f9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_HEAD2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="50" width="318" height="11" uuid="1012ad04-b23a-43b2-8d94-e873b30ae4a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_ADDR1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="36" y="80" width="413" height="11" uuid="e7492867-d9aa-4051-a494-1613eb5e628f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Laman Web: https://landsurvey.sarawak.gov.my  E-mel:landsurvey@sarawak.gov.my]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="60" width="318" height="11" uuid="268ef7e3-6d39-4064-acae-e9d0eea4d3e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_ADDR2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="70" width="318" height="11" uuid="f5366a5e-af57-4225-9c60-46438e045c36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_TEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="14" width="318" height="19" uuid="218b50a4-a7e2-412d-aaf1-19f65a8dc18e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_HEAD1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="105" width="483" height="1" uuid="fd5d5ac5-df01-4862-b183-7c8bb7bb074b"/>
+				<graphicElement>
+					<pen lineWidth="2.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="108" width="483" height="1" uuid="bb4ae9ed-4da9-4dbc-814c-e4228f8a94b8"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="318" y="3" width="67" height="15" uuid="ae912ba6-e748-4e67-a437-b3d3ff2a82a3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Tarikh:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="318" y="17" width="67" height="15" uuid="a4394e9e-e5e5-4bf1-9f72-5d13a5919504"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Tarikh:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="44" width="316" height="20" uuid="9fb098e3-3c1d-4294-845b-296fec83bc8f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SURVEYFIRM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="63" width="316" height="20" isPrintWhenDetailOverflows="true" uuid="7a7112c5-4e2b-417c-900d-c708d8068e2d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{CO_ADDR1}!=null) ? (($F{CO_ADDR1}.endsWith( "," ))?$F{CO_ADDR1}+"\n " : $F{CO_ADDR1} + ",\n") : "")+
+((!$F{CO_ADDR2}.equals( " " )) ? (($F{CO_ADDR2}.endsWith( "," ))?$F{CO_ADDR2}+"\n" : $F{CO_ADDR2} + ",\n") : "")+
+((!$F{CO_ADDR3}.equals( " " )) ? (($F{CO_ADDR3}.endsWith( "," ))?$F{CO_ADDR3}+"\n" : $F{CO_ADDR3} + ",\n") : "")+
+((!$F{CO_ADDR4}.equals( " " )) ? (($F{CO_ADDR4}.endsWith( "," ))?$F{CO_ADDR4}+"\n" : $F{CO_ADDR4} + ",\n") : "")+
+$F{CO_REGISTERED_POSTCODE} + " " + $F{CO_REGISTERED_CITY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="3" width="154" height="15" uuid="ca39cae6-28f7-4334-ac2f-fc0025cc6ed4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1/"+$F{CC_REFERENCE}+"/"+$P{pType}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy">
+				<reportElement x="385" y="3" width="98" height="15" uuid="8422ccae-7b14-4ba2-8c9b-b89607606fd4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="3" width="56" height="15" uuid="b0aaaabb-f320-4ff4-910e-ba3ecde1a605"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Ruj. Kami:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="17" width="56" height="15" uuid="1c6c5e4d-bd77-4c23-b24c-ec2ad652e28a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Ruj. Tuan:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="79cb5691-e1e8-49ed-b147-d9d7f26c9c39"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tuan/Puan,]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS10" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="1b859696-842f-4c43-b019-e9821f7fd9fb"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tThe submitted digital document(s) as listed in "+($F{CONTROL_SV_FLAG}.equals("Y" ) ? "<style isBold='true' pdfFontName='Helvetica-Bold'>Checklist U10 and U20 </style>are not in compliance " : "<style isBold='true' pdfFontName='Helvetica-Bold'>Checklist U20 </style>is not in compliance \n" )+"with our requirements. Please take immediate remedial action and to resubmit on or before <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{CC_EXPIRY}+"</style>."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="c2f0e75d-91c7-4250-8d71-a75b776d0109"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="e005b48c-82d2-4bfa-861d-ac4b5f674eb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Notification of Resubmission for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS20" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="0d103877-7248-459b-a120-2ba1d93c3fbe"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tThe submitted digital documents have successfully complied with our requirements."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="3b40079b-4617-487e-8229-7d401790e15c"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="a68fa1fe-3756-45ea-b6f8-6130136c03ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Acceptance for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS30" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="43be0d03-4c6f-4c69-90c1-ebd338fe471b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Acknowledgement of Receipt for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="5de9e1fb-dcb4-4cce-bfec-f08fe2eeb808"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tThe submitted documents have successfully fulfilled our requirements. The hard copies were received on <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{HARDCOPY_RECEIVED_DATE}+"</style>."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="6206d5e6-ceeb-414d-893a-1679cd45d2e4"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS40" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="bab0e3ef-13db-478e-aa37-e710acc4cd66"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tNon-compliance items are listed in <style isBold='true' pdfFontName='Helvetica-Bold'>Checklist U30</style>. Immediate action is to be taken to rectify the listed items and resubmitted on or before <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{CC_EXPIRY}+"</style>."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="2f91ba4f-7d31-493e-9ac0-47b6a37d3ce0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Required Rectification to " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="40a8c64a-7f07-41d3-a4b4-0c7591815eae"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS50" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="e2b2216e-8baf-461f-851e-6a8fabb773f4"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tNon-compliance items of Utility Control Plan listed in <style isBold='true' pdfFontName='Helvetica-Bold'>Checklist U40</style>. Immediate action is to be taken to rectify the listed items and resubmitted on or before <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{CC_EXPIRY}+"</style>."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="be11e385-c747-4231-904e-21a4d92ac5cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Required Rectification on Utility Control Plan for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="6cf88f29-35e6-4c7a-9ccf-01318fdfa34b"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS60" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="50dd6cbc-a882-45dd-95ff-5032a57a1a33"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tThe above-mentioned survey job has been accepted for computation checking."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="22" y="0" width="438" height="20" isPrintWhenDetailOverflows="true" uuid="f7678534-4cdb-4e0b-ad08-6741b9209408"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Notification on " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="40" width="255" height="15" uuid="3a3f31dd-e858-491b-8535-9af0cbdf2d48"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS70" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="5bb7892e-bb98-4ff2-9caf-e23646115a2b"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tPlease take note that the survey computation and utility control plan in connection with the above-mentioned survey job has been approved on <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{APPROVAL_DATE}+"</style>."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="2bb5b94e-e9eb-43bf-851a-1a7bcea397e1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Notification on " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="054bfd5e-5389-452a-a656-fde2ec288178"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS80" )]]></printWhenExpression>
+			<staticText>
+				<reportElement positionType="Float" x="1" y="40" width="255" height="15" uuid="69679bbd-b045-4922-9b51-fb403089c1b5"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="9541f87f-ac19-4bb9-b5a4-509248ae3ee3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Required Rectification on Utility Survey Plan for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="205a1f01-a779-4c59-9589-16c47ccbab11"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tNon-compliance items of Utility Data and <style isBold='true' pdfFontName='Helvetica-Bold'>Utility Survey Plan No. "+$F{CC_PLAN_NO}+"</style> are listed in Checklist U50. Immediate action is to be taken to rectify the listed item and resubmitted on or before <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{CC_EXPIRY}+"</style>."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS90" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="95c473ae-d6dc-4f62-9b04-821e3576a79f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>["+$P{pType}+"] Notification on Approval of " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="2bcbeb67-4082-4423-a1c0-68767a5227b5"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="6727fedd-77ef-40d0-9e91-57e7a74dbce6"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tPlease take note that the Utility Survey Data and <style isBold='true' pdfFontName='Helvetica-Bold'>Utility Survey Plan No. "+$F{CC_PLAN_NO}+"</style> in connection with the above-mentioned survey job has been approved on <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{APPROVAL_DATE}+"</style>."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<printWhenExpression><![CDATA[$P{pType}.equals( "USCS10H" )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="70" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="0ff2af85-e3a5-4a4a-806e-306fa7124eb2"/>
+				<textElement markup="styled">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2.\tThe submitted hardcopy document(s) as listed in <style isBold='true' pdfFontName='Helvetica-Bold'>Checklist</style> are not in compliance with our requirements. Please take immediate remedial action and to resubmit on or before <style isBold='true' pdfFontName='Helvetica-Bold'>"+$F{CC_EXPIRY}+"</style>."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="485" height="20" isPrintWhenDetailOverflows="true" uuid="173a9e11-c068-4d29-93df-48e839ee7557"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+					<paragraph lineSpacing="Proportional" lineSpacingSize="1.15"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>[USCS10] Notification of Resubmission for " + $F{SURVEY_JOB_NUMBER}+" Located At " +$F{PJ_NAME}+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="40" width="255" height="15" uuid="d74c289d-0714-4ac5-a1e1-31b923775290"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Reference is made to the above matter.]]></text>
+			</staticText>
+		</band>
+		<band height="34">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="255" height="15" uuid="1274a74f-cd0c-449d-a90b-7fc72b768ad8"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Thank you.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="284">
+			<staticText>
+				<reportElement x="0" y="263" width="483" height="21" forecolor="#FF0000" uuid="60ad5d11-0c2b-4c14-955b-fc6b88616cac"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Brush Script MT" size="16" isBold="true" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[An Agency to Facilitate Development]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="242" width="483" height="21" forecolor="#000000" uuid="d99ac712-ddfc-40ab-adc8-cbc115cefab9"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Brush Script MT" size="14" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Pemenang Anugerah Emas AUGA Tahun 2023]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Bottom">
+				<reportElement x="220" y="193" width="44" height="49" uuid="b515e1eb-9942-4f59-bcb2-647823f01c47"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "aiga_logo.PNG"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement positionType="Float" x="141" y="90" width="200" height="1" uuid="081fd905-e07e-47ba-bc17-18dc931c7534"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="141" y="105" width="200" height="15" uuid="1e87fc2c-ddcc-4873-9d84-40385a35f7db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[b.p Penguasa Tanah Dan Survei]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" x="0" y="15" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="ea077eba-93ec-4156-b559-795a6dcf5272"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' isItalic='true' pdfFontName='Helvetica-BoldOblique'><i>‘AN HONOUR TO SERVE’</i></style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement positionType="Float" x="0" y="0" width="485" height="15" isPrintWhenDetailOverflows="true" uuid="f629c1dd-83fb-4100-9a93-7faa32f13836"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>“BERSATU BERUSAHA BERBAKTI”</style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="1" y="154" width="298" height="20" uuid="7163278a-a613-438d-81a6-3bca1aa7ccce"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>s.k.</i></style>Land Surveyors Board Sarawak"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="141" y="120" width="200" height="15" uuid="f524124b-1663-4166-9ec5-cfcb0080bf81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bahagian "+$F{CC_DIV}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,214 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 20, 2023, 2:20:00 PM
+    Author     : Aiman
+*/
+
+:root {
+    --swiper-bullet-size: 45px
+        --increment-per-25px: 1%
+}
+
+.swiper-container {
+    height: 100%;
+}
+
+.progressBullet{
+    transition: 1s;
+    border: 3px solid #00999B !important;
+}
+
+.vert-linedBullet::after {
+    content: "";
+    position: absolute;
+    border: 2px solid #00999B !important;
+    height: 100%;
+    z-index: -1;
+    top: 100%;
+    left: 50%;
+}
+
+.linedBullet::after {
+    content: "";
+    position: absolute;
+    border: 2px solid #33cc00 !important;
+    width: 100%;
+    z-index: -1;
+    top: calc(2px * 10);
+    left: 52%;
+}
+
+.darklinedBullet::after {
+    content: "";
+    position: absolute;
+    border: 2px solid lightgrey !important;
+    width: 100%;
+    z-index: -1;
+    top: calc(2px * 10);
+    left: 52%;
+}
+
+@media only screen and (min-width: 768px) {
+    .linedBullet::after {
+        content: "";
+        position: absolute;
+        border: 2px solid #33cc00 !important;
+        width: 100%;
+        z-index: -1;
+        top: 31%;
+        left: 52%;
+    }
+    
+    .darklinedBullet::after {
+        content: "";
+        position: absolute;
+        border: 2px solid lightgrey !important;
+        width: 100%;
+        z-index: -1;
+        top: 31%;
+        left: 52%;
+    }
+}
+
+.bullets {
+    position: relative;
+}
+
+#history-bullets {
+    position: relative;
+    overflow: scroll;
+}
+
+#history-bullets::-webkit-scrollbar {
+    display: none;
+}
+
+#bullet-col {
+    position: relative;
+    max-width: 175px;
+}
+
+.bullet-child {
+    position: relative;
+}
+
+.progressBullet:hover {
+    /*background-color: #000091 !important;*/
+}
+
+.dash {
+    width: 100px;
+    border: 1px dashed #C4C4C4 !important;
+}
+
+.historyBullet {
+    width: 1.8em !important;
+    height: 1.8em !important;
+    border: 1px solid #002a18 !important;
+}
+
+.firstBullet {
+    width: 1.8em !important;
+    height: 1.8em !important;
+    border: 1px solid #002a18 !important;
+}
+
+.lastBullet {
+    width: 2em !important;
+    height: 2em !important;
+    border: 1px solid #002a18 !important;
+}
+
+.historyBullet::after {
+    content: "";
+    position: absolute;
+    border: 1.2em solid #00999B !important;
+    height: 83%;
+    z-index: -1;
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.lastBullet::after {
+    content: "";
+    position: absolute;
+    border: 1.2em solid #00999B !important;
+    height: 2em;
+    border-radius: 100%;
+    z-index: -1;
+    top: 3px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.firstBullet::before {
+    content: "";
+    position: absolute;
+    border: 1.2em solid #00999B !important;
+    height: 2em;
+    border-radius: 100%;
+    z-index: -1;
+    top: 83%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+@media only screen and (min-width: 1200px) {
+    .historyBullet::after {
+        content: "";
+        position: absolute;
+        border: 1.2em solid #00999B !important;
+        height: 87%;
+        z-index: -1;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .lastBullet::after {
+        content: "";
+        position: absolute;
+        border: 1.2em solid #00999B !important;
+        height: 2em;
+        border-radius: 100%;
+        z-index: -1;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .firstBullet::before {
+        content: "";
+        position: absolute;
+        border: 1.2em solid #00999B !important;
+        height: 2em;
+        border-radius: 100%;
+        z-index: -1;
+        top: 87%;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+}
+
+.inactive-bullet {
+    background-color: lightgrey;
+    border: 3px solid lightgrey !important;
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.completed-bullet {
+    background-color: #33cc00;
+    border: 3px solid #33cc00 !important;
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.z-in2 {
+    z-index: 2;
+}

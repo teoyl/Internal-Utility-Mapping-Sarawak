@@ -1,0 +1,23 @@
+.system-name{
+	font-size:45px;
+	font-weight:700;
+}
+
+.text-green{
+	color:#2AAF62!important;
+}
+
+
+.text-white{
+	color:white!important;
+}
+
+.alert ul{
+    margin-left:-20px;
+}
+
+@media (max-width: 600px){
+    .m-t-30 {
+    margin-top:0px!important;
+    }
+}

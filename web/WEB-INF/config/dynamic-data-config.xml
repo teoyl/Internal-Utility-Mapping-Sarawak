@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<dynamic-config>
+    <dynamics>
+        <!-- ### Application ### -->
+        <!--
+                Name : Module Description : Get all Modules Parameter : - Created By :
+                Then Sze Wee Created Date : 15 March 2010 Modified By : - Modified
+                Date : -
+        -->
+		
+        <dynamicAction name="ApplicationDynamicData">
+            <property name="addPageData" value="application_code, application_name, application_type, action_name, retrieve_right" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+			
+            <!--<property name="joinSequence" value="1parent_code" /> -->
+            <property name="filters" value="" />
+        </dynamicAction>    
+		
+        <dynamicAction name="application3">
+            <property name="searchField" value="module_id, module_code, module_name, module_type" />
+            <property name="tables" value="T_MODULE" />
+            <property name="filters" value="" />
+        </dynamicAction>    
+    </dynamics>
+</dynamic-config>

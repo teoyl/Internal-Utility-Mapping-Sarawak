@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<dynamic-config>
+    <dynamics>
+        <!--
+        <property name="displayFieldsLink"  value="displyaColumnName ;; url?params ;; style ;; openAsPopup" />
+        <property name="displayFieldsLink"  value="columnName1;;someAction?param1={:retrivingColumnName1}&amp;param2={:retrivingColumnName1}&amp;param3=defaultParam;;font-family:verdana;color:green;" />
+        -->
+        <!-- ### Application ### -->
+        <!--
+                Name : Module Description : Get all Modules Parameter : - Created By :
+                Then Sze Wee Created Date : 15 March 2010 Modified By : - Modified
+                Date : -
+        -->
+        <dynamicAction name="Moal">
+            <property name="prePopulateSearchPage" value="prePopulateTest" />
+            <property name="additionalButton" value="dynamicUpdate;saveChanges;Moal;fa fa-save;noCheck;divSubmitForm" />
+            <property name="searchDescription" value="Moal.appName" />
+            <property name="searchFields" value="moal_id;Moal.ID;moal_id, log_type;Moal.log_type;log_type, log_status;Moal.log_status;log_status, _date_start_date_fromTo;Moal.start_date;start_date, solution_remark;Moal.log_remark;log_remark" />
+            <property name="retrievingColumns" value="moal_id, log_type, log_cate, log_status, log_msg, log_remark, start_date, end_date,IF (ISNULL(err_log_id), NULL, 'EmailQueue.viewErr') AS errId, err_log_id" />
+            <property name="displayFields" value="log_type, log_cate, log_status, log_msg, log_remark, start_date, end_date" />
+            <property name="displayFieldsHeader" value="Moal.log_type, Moal.log_cate, Moal.log_status, Moal.log_msg, Moal.log_remark, Moal.start_date, Moal.end_date" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="displayFieldsLink"  value="log_remark;;log_remark@@textarea@@200, log_status;;search2Dynamic?action=ErrLog&amp;search_err_id={:err_log_id}" />
+            <!--<property name="displayFieldsLink"  value="solution_remark;;solution_remark@@radio@@getDivisionList@@none" />-->
+            <!--<property name="displayFieldsLink"  value="solution_remark;;solution_remark@@select@@getDivisionList@@pleaseSelect" />-->
+            <property name="styleFromPackage" value="log_remark;width:200px;" />
+            <property name="sqlTables" value="t_moal " />
+            <property name="primaryKey" value="moal_id" />
+            <property name="editLinkColumn" value="" />
+            <!--<property name="session_us_id_filter" value="t_parent.created_by" />-->
+        </dynamicAction>
+        <dynamicAction name="ErrLog">
+            <property name="additionalButton" value="dynamicUpdate;saveChanges;ErrLog;fa fa-save;noCheck;divSubmitForm" />
+            <property name="searchDescription" value="ErrLog.appName" />
+            <property name="searchFields" value="err_id;ErrLog.ID;err_log_id, err_type;ErrLog.type;err_type, _date_process_start_date_fromTo;ErrLog.processStartDate;process_start_date, solution_remark;ErrLog.solutionRemark;solution_remark" />
+            <property name="retrievingColumns" value="err_log_id, err_type, err_msg, solution_remark, process_start_date" />
+            <property name="displayFields" value="err_type, err_msg, solution_remark, process_start_date" />
+            <property name="displayFieldsHeader" value="ErrLog.type, ErrLog.message, ErrLog.solutionRemark, ErrLog.processStartDate" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="displayFieldsLink"  value="solution_remark;;solution_remark@@textarea@@200" />
+            <!--<property name="displayFieldsLink"  value="solution_remark;;solution_remark@@radio@@getDivisionList@@none" />-->
+            <!--<property name="displayFieldsLink"  value="solution_remark;;solution_remark@@select@@getDivisionList@@pleaseSelect" />-->
+            <property name="styleFromPackage" value="err_msg;width:500px;" />
+            <property name="sqlTables" value="t_err_log " />
+            <property name="primaryKey" value="err_log_id" />
+            <property name="editLinkColumn" value="" />
+            <!--<property name="session_us_id_filter" value="t_parent.created_by" />-->
+        </dynamicAction>
+        <dynamicAction name="EmailQueue">
+            <property name="searchDescription" value="EmailQueue.appName" />
+            <property name="searchFields" value="email_subject;EmailQueue.subject;email_subject, _date_sent_date_fromTo;EmailQueue.sentDate;sent_date, recipient;EmailQueue.recipient;recipient" />
+            <property name="retrievingColumns" value="email_queue_id, email_subject, sent_date, process_start_date, fail_count, recipient, send_status, 'EmailQueue.resend' as resend, IF (ISNULL(err_log_id), NULL, 'EmailQueue.viewErr') AS errId, err_log_id" />
+            <property name="defaultSearchValue" value="notification_type = 'E'" />
+            <property name="displayFields" value="email_subject, sent_date, recipient, send_status, errId, resend" />
+            <property name="displayFieldsHeader" value="EmailQueue.subject, EmailQueue.sentDate, EmailQueue.recipient, EmailQueue.status, ErrLog.message, EmailQueue.resend" />
+            <property name="displayFieldsLink"  value="resend;;resendEmailQueue@@button, errId;;search2Dynamic?action=ErrLog&amp;search_err_id={:err_log_id}" />
+            <property name="editLinkAtNewPage" value="errId" />
+            <!--<property name="displayFieldsLink"  value="resend;;resendEmailQueue@@button, send_status;;nothing@@checkbox" />-->
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_email_queue " />
+            <property name="primaryKey" value="email_queue_id" />
+            <property name="editLinkColumn" value="" />
+            <!--<property name="session_us_id_filter" value="t_parent.created_by" />-->
+        </dynamicAction>
+        <dynamicAction name="DqTemplate">
+            <property name="searchDescription" value="DqTemplate.appName" />
+            <property name="searchFields" value="tmpl_name;DqTemplate.tmpl_name;tmpl_name, tmpl_desc;DqTemplate.tmpl_desc;tmpl_desc" />
+            <property name="retrievingColumns" value="tmpl_id, tmpl_name, tmpl_desc" />
+            <property name="displayFields" value="tmpl_name, tmpl_desc" />
+            <property name="displayFieldsHeader" value="DqTemplate.tmpl_name, DqTemplate.tmpl_desc" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_dq_template " />
+            <property name="primaryKey" value="tmpl_id" />
+            <property name="editLinkColumn" value="tmpl_name" />
+            <!--<property name="session_us_id_filter" value="t_parent.created_by" />-->
+        </dynamicAction>
+        <dynamicAction name="DqRptGen">
+            <property name="searchDescription" value="DqTemplate.appName" />
+            <property name="searchFields" value="tmpl_name;DqTemplate.tmpl_name;tmpl_name, tmpl_desc;DqTemplate.tmpl_desc;tmpl_desc" />
+            <property name="retrievingColumns" value="tmpl_id, tmpl_name, tmpl_desc" />
+            <property name="displayFields" value="tmpl_name, tmpl_desc" />
+            <property name="displayFieldsHeader" value="DqTemplate.tmpl_name, DqTemplate.tmpl_desc" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_dq_template " />
+            <property name="primaryKey" value="tmpl_id" />
+            <property name="searchDescription" value="DqRptGen.appName" />
+            <property name="editLinkColumn" value="" />
+            <property name="displayFieldsLink"  value="tmpl_name;;goGeneratorPageDqRptGen?id={:tmpl_id}" />
+        </dynamicAction>
+        <dynamicAction name="Parent">
+            <property name="searchDescription" value="Sample.appName" />
+            <property name="searchFields" value="parent_name;Sample.parentName;parent_name, parend_dob;Sample.parentDOB;parent_dob,parent_gender;
+                Sample.parentGender;parent_gender, child_name;Sample.childName;t_child.child_name, pDivId;Division;parent_state, pDis;District;parent_address" />
+            <property name="pDivId_dd" value="com.sains.framework.base.CommonList;getDivisionList;option;keyData;valueData;pleaseSelect" />
+            <!--<property name="pDivId_itemChange" value="'refreshWhichSearchField','itemChangeField','theItemChange_code'" />-->
+            <property name="pDivId_itemChange" value="'pDis','pDivId','DivDis'" />
+            <property name="pDis_dd" value="com.sains.framework.base.CommonList;getEmptyOption;option;keyData;valueData;pleaseSelect_div" />
+            <property name="parent_gender_dd" value="com.sains.framework.base.CommonList;getGenderOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="retrievingColumns" value="t_parent.parent_id, t_parent.parent_name, t_parent.parent_dob, t_parent.parent_gender" />
+            <property name="displayFields" value="parent_name, parend_dob, parent_gender" />
+            <property name="displayFieldsHeader" value="Sample.parentName, Sample.parentDOB, Sample.parentGender" />
+            <property name="propertyText_parent_gender" value="Sample.parentGender" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="groupBy" value="t_parent.parent_id" />
+            <!--<property name="sqlTables" value="t_parent left join t_child on t_parent.parent_id = t_child.parent_id" />-->
+            <property name="sqlTables" value="t_parent " />
+            <property name="t_child.child_name_join" value="inner join t_child on t_parent.parent_id = t_child.parent_id " />
+            <property name="primaryKey" value="parent_id" />
+            <property name="editLinkColumn" value="parent_name" />
+            <!--<property name="session_us_id_filter" value="t_parent.created_by" />-->
+        </dynamicAction>
+
+        <dynamicAction name="User">
+            <property name="searchDescription" value="Internal User" />
+            <!--<property name="searchFields"      value="user_id, user_name, t2_abc, t3_xyz" />
+            <property name="searchFieldsLabel" value="user.id, user.name, Table2_ABC, Table3_XYZ" />-->
+            <property name="propertyText_us_status" value="common.account.status" />
+            <property name="us_status_dd" value="com.sains.framework.base.CommonList;getUserStatusList;option;keyData;valueData;none" />
+            <!--<property name="us_status_dd_type" value="checkbox" />-->
+            <property name="us_status_dd_type" value="radio" />
+            <property name="searchFields"      value="US_USER_ID, US_USER_NAME, US_EMAIL, US_STATUS" />
+            <property name="searchFieldsLabel" value="user.id, user.fullName, user.emailAddress, user.status" />
+            <property name="searchFieldsDbName" value="US_USER_ID, US_USER_NAME, US_EMAIL, US_STATUS" />
+            <property name="tableAlias" value="" />
+            <property name="retrievingColumns" value="t_setup_user.us_id, us_user_id, us_user_name, NVL(us_email, '-') as email, us_division, us_status, 
+(SELECT  LISTAGG(t_setup_group.group_code, ' ') WITHIN GROUP (ORDER BY t_setup_group.group_code)
+FROM t_setup_group_user    
+INNER JOIN t_setup_group ON t_setup_group.ug_id = t_setup_group_user.ug_id 
+WHERE t_setup_group_user.us_id = t_setup_user.us_id GROUP BY t_setup_group_user.us_id) AS group_codes, pswd" />
+            <property name="lookupRetrievingColumns" value="t_setup_user.us_id, us_user_id, us_user_name, NVL(us_email, '-') as email, us_division, us_status, 
+(SELECT  LISTAGG(t_setup_group.group_code, ' ') WITHIN GROUP (ORDER BY t_setup_group.group_code)
+FROM t_setup_group_user    
+INNER JOIN t_setup_group ON t_setup_group.ug_id = t_setup_group_user.ug_id 
+WHERE t_setup_group_user.us_id = t_setup_user.us_id GROUP BY t_setup_group_user.us_id) AS group_codes" />
+            <property name="lookupRetrievingColumnsLabel" value="us_user_id;user.id, us_user_name;user.fullName, email;user.emailAddress, us_status;user.status" />
+            <!--<property name="groupBy" value="t_setup_user.us_id" />-->
+            <property name="defaultSearchValue" value="us_ldap = 'N'" />
+            <property name="displayFields"      value="US_USER_ID, US_USER_NAME, EMAIL, US_STATUS, GROUP_CODES" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="sortingByIndex"      value="group_codes;8" />
+            <property name="styleFromPackage" value="group_codes;width:20%;" />
+            <property name="displayFieldsHeader" value="user.id, user.fullName, user.emailAddress, user.status, user.groupCodes" />
+            <!--<property name="parentUser.user_code_join" value="left join t_setup_user parentUser on t_setup_user.parent_us_id = parentUser.us_id" />-->
+            <!--<property name="sqlTables" value="t_setup_user user
+            INNER JOIN t_setup_code division on user.us_division = division.code_id and division.code_type = 'DIV'
+            INNER JOIN t_setup_code ptk on user.us_ptk_office = ptk.code_id and ptk.code_type = 'LBO'" />-->
+            <property name="sqlTables" value="t_setup_user" />
+            <!--<property name="t2_abc_join" value="" />
+            <property name="t3_xyz_join" value="inner join table3 on table2.xyz = table3.xyz" />
+            <property name="t2_abc_join_preTable" value="preTable_t2_join" />
+            <property name="t3_xyz_join_preTable" value="preTable_t2_join" />
+            <property name="preTable_t2_join" value="inner join Table2 on t_setup_user.abc = Table2.abc" />-->
+            <property name="primaryKey" value="US_ID" />
+            <property name="editLinkColumn" value="US_USER_ID" />
+            <!--<property name="formData" value="user_code, user_name, user_type, parent_us_id, " />-->
+            <property name="editPageURL" value="loadEditPageUser" />
+            <property name="addPageURL" value="loadAddPageUser" />
+            <property name="deleteURL" value="deleteUser" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <!--<property name="joinSequence" value="1parent_code" /> -->
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="Module">
+            <!--<property name="pageRequired" value="module_code;module.code" />-->
+            <!--sample for enabling record per page-->
+            <!--<property name="lookupShowRecordPerPage" value="true" />-->
+            <!--<property name="recordPerPage" value="3" />-->
+            <!--To set the record per page drop down-->
+            <!--<property name="recordPerPage" value="3;3,6,9,12,15" />-->
+            <property name="showNumbering" value="Y" />
+            <property name="searchDescription" value="module" />
+            
+<!--            <property name="pageRequired" value="module_code;module.code" />-->
+            <!--<property name="module_code_defaultValue" value="a" />-->
+            <property name="module_type_dd" value="com.sains.framework.base.CommonList;getModuleTypeOption;option;keyData;valueData;pleaseSelect" />
+            <property name="searchFields" value="module_type;module.type;t_setup_module.module_type, module_code;module.code;t_setup_module.module_code,
+                                                module_name;module.name;t_setup_module.module_name, _date_created_date_fromTo_split;common.createdDate;t_setup_module.created_date" />
+            <property name="moreSearchFields" value="parent_code;parent.code;parentModule.module_code,parent_name;parent.module;parentModule.module_name"/>
+            <property name="_date_created_date_fromTo_helperText" value="eg: (31/10/2011)"/>
+            <!--            <property name="module_code_lookupSearch" value='lookup("Search Module", "Module", "module_code", "search_module_code",
+            "useSetup_Module", "module_code,module_name", "search_module_code");'/>-->
+            <property name="module_code_lookupSearch" value="lookupModal($('#search_module_code'), 'modalLookup?lookFor=module_code&amp;writeTo=search_module_code&amp;lookup=useSetup_Module&amp;displayedColumns=module_code,module_name,module_order');"/>
+            <!--<property name="searchFieldsLabel" value="module.type, module.code, module.name, parent.code, common.createdDate, Parent Name" />-->
+            <!--<property name="searchFieldsDbName" value="t_setup_module.module_type, t_setup_module.module_code, t_setup_module.module_name, parentModule.module_code, t_setup_module.created_date, parentModule.module_name" />-->
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="styleFromPackage" value="module_name;width:400px;" />
+            <!--ThoTH @ 11-Jan-2013 :: For SQLServer-->
+            <property name="retrievingColumns" value="t_setup_module.module_id, case when (t_setup_module.module_type = 'S') then 'Sub Module' else 'Module' end as strmoduletype, t_setup_module.module_code, t_setup_module.module_name, t_setup_module.module_type, (parentModule.module_code || '-' || parentModule.module_name) as parent_code, CAST(t_setup_module.created_date AS DATE) AS created_date" />
+            <!--<property name="retrievingColumns" value="t_setup_module.module_id, if (t_setup_module.module_type = 'S', 'Sub Module', 'Module') as strModuleType, t_setup_module.module_code, t_setup_module.module_name, t_setup_module.module_type, parentModule.module_code || '-' || parentModule.module_name as parent_code" />-->
+<!--            <property name="lookupRetrievingColumns" value="t_setup_module.module_id, t_setup_module.module_code, t_setup_module.module_name, t_setup_module.module_type, concat(t_setup_module.module_code, ' - ', t_setup_module.module_name) as module_descs, t_setup_module.module_order" />-->
+            <property name="lookupRetrievingColumns" value="t_setup_module.module_id, t_setup_module.module_code, t_setup_module.module_name, t_setup_module.module_type" />
+            <property name="decFormat_module_order" value="#,##0.00" />
+            <property name="propertyText_module_type" value="module.type" />
+            <property name="lookupRetrievingColumnsLabel" value="module_code;module.code, module_name;module.name, module_type;module.type, module_order;Order" />
+            <!--<property name="lookupFilters" value="entry's columnName;database's columnName" />-->
+            <property name="lookupFilters" value="name;t_setup_module.module_name, module_code;parentModule.module_code, 
+iconCode;t_setup_module.module_icon, module_type;_no_changet_setup_module.module_type" />
+            <!--<property name="session_us_id_filter" value="t_setup_module.created_by"/>-->
+            <property name="defaultLookupSearchValue" value=""/>
+            <property name="retrieveOnLoad" value="Y"/>
+            <property name="preSearchMethod" value="preSearchModule"/>
+            <property name="lookupRequireLogin" value="true"/>
+            <property name="lookupAccessRightChecking" value="lookupModule_access"/>
+            <property name="preLookupSearchMethod" value="preLookupSearchModule"/>
+            <property name="displayFields"      value="MODULE_CODE;MODULE.CODE, MODULE_NAME;MODULE.NAME, STRMODULETYPE;MODULE.TYPE, CREATED_DATE;CREATEDDATE" />
+            <!--<property name="displayFieldsHeader" value="module.code, module.name, module.type" />-->
+            <!--<property name="parentModule.module_code_join" value="left join t_setup_module parentModule on t_setup_module.parent_module_id = parentModule.module_id" />-->
+            <property name="sqlTables" value="t_setup_module left
+                      join t_setup_module parentModule
+                      on t_setup_module.parent_module_id = parentModule.module_id" />
+            <property name="primaryKey" value="module_id" />
+            <property name="editLinkColumn" value="module_code, module_name" />
+            <!--            <property name="editPageURL" value="loadEditPageModule" />
+            <property name="addPageURL" value="loadAddPageModule" />
+            <property name="deleteURL" value="deleteModule" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />-->
+            <property name="hierarchyLookupModel" value="com.sains.framework.model.Module" />
+            <property name="hierarchyLookupColumns" value="module_id;getModule_id, module_code;getModule_code, module_name;getModule_name" />
+            <property name="hierarchyLookupFilter" value="parent_module_id;is null" />
+            <property name="hierarchyLookupGetChildMethod" value="getChildModule" />
+            <property name="hierarchyLookupOrderBy" value="module_name asc" />
+            <property name="hierarchyLookupDisplayColumn" value="getModule_name" />
+            <!--<property name="joinSequence" value="1parent_code" /> -->
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="Application">
+            <!--<property name="noPaging" value="true" />-->
+            <!--<property name="showCheckbox" value="y" />-->
+            <!--<property name="hideDeleteButton" value="" />-->
+            <property name="additionalButton" value="loadAddPage;Param.copy;Application;fa fa-file;checked;ignore;offLoading" />
+            <!--<property name="additionalButton" value="batchApproval;Param.copy;Application;fa fa-file;checked" />-->
+            <!--<property name="useDataTable" value="true" />-->
+            <property name="searchDescription" value="application" />
+            
+            <!-- abp_=Additional Button Parameter -->
+            <!--<property name="pageRequired" value="abp_aName;Year" />, the search field DB Name if put ignore then it will not populate search criteria for it-->
+            
+            <property name="searchFieldsLookup" value="module" />
+            <property name="searchFields"      value="application_code, application_name, module" />
+            <property name="searchFieldsLabel" value="application.code, application.name, module" />
+            <property name="searchFieldsDbName" value="t_setup_application.application_code, t_setup_application.application_code|t_setup_application.application_name, attachedModule.module_code|attachedModule.module_name" />
+<!--            <property name="searchFields"      value="application_code, application_name, module, abp_aName" />
+            <property name="searchFieldsLabel" value="application.code, application.name, module, Year" />
+            <property name="searchFieldsDbName" value="t_setup_application.application_code, t_setup_application.application_code|t_setup_application.application_name, attachedModule.module_code|attachedModule.module_name, ignore" />-->
+            <property name="tableAlias" value="" />
+            <property name="retrievingColumns" value="application_id, application_code, application_name, application_type, attachedModule.module_name, attachedModule.module_id, application_order" />
+            <property name="displayFields"      value="APPLICATION_CODE, APPLICATION_NAME, APPLICATION_TYPE, MODULE_NAME, APPLICATION_ORDER" />
+            <property name="displayFieldsHeader" value="application.code, application.name, application.type, module.name, application_order" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="defaultSorting" value="application_name;D" />
+            <property name="parentApplication.application_code_join" value="left join t_setup_application parentApplication on t_setup_application.parent_setup_application_id = parentApplication.application_id" />
+            <property name="sqlTables" value="t_setup_application left
+                      join t_setup_module attachedModule
+                      on t_setup_application.attached_module_id = attachedModule.module_id" />
+            <property name="primaryKey" value="APPLICATION_ID" />
+            <property name="editLinkColumn" value="APPLICATION_CODE" />
+            <property name="displayFieldsLink"  value="module_name;;loadEditPageModule?id={:module_id}" />
+            <property name="editLinkStyle" value="font-family:verdana;font-size:110%;" />
+            <property name="formData" value="application_code, application_name, application_type, parent_setup_application_id, " />
+            <property name="propertyText_application_type" value="application.type" />
+            <property name="decFormat_application_order" value="#,##0.00" />
+            <property name="styleFromPackage" value="application_order;text-align:right;" />
+            <property name="editPageURL" value="loadEditPageApplication" />
+            <property name="addPageURL" value="loadAddPageApplication" />
+            <property name="deleteURL" value="deleteApplication" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <property name="joinSequence" value="1parent_code" />
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="UserGroup">
+            <property name="searchDescription" value="userGroup" />
+            <property name="searchFields"      value="GROUP_CODE, GROUP_NAME, APPLICATION_CODE, USER_ID" />
+            <property name="searchFieldsLabel" value="group.code, group.name, application.code, user.id" />
+            <property name="searchFieldsDbName" value="USERGROUP.GROUP_CODE, USERGROUP.GROUP_NAME, APP.APPLICATION_CODE|APP.APPLICATION_NAME, T_SETUP_USER.US_USER_ID" />
+            <property name="retrievingColumns" value="USERGROUP.UG_ID, USERGROUP.GROUP_CODE, USERGROUP.GROUP_NAME" />
+            <property name="lookupRetrievingColumns" value="userGroup.ug_id,userGroup.group_code, userGroup.group_name" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="displayFields"      value="GROUP_CODE, GROUP_NAME" />
+            <property name="displayFieldsHeader" value="group.code, group.name" />
+            <property name="aAPP.APPLICATION_CODE_join" value="inner join t_setup_group_app userGroup_app on userGroup_app.ug_id = userGroup.ug_id
+                      inner join t_setup_application app on userGroup_app.application_id = app.application_id" />
+            <property name="APP.APPLICATION_NAME_other_condition" value="userGroup.ug_id in
+                      (select userGroup_app.ug_id from t_setup_group_app userGroup_app
+                      inner join t_setup_application app on userGroup_app.application_id = app.application_id
+                      where $filterCondition )" />
+            <property name="T_SETUP_USER.US_USER_ID_join" value="inner join t_setup_group_user userGroup_user on userGroup_user.ug_id = userGroup.ug_id
+                      inner join t_setup_user on userGroup_user.us_id = t_setup_user.us_id" />
+            <property name="sqlTables" value="t_setup_group userGroup" />
+            <property name="primaryKey" value="UG_ID" />
+            <property name="editLinkColumn" value="GROUP_CODE" />
+            <property name="editPageURL" value="loadEditPageUserGroup" />
+            <property name="addPageURL" value="loadAddPageUserGroup" />
+            <property name="deleteURL" value="deleteUserGroup" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <property name="joinSequence" value="1parent_code" />
+            <!--<property name="groupBy" value="userGroup.ug_id" />-->
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="UserGroupToApplication">
+            <property name="extendsConfig" value="UserGroup" />
+            <property name="searchFields"      value="group_code, group_name" />
+            <property name="searchFieldsLabel" value="group.code, group.name" />
+            <property name="searchFieldsDbName" value="userGroup.group_code, userGroup.group_name" />
+            <property name="sqlTables" value="t_setup_group userGroup" />
+        </dynamicAction>
+
+        <dynamicAction name="AutoEmail">
+            <property name="searchDescription" value="autoEmailSetup.title" />
+            <property name="searchFields"      value="code, descs, action_name, method_name, auto_type" />
+            <property name="searchFieldsLookup" value="module" />
+            <property name="searchFieldsLabel" value="autoEmailSetup.code, autoEmailSetup.descs, autoEmailSetup.action_name, autoEmailSetup.method_name, autoEmailSetup.type" />
+            <property name="searchFieldsDbName" value="t_setup_autoemail.code, t_setup_autoemail.descs, t_setup_autoemail.action_name, t_setup_autoemail.method_name, t_setup_autoemail.auto_type" />
+            <property name="tableAlias" value="" />
+            <!--ThoTH @ 11-Jan-2013 :: For SQLServer-->
+            <property name="retrievingColumns" value="t_setup_autoemail.auto_email_id, t_setup_autoemail.code, t_setup_autoemail.descs, t_setup_autoemail.action_name, t_setup_autoemail.method_name, case when (t_setup_autoemail.auto_type = 'AI') then 'Interceptor' when (t_setup_autoemail.auto_type = 'WF') then 'Workflow'  when (t_setup_autoemail.auto_type = 'SMS') then 'SMS' else 'None' end as strAutoTypeDesc" />
+            <!--<property name="retrievingColumns" value="t_setup_autoemail.*, if (t_setup_autoemail.auto_type = 'AI', 'Interceptor', if(t_setup_autoemail.auto_type = 'WF', 'Workflow', if(t_setup_autoemail.auto_type = 'SMS', 'SMS', 'None'))) as strAutoTypeDesc" />-->
+            <property name="displayFields"      value="code, descs, strautotypedesc, action_name, method_name" />
+            <property name="displayFieldsHeader" value="autoEmailSetup.code, autoEmailSetup.descs, autoEmailSetup.type, autoEmailSetup.action_name, autoEmailSetup.method_name" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="parentApplication.application_code_join" value="left join t_setup_application parentApplication on t_setup_application.parent_setup_application_id = parentApplication.application_id" />
+            <property name="sqlTables" value="t_setup_autoemail" />
+            <property name="primaryKey" value="auto_email_id" />
+            <property name="editLinkColumn" value="code" />
+            <property name="otherLinkColumn" value="application_name" />
+            <property name="otherLinkAction" value="application_name" />
+            <property name="editPageURL" value="loadEditPageAutoEmail" />
+            <property name="editPage" value="/sam/application/loadEditPageAutoEmail" />
+            <property name="addPageURL" value="loadAddPageAutoEmail" />
+            <property name="addPage" value="/sam/application/loadAddPageAutoEmail" />
+            <property name="deleteURL" value="deleteAutoEmail" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <property name="auto_type_dd" value="com.sains.framework.base.CommonList;getAutoTypeList;option;keyData;valueData;all"/>
+            <property name="joinSequence" value="1parent_code" />
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="SetupNotification">
+            <property name="searchDescription" value="notificationSetup.title" />
+            <property name="searchFields"      value="no_type, no_desc" />
+            <property name="searchFieldsLabel" value="notification.no_type, notification.no_desc" />
+            <property name="searchFieldsDbName" value="notification.no_type, notification.no_desc " />
+            <property name="tableAlias" value="" />
+            <property name="retrievingColumns" value="notification.no_id, notification.no_type, notification.no_desc" />
+            <property name="lookupRetrievingColumns" value="notification.no_id,notification.no_type,notification.no_desc,notification.no_sms,notification.no_email,notification.no_template_subject" />
+            <property name="displayFields"      value="no_type, no_desc" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="displayFieldsHeader" value="notification.no_type, notification.no_desc" />
+            <property name="sqlTables" value="t_setup_notification notification" />
+            <property name="primaryKey" value="no_id" />
+            <property name="editLinkColumn" value="no_type" />
+            <property name="editPageURL" value="loadEditPageSN" />
+            <property name="addPageURL" value="loadAddPageSN" />
+            <property name="deleteURL" value="deleteSN" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <property name="joinSequence" value="1parent_code" />
+            <property name="filters" value="" />
+        </dynamicAction>
+
+        <dynamicAction name="Parameter">
+            <property name="hideAddButton" value="" />
+            <property name="hideDeleteButton" value="" />
+            <!--<property name="additionalButton" value="loadAddPage;Param.copy;Parameter" />-->
+            <property name="searchDescription" value="Param.applicationName" />
+            <property name="searchFields"      value="system_code" />
+            <property name="searchFieldsLabel" value="Param.system_descs" />
+            <property name="searchFieldsDbName" value="t_system_parameter.system_code|t_system_parameter.system_descs" />
+            <property name="retrievingColumns" value="distinct system_code, system_descs" />
+            <property name="countDistinctColumns" value="system_code, system_descs"/>
+            <property name="displayFields"      value="system_descs" />
+            <property name="displayFieldsHeader" value="Param.system_descs" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="sqlTables" value="t_system_parameter" />
+            <property name="primaryKey" value="system_code" />
+            <property name="editLinkColumn" value="system_descs" />
+            <property name="editPageURL" value="loadEditPageParameter" />
+            <property name="addPageURL" value="loadAddPageParameter" />
+            <property name="deleteURL" value="deleteParameter" />
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+        </dynamicAction>
+    <!--Added @2021Nov10 : ParentChildGC : START-->
+        <dynamicAction name="ParentChildGC">
+            <property name="searchDescription" value="ParentChildGC.appName" />
+            <property name="searchFields" value="parent_address;Parent.parent_address;parent_address,parent_own_car;Parent.parent_own_car;parent_own_car,parent_name;Parent.parent_name;parent_name,parent_state;Parent.parent_state;parent_state,parent_age_str;Parent.parent_age;parent_age_str,parent_gender;Parent.parent_gender;parent_gender,parent_dob_str;Parent.parent_dob;parent_dob_str" />
+            <property name="retrievingColumns" value="parent_id,parent_address,parent_own_car,parent_name,parent_state,parent_age,parent_gender,parent_dob" />
+            <property name="displayFields" value="parent_address,parent_own_car,parent_name,parent_state,parent_age,parent_gender,parent_dob" />
+            <property name="displayFieldsHeader" value="Parent.parent_address,Parent.parent_own_car,Parent.parent_name,Parent.parent_state,Parent.parent_age,Parent.parent_gender,Parent.parent_dob" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_parent " />
+            <property name="primaryKey" value="parent_id" />
+            <property name="editLinkColumn" value="parent_address" />
+        </dynamicAction>
+    <!--Added @2021Nov10 : ParentChildGC : END-->
+    <!--Added @2021Dec09 : FrameworkSample : START-->
+        <dynamicAction name="FrameworkSample">
+            <property name="searchDescription" value="FrameworkSample.appName" />
+            <property name="searchFields" value="double_column_str;SampleTable.double_column;double_column_str,date_column_str;SampleTable.date_column;date_column_str,string_column;SampleTable.string_column;string_column,datetime_column_str;SampleTable.datetime_column;datetime_column_str,integer_column_str;SampleTable.integer_column;integer_column_str" />
+            <property name="retrievingColumns" value="sample_table_id,string_column,double_column,date_column,datetime_column,integer_column" />
+            <property name="displayFields" value="double_column,date_column,string_column,datetime_column,integer_column" />
+            <property name="displayFieldsHeader" value="SampleTable.double_column,SampleTable.date_column,SampleTable.string_column,SampleTable.datetime_column,SampleTable.integer_column" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_sample_table " />
+            <property name="primaryKey" value="sample_table_id" />
+            <property name="editLinkColumn" value="" />
+            <property name="moreInfoWidth" value="70%" /><!--Default is 60%-->
+            <property name="moreInfoType" value="Auto" /><!--Auto or Manual-->
+            <!--<property name="moreInfoJsp" value="/sam/module/editModule.jsp" />-->
+            <property name="moreInfoJsp" value="/sample/framework/addEditFrameworkSample.jsp" />
+            <property name="moreInfoModel" value="SampleTableModel" />
+            <property name="moreInfoReloadOnClose" value="true" /> <!--True or False; default= FALSE-->
+            <property name="customHeaderEnd" value='/sample/framework/dc_headerEnd.jsp' /> 
+            <property name="customListEnd" value='/sample/framework/dc_listEnd.jsp' /> 
+            <property name="jsInclude" value='sample/framework/dc_js.js' /> 
+        </dynamicAction>
+    <!--Added @2021Dec09 : FrameworkSample : END-->
+    <!--Added @2022Jan07 : ParentChildGcGE : START-->
+        <dynamicAction name="ParentChildGcGE">
+            <property name="searchDescription" value="ParentChildGcGE.appName" />
+            <property name="searchFields" value="parent_name;Parent.parent_name;parent_name,parent_dob_str;Parent.parent_dob;parent_dob_str,parent_age_str;Parent.parent_age;parent_age_str,parent_gender;Parent.parent_gender;parent_gender,parent_own_car;Parent.parent_own_car;parent_own_car,parent_address;Parent.parent_address;parent_address,parent_state;Parent.parent_state;parent_state" />
+            <property name="retrievingColumns" value="parent_id,parent_name,parent_dob,parent_age,parent_gender,parent_own_car,parent_address,parent_state" />
+            <property name="displayFields" value="parent_name,parent_dob,parent_age,parent_gender,parent_own_car,parent_address,parent_state" />
+            <property name="displayFieldsHeader" value="Parent.parent_name,Parent.parent_dob,Parent.parent_age,Parent.parent_gender,Parent.parent_own_car,Parent.parent_address,Parent.parent_state" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_parent " />
+            <property name="primaryKey" value="parent_id" />
+            <property name="editLinkColumn" value="parent_name" />
+        </dynamicAction>
+    <!--Added @2022Jan07 : ParentChildGcGE : END-->
+    <!--Added @2022Mar28 : TestUppy : START-->
+        <dynamicAction name="UppyGE">
+            <property name="searchDescription" value="TestUppy.appName" />
+            <property name="searchFields" value="parent_address;Parent.parent_address;parent_address,parent_own_car;Parent.parent_own_car;parent_own_car,parent_dob_str;Parent.parent_dob;parent_dob_str,parent_gender;Parent.parent_gender;parent_gender,parent_name;Parent.parent_name;parent_name,parent_state;Parent.parent_state;parent_state,parent_age_str;Parent.parent_age;parent_age_str,parent_file_id;Parent.parent_file_id;parent_file_id" />
+            <property name="retrievingColumns" value="parent_id,parent_address,parent_own_car,parent_dob,parent_gender,parent_name,parent_state,parent_age,parent_file_id" />
+            <property name="displayFields" value="parent_address,parent_own_car,parent_dob,parent_gender,parent_name,parent_state,parent_age,parent_file_id" />
+            <property name="displayFieldsHeader" value="Parent.parent_address,Parent.parent_own_car,Parent.parent_dob,Parent.parent_gender,Parent.parent_name,Parent.parent_state,Parent.parent_age,Parent.parent_file_id" />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="sqlTables" value="t_parent " />
+            <property name="primaryKey" value="parent_id" />
+            <property name="editLinkColumn" value="parent_address" />
+        </dynamicAction>
+    <!--Added @2022Mar28 : TestUppy : END-->
+    <dynamicAction name="JobAdmin">
+            <!--<property name="impianSecurityCheck" value="JobAdmin" />-->
+            <property name="hideAddButton" value="" />
+            <property name="hideDeleteButton" value="" />
+            <property name="propertyText_pl_status" value="jobpool.status" />
+            <property name="searchDescription" value="jobadmin" />
+            <!--comment by sereneChye @ 1/10/2014 :: change search criteria from Serah Kepada to Hantar Oleh-->
+<!--        <property name="searchFields"      value="workflow.system_id, userto.us_user_name, pool.pl_status, _date_pl_assign_date_fromTo" />-->
+<!--        <property name="searchFieldsLabel" value="jobadmin.systemname, jobadmin.assignto, jobadmin.poolstatus, jobadmin.poolassigndate" />-->
+<!--        <property name="searchFieldsDbName" value="workflow.system_id, userto.us_user_name, pool.pl_status, pool.pl_assign_date" /> ori code commented @29.4.2013 aimin-->
+            <property name="pool.pl_status_defaultValue" value="B" />
+            <property name="defaultSorting"    value="pl_assign_date;D" />
+            <property name="searchFields"      value="jpuser.us_user_name, pool.pl_status, _date_pl_assign_date_fromTo" />
+            <property name="searchFieldsLabel" value="jobadmin.assignto, jobadmin.poolstatus, jobadmin.poolassigndate" />
+            <property name="searchFieldsDbName" value="jpuser.us_user_name, pool.pl_status, pool.pl_assign_date" />
+            <property name="pool.pl_status_dd" value="com.sains.framework.base.CommonList;getPoolStatusList2;option;keyData;valueData;all"/>
+            <property name="workflow.system_id_dd" value="com.sains.framework.base.CommonList;getSystemList;option;keyData;valueData;all"/>
+            <!--<property name="retrievingColumns" value="distinct pool.pl_id, system_name, (en_name +': ' +en_job_desc) AS summaryJob , convert(varchar(11),pl_assign_date,106) AS pl_assign_date_disp, pl_assign_date, en_job_desc, (su.us_user_name) AS assignFrom_disp , prog.jp_assign_to, pl_status" />sereneCHye @ 1/10/2014 :: added en_job_desc, us_user_name -->
+            <!--<property name="retrievingColumns" value="distinct pool.pl_id, system_name, (en_name +': ' +en_job_desc) AS summaryJob , convert(varchar(11),pl_assign_date,106) AS pl_assign_date_disp, pl_assign_date, en_job_desc, (su.us_user_name) AS assignFrom_disp , (jpuser.us_user_name) AS assignTo_disp , pl_status" />-->
+            <property name="retrievingColumns" value="distinct pool.pl_id, system_name, (en_name ||': '|| en_job_desc) AS summaryJob ,  to_char(pl_assign_date, 'dd-Mon-yyyy HH12:MI:SS') AS pl_assign_date_disp, pl_assign_date, en_job_desc, (jpuser.us_user_name) AS assignTo_disp , pl_status" />
+            <!--<property name="displayFields"      value="system_name, en_name, pl_assign_date_disp, en_job_desc, us_user_name,  pl_status" />sereneCHye @ 1/10/2014 :: added en_job_desc, us_user_name -->
+            <!--<property name="displayFieldsHeader" value="jobadmin.systemname,jobadmin.entityname, jobadmin.poolassigndate, jobadmin.jobdesc,jobadmin.assignfrom, jobadmin.poolstatus " />sereneCHye @ 1/10/2014 :: added jobadmin.jobdesc,jobadmin.assignfrom -->
+            <property name="displayFieldsHeader" value="jobadmin.poolassigndate, jobadmin.jobdesc,jobadmin.assignto, jobadmin.poolstatus " />
+<!--            <property name="displayFields"      value="system_name,  pl_assign_date_disp, summaryJob, assignFrom_disp, prog.jp_assign_to,  pl_status" />-->
+            <property name="displayFields"      value="pl_assign_date_disp, summaryjob, assignto_disp,  pl_status" />
+            <property name="sortingFields"      value="asDisplayFields" />
+
+            <!-- ThoTH @ 23-Jul-2014 :: Amended for Security Check -->
+            <property name="sqlTables" value="t_wf_job_pool pool
+                      inner join t_wf_entity entity on entity.en_id = pool.en_id
+                      inner join t_wf_workflow workflow on workflow.wf_id = entity.wf_id
+                      inner join t_setup_system ss on workflow.system_id = ss.system_id 
+                        inner join t_wf_case wc on wc.case_id = pool.case_id
+                        inner join t_setup_user su on wc.created_by = su.us_user_id
+                        inner join t_wf_job_progress prog ON prog.pl_id = pool.pl_id               
+                        inner join (SELECT PL_ID, MAX(jp_assign_date) maxJp_assign_date                                     
+                                    FROM t_wf_job_progress GROUP BY PL_ID                                    
+                                    ) subprog ON subprog.pl_id = pool.pl_id and subprog.maxJp_assign_date = prog.JP_ASSIGN_DATE  
+                        inner join t_setup_user jpuser on prog.JP_ASSIGN_TO = jpuser.US_ID
+                        "
+                      />
+                      <!--inner join t_setup_user_system sus on sus.system_id = workflow.system_id" -->
+            <property name="defaultSearchValue" value="entity.en_point = 'M'" />
+<!--            <property name="userto.us_user_name_join" value="inner join t_wf_job_progress prog on prog.pl_id = pool.pl_id
+                      inner join t_setup_user userto on prog.jp_assign_to = userto.us_id" />
+            -->
+            <!--ThoTH @ 16-Jan-204 :: Assume Job Admin can see all-->
+            <!--<property name="session_us_id_filter" value="sus.us_id"/>-->
+            <property name="primaryKey" value="pl_id" />
+            <property name="editLinkColumn" value="en_name, pl_assign_date_disp, summaryJob" />
+            <property name="editPageURL" value="loadEditPageRouteJobAdmin" />
+            <property name="searchPage" value="dynamicSearch" /> <!--ori code commented @26.4.2013 aimin-->
+            <!--<property name="searchPage" value="/custom_search/jobAdminSearch" />ai min @26.4.2013-->
+            <!--<property name="listPage" value="dynamicList" />--> <!--ori code commented @26.4.2013 aimin-->
+            <property name="listPage" value="/pages/base/dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+
+            <!--<property name="preSearchMethod" value="preSearchJobAdmin" />-->
+        </dynamicAction>
+        <!-- Job Administration (Route) [thensw]  -->
+        <dynamicAction name="USJ_JobAdminRoute">
+            <property name="searchFields"      value="case_no, usj_no, jpuser.us_user_name, pool.pl_status, _date_pl_assign_date_fromTo, divisionCode" />
+            <property name="searchFieldsLabel" value=" TaskMgmt.manage.eCaseRef, TaskMgmt.manage.USJNo, jobadmin.assignto, jobadmin.poolstatus, jobadmin.poolassigndate, user.division" />
+            <property name="searchFieldsDbName" value="case_no, usj_no, jpuser.us_user_name, pool.pl_status, pool.pl_assign_date, divisionCode" />
+            <property name="propertyText_TASK_STATUS" value="TaskMgmt.status" />
+            <property name="styleFromPackage" value="task_status" />
+            <property name="primaryKey" value="TASK_ID" />
+            <property name="displayFieldsHeader" value="TaskMgmt.manage.eCaseRef, jobadmin.caseDesc, jobadmin.poolassigndate, jobadmin.jobdesc, jobadmin.assignto, jobadmin.poolstatus " />
+            <property name="displayFields"      value="CASE_NO, CASE_DESC, CREATED_DATE, SUMMARYJOB, TASKDOER_USERNAME, TASK_STATUS" />
+            <property name="editLinkColumn" value="CASE_DESC, SUMMARYJOB" />
+            <property name="specialSearch" value="retrieveFromRoute" />
+            <property name="divisionCode_dd" value="com.sains.framework.base.CommonList;getDivisionList;option;keyData;valueData;all"/>
+            <property name="extendsConfig" value="JobAdmin" />
+        </dynamicAction>
+        
+        <dynamicAction name="USJ_JobAdminRouteDiv">
+            <property name="searchFields"      value="case_no, usj_no, jpuser.us_user_name, pool.pl_status, _date_pl_assign_date_fromTo" />
+            <property name="searchFieldsLabel" value=" TaskMgmt.manage.eCaseRef, TaskMgmt.manage.USJNo, jobadmin.assignfrom,jobadmin.assignto, jobadmin.poolstatus, jobadmin.poolassigndate,jobadmin.systemname" />
+            <property name="searchFieldsDbName" value="case_no, usj_no, jpuser.us_user_name, pool.pl_status, pool.pl_assign_date" />
+            <property name="propertyText_TASK_STATUS" value="TaskMgmt.status" />
+            <property name="styleFromPackage" value="task_status" />
+            <property name="primaryKey" value="TASK_ID" />
+            <property name="displayFieldsHeader" value="TaskMgmt.manage.eCaseRef, jobadmin.caseDesc, jobadmin.poolassigndate, jobadmin.jobdesc, jobadmin.assignto, jobadmin.poolstatus " />
+            <property name="displayFields"      value="CASE_NO, CASE_DESC, CREATED_DATE, SUMMARYJOB, TASKDOER_USERNAME, TASK_STATUS" />
+            <property name="editLinkColumn" value="CASE_DESC, SUMMARYJOB" />
+            <property name="specialSearch" value="retrieveFromRoute" />
+            <property name="extendsConfig" value="JobAdmin" />
+       </dynamicAction>
+        
+        <dynamicAction name="USJ_RoundRobinSetup">
+            <property name="searchDescription" value="utimaps.roundRobin.setup" />
+            <property name="searchFields"      value="group_code, group_name, user_id" />
+            <property name="searchFieldsLabel" value="utimaps.roundRobin.code, utimaps.roundRobin.name,user.id" />
+            <property name="searchFieldsDbName" value="userGroup.group_code, userGroup.group_name, t_setup_user.us_user_id" />
+            <property name="retrievingColumns" value="userGroup.*" />
+            <property name="lookupRetrievingColumns" value="userGroup.ug_id,userGroup.group_code, userGroup.group_name" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="displayFields"      value="GROUP_CODE, GROUP_NAME" />
+            <property name="displayFieldsHeader" value="utimaps.roundRobin.code, utimaps.roundRobin.name" />
+
+            <!--<property name="app.application_code_join" value="inner join t_setup_group_app userGroup_app on userGroup_app.ug_id = userGroup.ug_id
+            inner join t_setup_application app on userGroup_app.application_id = app.application_id" />-->
+            <property name="app.application_name_other_condition" value="userGroup.ug_id in
+                      (select userGroup_app.ug_id from t_setup_group_app userGroup_app
+                      inner join t_setup_application app on userGroup_app.application_id = app.application_id
+                      where $filterCondition )" />
+            <property name="t_setup_user.us_user_id_join" value="inner join t_setup_group_user userGroup_user on userGroup_user.ug_id = userGroup.ug_id
+                      inner join t_setup_user on userGroup_user.us_id = t_setup_user.us_id" />
+            <property name="sqlTables" value="t_setup_group userGroup" />
+            <property name="defaultSearchValue" value="userGroup.system_id = 'U001'" />
+            <property name="preSearchMethod" value="preRoundRobinSetup" />
+            <property name="primaryKey" value="UG_ID" />
+            <property name="editLinkColumn" value="GROUP_CODE" />
+
+            <property name="editPageURL" value="processEditUser2UserGroup" />
+            <!--<property name="addPageURL" value="loadAddPageUserGroup" />-->
+            <!--<property name="deleteURL" value="deleteUserGroup" />-->
+
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="/pages/base/dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+
+            <!--<property name="joinSequence" value="1parent_code" /> -->
+            <property name="filters" value="" />
+        </dynamicAction>
+        
+        <dynamicAction name="USJ_ChecklistSetup">
+            <property name="searchDescription" value="checklist.setup" />
+            <property name="searchFields"      value="checklist_name, process_type" />
+            <property name="searchFieldsLabel" value="checklist.name, checklist.processType" />
+            <property name="searchFieldsDbName" value="setupChecklist.checklist_name, setupChecklist.process_type" />
+            <property name="retrievingColumns" value="setupChecklist.*" />
+            <property name="lookupRetrievingColumns" value="setupChecklist.checklist_name, setupChecklist.process_type, setupChecklist.checklist_status, setupChecklist.updated_by, setupChecklist.updatedd_date" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="displayFields"      value="CHECKLIST_NAME, PROCESS_TYPE, CHECKLIST_STATUS, UPDATED_BY, UPDATED_DATE" />
+            <property name="displayFieldsHeader" value="checklist.name, checklist.processType, checklist.status, checklist.updatedBy, checklist.updatedDate" />
+            <property name="sqlTables" value="t_setup_checklist setupChecklist" />
+            <!--<property name="defaultSearchValue" value="userGroup.system_id = 'U001'" />-->
+            <!--<property name="preSearchMethod" value="preRoundRobinSetup" />-->
+            <property name="primaryKey" value="CHECKLIST_ID" />
+            <property name="editLinkColumn" value="CHECKLIST_NAME" />
+            <property name="process_type_dd" value="com.sains.framework.base.CommonList;getProcessTypeList;option;keyData;valueData;all"/>
+
+            <property name="editPageURL" value="loadEditPageChecklistSetup" />
+            <property name="addPageURL" value="loadAddPageChecklistSetup" />
+            <property name="deleteURL" value="deleteChecklistSetup" />
+
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="/pages/base/dynamicList" />
+            <property name="pagingURL" value="search2Dynamic" />
+
+            <!--<property name="joinSequence" value="1parent_code" /> -->
+            <property name="filters" value="" />
+        </dynamicAction>
+        
+        <dynamicAction name="UtilityJobDiv_bk">
+            <property name="searchDescription" value="utimaps.job.listing" />
+            <property name="searchFields"      value="case_seq, case_year, sta_no, scheme_name, parentlot" />
+            <property name="searchFieldsLabel" value="sta.caseNo, sta.caseYear, sta.staLcpNo, sta.schemeName, sta.parentLot" />
+            <property name="searchFieldsDbName" value="caseno, case_year, sta_no, scheme_name, parentlot" />
+            <property name="retrievingColumns" value="TRN_DIV, case_year, case_id, scheme_name, casstatus, case_submitteddate, sta_no, caseno, case_stage, case_status, case_sub_status, case_applicationtype, parentlot, related_sta" />
+            <property name="displayFields"      value="caseno, sta_no, related_sta, scheme_name, case_applicationtype, parentlot, case_stage, casstatus" />
+            <property name="displayFieldsHeader" value="sta.caseNo,sta.staLcpNo, sta.relatedSta, sta.schemeName, sta.applicationType, sta.parentLot, sta.process,sta.status" />
+            <property name="propertyText_case_applicationtype" value="sta.applicationType" />
+            <property name="propertyText_case_stage" value="sta.stage" />
+            <property name="sortingFields"      value="asDisplayFields" />
+            <property name="defaultSearchValue" value="case_submitteddate is not null" />
+            <property name="defaultSorting" value="sta_no;D" />
+            <property name="sqlTables" value="(Select scheme_name || CASE WHEN T_SCHEME.cur_status = 'N' THEN '  &lt;br /&gt; &lt;span style=''background-color:#d93131;color:white;padding:5px;border-radius:5px;font-weight:600;display:block;text-align:center;'' &gt;Scheme Terminated&lt;/span&gt;' ELSE '' END as scheme_name, TRN_DIV, case_submitteddate, case_year, T_CASE.case_id as case_id, code_desc as casstatus,T_CASE.sta_no, case when case_description = 'Data Conversion' THEN '' else concat(concat(T_CASE.case_seq,'/'),T_CASE.case_year) end as caseno, case_stage, case_status, case_sub_status, (case when length(T_SCHEME.trn_type) > 1 then T_SCHEME.trn_div || '-' || T_SCHEME.trn_type || '-' || T_SCHEME.trn_dist || '-' || T_SCHEME.trn_bs || '-' || T_SCHEME.trn_lot else T_SCHEME.trn_div || '-' || T_SCHEME.trn_dist || '-' || T_SCHEME.trn_bs || '-' || T_SCHEME.trn_lot end) as parentlot, case when case_applicationtype = 'LCP' THEN (select z.sta_no from t_case z where z.case_id = t_case.parent_case_id)
+            else '-' end as related_sta, case when lcp_type = 'P' THEN concat(case_applicationtype, '.P')
+            when  lcp_type = 'MC' THEN concat(case_applicationtype, '.MC')
+            when include_lcp =  'Y' THEN concat(case_applicationtype, '_LCP')
+            else case_applicationtype end as case_applicationtype  from T_CASE inner join t_setup_code on case_sub_status = t_setup_code.code_1 inner join T_SCHEME on T_CASE.scheme_id = T_SCHEME.scheme_id)a" />
+            <property name="primaryKey" value="case_id" />
+            <property name="editLinkColumn" value="caseno,sta_no" />
+            
+            <property name="searchPage" value="dynamicSearch" />
+            <property name="listPage" value="dynamicCaseList" />
+            <property name="pagingURL" value="search2Dynamic" />
+            <property name="editPageURL" value="loadViewPageCaseHQ" />
+            <property name="hideDeleteButton" value="Y" />
+            <property name="hideAddButton" value="Y" />
+            <property name="session_us_div_filter" value="TRN_DIV"/>
+        </dynamicAction>
+        
+        <dynamicAction name="USJ_UtilityJobDiv">
+            <property name="showNumbering" value="Y" />
+            <property name="searchDescription" value="utimaps.job.listing" />
+            <property name="searchFields" value="cs_usj_div;usj_div;usj_div,
+                cs_usj_seq;usj_seq;usj_seq,
+                cs_usj_year;usj_year;usj_year,
+                cs_plan_div;plan_div;plan_div,
+                cs_plan_no;plan_no;plan_no,
+                firm_soc;utimaps.jobSearch.firm_soc;firm_soc,
+                firm_oic;utimaps.jobSearch.firm_oic;firm_oic,
+                project;utimaps.jobSearch.project;pj_name,
+                land_dist;utimaps.jobSearch.land_dist;land_dist,
+                _date_date_issue_fromTo;utimaps.jobSearch.date_issue;date_issue,
+                _date_submit_date_fromTo;utimaps.jobSearch.date_receive;app_submit_date,
+                cc_status;utimaps.jobSearch.job_status;cc_status"/>
+<!--            <property name="searchFields"      value="pDivId, trn_type, pDis,trn_bs, trn_lot" />
+            <property name="searchFieldsLabel" value="trn_div, trn_type, trn_dist,trn_bs, trn_lot" />
+            <property name="searchFieldsDbName" value="trn_div, trn_type, trn_dist,trn_bs, trn_lot" />-->
+            <property name="cs_usj_div_dd" value="com.sains.framework.base.CommonList;getDivList;option;keyData;valueData;pleaseSelect" />
+            <property name="cs_plan_div_dd" value="com.sains.framework.base.CommonList;getDivList;option;keyData;valueData;pleaseSelect" />
+            <property name="firm_soc_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="land_dist_dd" value="com.sains.framework.base.CommonList;getDisList;option;keyData;valueData;pleaseSelect" />
+            <property name="cc_status_dd" value="com.sains.framework.base.CommonList;getWorkflowStatusList;option;keyData;valueData;pleaseSelect" />
+<!--            <property name="retrievingColumns" value="distinct  cur_status, trn_div, trn_type, trn_dist,trn_bs, trn_lot, (trn_div||'-'||TRN_TYPE ||'-'||TRN_DIST||'-' ||TRN_BS ||'-'||trn_lot)  AS cc_trn, trn_upi,locality,
+             (SELECT CODE_DESC FROM PUBCODE_LOCAL WHERE CODE_TYPE='CA3' AND CODE_1 =LAND_CLA AND ROWNUM=1) AS CC_LAND_CLA ,
+            (SELECT CODE_DESC FROM PUBCODE_LOCAL WHERE CODE_TYPE='LCA' AND CODE_1 =LAND_Cate AND ROWNUM=1 ) AS CC_LAND_CATE, job_number " />-->
+            <property name="retrievingColumns" value=" * " />
+            <property name="displayFields" value="USJ_NO, CC_PLAN_NO, CC_SURVEY_FIRM, FIRM_OIC,CC_PROJECT_LOCALITY,DATE_ISSUE,CC_STATUS_STR" />
+            <property name="displayFieldsHeader" value="utimaps.jobSearch.usj_no, utimaps.jobSearch.plan_no, utimaps.jobSearch.firm_soc, utimaps.jobSearch.firm_oic, utimaps.jobSearch.project,utimaps.jobSearch.date_issue,utimaps.jobSearch.job_status"  />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="rownum_other_condition" value="300" />
+            <property name="sqlTables" value="(SELECT uj.JOB_ID, uj.USJ_DIV, uj.USJ_SEQ, uj.USJ_YEAR, 
+                TO_CHAR(uj.date_issue, 'YYYY-MM-DD') AS date_issue,ujs.STATUS_CODE AS cc_status,
+                uj.usj_no,
+                CASE WHEN uj.plan_no IS NULL THEN '-' ELSE ('USP-'||uj.usj_div||'-'||uj.plan_no)  END as cc_plan_no, uj.USJ_DIV AS plan_div, uj.PLAN_NO,
+                '&lt;b&gt; Name of Utility Project &lt;/b&gt; : ' || uap.PJ_NAME || '&lt;br /&gt;' || '&lt;b&gt;Locality&lt;/b&gt; : ' || uap.LAND_DESC AS cc_project_locality,
+                (SELECT code_desc FROM pubcode WHERE code_type = 'SOC' AND code_1 = usfp.FIRM_SOC) AS cc_survey_firm,
+                usfp.FIRM_SOC, usfp.FIRM_OIC, 
+                uap.PJ_NAME, uap.LAND_DIST, TO_CHAR(uap.APP_SUBMIT_DATE, 'YYYY-MM-DD') AS app_submit_date,
+                (SELECT CODE_DESC FROM T_SETUP_CODE tsc WHERE CODE_TYPE= 'JWS' AND CODE_1=ujs.STATUS_CODE AND rownum = 1) AS cc_status_str
+                FROM US_JOBDETAIL uj 
+                INNER JOIN US_APPLICATION_P uap ON uj.CASE_ID = uap.CASE_ID 
+                LEFT JOIN US_SURVEY_FIRM_P usfp ON usfp.CASE_ID = uap.CASE_ID 
+                LEFT JOIN (SELECT t.*
+                from (select c.*, row_number() over (partition by case_id order by status_seq desc) as seqnum
+                      from US_JOB_STATUS c
+                     ) t
+                where seqnum = 1)ujs
+                ON ujs.case_id = uj.job_id 
+                WHERE uj.usj_no IS NOT null)" />
+            <property name="styleFromPackage" value="FIRM_OIC;max-width:400px;,CC_PROJECT_LOCALITY;max-width:400px;" />
+            <property name="primaryKey" value="JOB_ID" />
+            <property name="editLinkColumn" value="USJ_NO" />
+            <property name="editPageURL" value="loadViewJobSubmission" />
+            <property name="retrieveOnLoad" value="N"/>
+            <!--<property name="useDataTable" value="true" />-->
+            <property name="hideDeleteButton" value="Y" />
+            <property name="hideAddButton" value="Y" />
+            <property name="searchPage" value="dynamicSearch_utility" />
+            <!--<property name="searchPage" value="dynamicSearch_utility" />-->
+            <property name="moreInfoTitle" value="Job History" /><!--Default is 60%-->
+            <property name="moreInfoWidth" value="70%" /><!--Default is 60%-->
+            <property name="moreInfoType" value="Auto" /><!--Auto or Manual-->
+            <property name="moreInfoJsp" value="/utimaps/job_listing/jobHistory.jsp" />
+            <!--<property name="moreInfoJsp" value="/sample/framework/addEditFrameworkSample.jsp" />-->
+            <property name="moreInfoModel" value="JobDetailModel" />
+            <property name="moreInfoReloadOnClose" value="true" /> 
+            <property name="listPage" value="dynamicList_utility" />
+            <property name="pagingURL" value="search2Dynamic" />
+        </dynamicAction>
+        
+        <dynamicAction name="USJ_UtilityAppDiv">
+            <property name="showNumbering" value="Y" />
+            <property name="searchDescription" value="utimaps.appSearch.listing" />
+            <property name="searchFields" value="cs_case_div;case_div;case_div,
+                cs_case_seq;case_seq;case_seq,
+                cs_case_year;case_year;case_year,
+                cs_usj_div;usj_div;usj_div,
+                cs_usj_seq;usj_seq;usj_seq,
+                cs_usj_year;usj_year;usj_year,
+                firm_soc;utimaps.jobSearch.firm_soc;firm_soc,
+                firm_oic;utimaps.jobSearch.firm_oic;firm_oic,
+                project;utimaps.jobSearch.project;pj_name,
+                _date_submit_date_fromTo;utimaps.jobSearch.date_receive;app_submit_date,
+                cc_status;utimaps.jobSearch.job_status;cc_status"/>
+            <property name="cs_usj_div_dd" value="com.sains.framework.base.CommonList;getDivList;option;keyData;valueData;pleaseSelect" />
+            <property name="cs_case_div_dd" value="com.sains.framework.base.CommonList;getDivList;option;keyData;valueData;pleaseSelect" />
+            <property name="firm_soc_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="cc_status_dd" value="com.sains.framework.base.CommonList;getWorkflowStatusList;option;keyData;valueData;pleaseSelect" />
+            <property name="retrievingColumns" value=" * " />
+            <property name="displayFields" value="CASE_NO, USJ_NO, CC_SURVEY_FIRM, FIRM_OIC,CC_PROJECT_LOCALITY,CC_STATUS_STR" />
+            <property name="displayFieldsHeader" value="utimaps.appSearch.case_no, utimaps.jobSearch.usj_no, utimaps.appSearch.firm_soc, utimaps.appSearch.firm_oic, utimaps.appSearch.project,utimaps.appSearch.case_status"  />
+            <property name="sortingFields" value="asDisplayFields" />
+            <property name="rownum_other_condition" value="300" />
+            <property name="sqlTables" value="(SELECT UAP.CASE_ID, UAP.CASE_SEQ, uap.CASE_YEAR,
+                'UAP/' || UAP.CASE_SEQ || '/' || uap.CASE_YEAR AS case_no,
+                uap.WF_STATUS AS cc_status, uj.JOB_ID, uj.USJ_NO, uj.USJ_DIV, uj.USJ_SEQ, uj.USJ_YEAR,
+                '&lt;b&gt; Name of Utility Project &lt;/b&gt; : ' || uap.PJ_NAME || '&lt;br /&gt;' || '&lt;b&gt;Locality&lt;/b&gt; : ' || uap.LAND_DESC AS cc_project_locality,
+                (SELECT code_desc FROM pubcode WHERE code_type = 'SOC' AND code_1 = usfp.FIRM_SOC) AS cc_survey_firm,
+                usfp.FIRM_SOC, usfp.FIRM_OIC, 
+                uap.PJ_NAME, TO_CHAR(uap.APP_SUBMIT_DATE, 'YYYY-MM-DD') AS app_submit_date,
+                (SELECT CODE_DESC FROM T_SETUP_CODE tsc WHERE CODE_TYPE= 'JWS' AND CODE_1=uap.WF_STATUS AND rownum = 1) AS cc_status_str
+                FROM US_APPLICATION_P uap 
+                LEFT JOIN US_SURVEY_FIRM_P usfp ON usfp.CASE_ID = uap.CASE_ID
+                LEFT JOIN US_JOBDETAIL uj ON uap.CASE_ID = uj.CASE_ID  )" />
+            <property name="styleFromPackage" value="CASE_NO;width:12%;,FIRM_OIC;max-width:400px;,CC_PROJECT_LOCALITY;max-width:400px;" />
+            <property name="primaryKey" value="CASE_ID" />
+            <property name="editLinkColumn" value="CASE_NO, USJ_NO_otherLink" />
+            <property name="editPageURL" value="loadViewJobUSJ" />
+            <property name="displayFieldsLink"  value="USJ_NO;;loadViewJobSubmission?id={:JOB_ID}" />
+            <property name="retrieveOnLoad" value="N"/>
+            <property name="hideDeleteButton" value="Y" />
+            <property name="hideAddButton" value="Y" />
+            <property name="searchPage" value="dynamicSearch_application" />
+            <property name="moreInfoTitle" value="Job History" /><!--Default is 60%-->
+            <property name="moreInfoWidth" value="70%" /><!--Default is 60%-->
+            <property name="moreInfoType" value="Auto" /><!--Auto or Manual-->
+            <property name="moreInfoJsp" value="/utimaps/job_listing/jobHistory.jsp" />
+            <property name="moreInfoModel" value="ApplicationPModel" />
+            <property name="moreInfoReloadOnClose" value="true" /> 
+            <property name="listPage" value="dynamicList_application" />
+            <property name="pagingURL" value="search2Dynamic" />
+        </dynamicAction>
+        
+        
+    </dynamics>
+</dynamic-config>

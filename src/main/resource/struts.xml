@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="false" />
+    <!--<constant name="struts.custom.i18n.resources" value="package" />-->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+    <!--<constant name="struts.mapper.composite" value="struts,restful2"/>-->
+    <!--<constant name="struts.mapper.class" value="composite"/>-->
+    <!--<constant name="struts.action.extension" value="xhtml,,xml,json,action"/>-->
+    <!--<constant name="struts.action.excludePattern" value="app/WebService*"/>-->
+    <constant name="struts.action.excludePattern" value="/api/[a-zA-Z_0-9\/]*,/WebService.*,/forNewProject/TusServlet*,/forNewProject/TusServlet/*"/>
+    <!--<constant nam="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.PrefixBasedActionMapper" />-->
+    <!--<constant name="struts.mapper.prefixMapping" value="/rest:rest,:struts"/>-->
+    <!--<constant name="struts.action.extension" value="xhtml,,xml,json,action"/>-->
+    <!--<constant name="struts.convention.action.suffix" value="Controller"/>-->
+    <!--<constant name="struts.convention.action.mapAllMatches" value="true"/>-->
+    <!--<constant name="struts.convention.default.parent.package" value="rest-default"/>-->
+    <!--<constant name="struts.convention.package.locators" value="exadmple"/>-->
+    <constant name="struts.convention.action.suffix" value="Controller"/>
+    <constant name="struts.convention.action.mapAllMatches" value="true"/>
+    <constant name="struts.convention.default.parent.package" value="convention-default"/>
+    <package name="default" extends="struts-default" strict-method-invocation="false" namespace="/">
+        <result-types>
+            <result-type name="myString" default="false" class="java.lang.String"/>
+        </result-types>
+        <interceptors>
+            <interceptor name="authorizationInterceptor" class="com.sains.framework.base.web.AuthorizationInterceptor"></interceptor>
+            <interceptor-stack name="myStack" >
+                <interceptor-ref name="authorizationInterceptor"/>
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scopedModelDriven"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>    
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="params">
+                    <param name="exception.logEnabled">false</param>
+                    <param name="exception.logLevel">ERROR</param>
+                    <param name="excludeParams">^dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,^parameters\..*,^action:.*,^method:.*,search_..*,msg,cbselect,mainPageSize,..*_select,title,listSize,expired</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myStack" />
+        <global-results>
+            <result name="load_edit_page_moreInfo" >/no_deco/noDeco_include.jsp</result>
+            <result name="update_fail_moreInfo" >/no_deco/noDeco_include.jsp</result>
+            <result name="success_moreInfo" >/no_deco/noDeco_include.jsp</result>
+            <result name="login_modal">/pages/lookup/${jspPrefix}lookup_login_modal.jsp</result>
+            <result name="moreInfo" >/no_deco/dynamicList_moreDetail.jsp</result>
+            <result name="moreInfoManual" >/no_deco/dynamicList_moreDetail.jsp</result>
+            <result name="divSubmitForm">/no_deco/divSubmitForm.jsp</result>
+            <result name="defaultDivSubmitForm">/no_deco/divSubmitForm.jsp</result>
+            <result name="map_sso_uid">/pages/map_sso_uid.jsp</result>
+            <result name="bs_map_sso_uid">/sample/bs/map_sso_uid_bs.jsp</result>
+            <result name="error403">/pages/error403.jsp</result>
+            <result name="error404">/pages/error404.jsp</result>
+            <result name="error500">/pages/error500.jsp</result>
+            <result name="underMaintenance">/pages/underMaintenance.jsp</result>
+            <result name="lookupError">/pages/lookupError.jsp</result>
+            <result name="lookupError_modal">/pages/lookupError.jsp</result>
+            <result name="pageError">/pages/globalError.jsp</result>
+            <result name="null">/pages/globalError_logout.jsp</result>
+            <result name="input">/pages/globalError.jsp</result>
+            <result name="pageError_logout">/pages/globalError_logout.jsp</result>
+            <result name="pageNotFound" >/base/pageNotFound.jsp</result>
+            <result name="input_logout">/pages/globalError_logout.jsp</result>
+            <result name="not_authorised" type="redirectAction">
+                <param name="actionName">unauthorised</param>
+                <param name="notAuthorised">${notAuthorised}</param>
+            </result>
+            <result name="expiredDEF" type="redirectAction">
+                <param name="actionName">welcome</param>
+                <param name="expired">y</param>
+            </result>
+            <!--            <result name="expired" type="redirectAction">
+                <param name="actionName">welcome</param>
+                <param name="expired">y</param>
+            </result>-->
+            <!--<result name="expiredDEF">/pages/redirect.jsp</result>-->
+            <result name="sessionHijackRelogin">/pages/hijack_login.jsp</result>
+            <result name="expired">/pages/redirect.jsp</result>
+            <result name="null">/pages/redirect.jsp</result>
+            <result name="notAllowToView">/pages/notAllowToView.jsp</result>
+            <result name="dynamicPage" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="msg">${redirectMessage}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <!--
+            <result name="expired_public" type="redirectAction">
+                <param name="actionName">initLoginPublic</param>
+                <param name="expired">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            -->
+        </global-results>
+        <action name="token" method="token" class="com.sains.framework.base.web.ApiTokenAction"/>
+        <action name="refresh" method="refresh" class="com.sains.framework.base.web.ApiTokenAction"/>
+        <action name="revoke" method="revoke" class="com.sains.framework.base.web.ApiTokenAction"/>
+        <action name="error*" method="error{1}" class="com.sains.framework.base.web.LoginAction"/>
+        <action name="*PNF" method="{1}" class="com.sains.framework.base.web.PageNotFoundAction">
+            <result name="load_edit_page" >/base/edit.jsp</result>
+        </action>
+        <!--LOGIN-->
+        <action name="internal" method="init" class="com.sains.framework.base.web.LoginAction">
+            <interceptor-ref name="defaultStack">
+                <param name="params.excludeParams">.*</param>
+            </interceptor-ref>
+            <result name="loadLoginPage">/pages/login.jsp</result>
+            <result name="success" >/pages/welcome.jsp</result>
+            <result name="error" >/pages/login.jsp</result>
+            <result name="public" type="redirectAction">
+                <param name="actionName">loginPublicRegistration</param>
+            </result>
+            <result name="expired">/pages/login.jsp</result>
+        </action>
+        <action name="welcome" method="init" class="com.sains.framework.base.web.LoginAction">
+            <result name="loadLoginPage">/pages/login.jsp</result>
+            <result name="success" >/pages/welcome.jsp</result> 
+            <result name="error" >/pages/login.jsp</result>
+            <result name="public" type="redirectAction">
+                <param name="actionName">loginPublicRegistration</param>
+            </result>
+            <result name="expired">/pages/login.jsp</result>
+        </action>
+        <action name="validate_jsp" method="validate_jsp" class="com.sains.framework.base.web.LoginAction">
+            <result name="validation">/pages/scripts/validation.jsp</result>
+        </action>
+        <action name="*Password" method="{1}" class="com.sains.framework.base.web.LoginAction">
+            <result name="reset">/pages/resetPassword.jsp</result>
+            <result name="forgotPassword">/pages/enterEmailUserId.jsp</result>
+            <result name="successEmail">/pages/ackForgetPassword.jsp</result>
+            <result name="activated">/pages/login.jsp</result>
+        </action>
+        <action name="/*Login" method="{1}" class="com.sains.framework.base.web.LoginAction">
+            <result name="refererUrl" type="redirect">
+                <param name="location">${refererUrl_}</param>
+            </result>
+            <result name="errorLookupRefererUrl">/pages/lookup/${jspPrefix}lookup_login_modal.jsp</result>
+            <result name="loadLoginPage">/pages/login.jsp</result>
+            <result name="welcome_fim2">/pages/welcome_fim2.jsp</result>
+            <!--<result name="success" >/pages/welcome.jsp</result>-->
+            <result name="success" type="redirectAction">
+                <param name="actionName">welcome</param>
+            </result>
+            <result name="error" >/pages/login.jsp</result>
+            <result name="public" type="redirectAction">
+                <param name="actionName">loginPublicRegistration</param>
+            </result>
+            <result name="expired">/pages/login.jsp</result>
+            <result name="configureMaintenanceMode">/pages/configureMaintenanceMode.jsp</result>
+        </action>
+        <!--LOG OUT-->
+        <action name="/*Logout" method="{1}" class="com.sains.framework.base.web.LoginAction">
+            <result name="loadLoginPage">/pages/login.jsp</result>
+            <result name="refererUrl" type="redirect">
+                <param name="location">${refererUrl_}</param>
+            </result>
+        </action>
+        <action name="menuSideBar" method="menuSideBar" class="com.sains.framework.base.web.LoginAction"/>
+        <!--USER SETUP-->
+        <action name="/*User" method="{1}" class="com.sains.framework.sam.web.UserAction">
+            <result name="load_add_page" >/sam/user/${jspPrefix}addUser.jsp</result>
+            <result name="insert_fail" >/sam/user/${jspPrefix}addUser.jsp</result>
+            <result name="load_edit_page" >/sam/user/${jspPrefix}editUser.jsp</result>
+            <result name="update_fail" >/sam/user/${jspPrefix}editUser.jsp</result>
+            <result name="search">/sam/user/user.jsp</result>
+            <result name="load_public_account">/public/userSignupMaintenance.jsp</result>
+            <!--internal user to reset password-->
+            <result name="adminRecover" >/sam/user/editUser.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <!--same as success but approve will trigger email to user-->
+            <result name="approve" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <!--same as success but approve will trigger email to user-->
+            <result name="reject" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <!--same as success but "new" will trigger email to user-->
+            <result name="new" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+            <!--
+            <result name="resetPassword" type="redirectAction">
+                <param name="actionName">resetPasswordRegistration</param>
+                <param name="us_id">${us_id}</param>
+                <param name="retrieve">y</param>
+            </result>
+            -->
+        </action>
+        <action name="loadPreference" method="loadPreference" class="com.sains.framework.base.web.LoginAction" >
+            <result name="success">/sam/user/${jspPrefix}userPreference.jsp</result>
+        </action>
+        <action name="updatePreference" method="updatePreference" class="com.sains.framework.base.web.LoginAction" >
+            <result name="success">/sam/user/${jspPrefix}userPreference.jsp</result>
+        </action>
+        <!-- @@ mark for deletion -->
+        <!--
+        <action name="userAction" method="list" class="com.sains.framework.sam.web.UserAction">
+            <result name="success">/sam/user/user.jsp</result>
+            <result name="expired" type="redirectAction">
+                <param name="actionName">welcome</param>
+                <param name="expired">y</param>
+            </result>
+        </action>
+        -->
+        <action name="/*Module" method="{1}" class="com.sains.framework.sam.web.ModuleAction">
+            <result name="load_add_page" >/sam/module/${jspPrefix}addModule.jsp</result>
+            <result name="insert_fail" >/sam/module/${jspPrefix}addModule.jsp</result>
+            <result name="load_edit_page" >/sam/module/${jspPrefix}editModule.jsp</result>
+            <result name="update_fail" >/sam/module/${jspPrefix}editModule.jsp</result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="msg">${redirectMessage}</param>
+            </result>
+            <result name="search">/sam/module/module.jsp</result>
+            <result name="search2">/sam/module/module2.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <!--USER GROUP SETUP-->
+        <action name="/*UserGroup" method="{1}" class="com.sains.framework.sam.web.UserGroupAction">
+            <result name="load_clone_page" >/sam/userGroup/${jspPrefix}cloneUserGroup.jsp</result>
+            <result name="load_add_page" >/sam/userGroup/${jspPrefix}addUserGroup.jsp</result>
+            <result name="load_edit_page" >/sam/userGroup/${jspPrefix}editUserGroup.jsp</result>
+            <result name="load_edit_page_user" >/sam/userGroup/${jspPrefix}editUserGroupUser.jsp</result>
+            <result name="load_edit_page_user2" >/sam/userGroup/${jspPrefix}editUserGroupUser_rr.jsp</result><!--Added by TeoYL @ 06-03-2024-->
+            <result name="load_add_application_page" >/sam/userGroup/${jspPrefix}addUserGroupApplication.jsp</result>
+            <result name="add_userGroup_application_fail" >/sam/userGroup/${jspPrefix}addUserGroupApplication.jsp</result>
+            <result name="add_application_fail" >/sam/userGroup/${jspPrefix}addUserGroupApplication.jsp</result>
+            <result name="load_add_user_page" >/sam/userGroup/${jspPrefix}addUserGroupUser.jsp</result>
+            <result name="add_userGroup_user_fail" >/sam/userGroup/${jspPrefix}addUserGroupUser.jsp</result>
+            <result name="add_user_fail" >/sam/userGroup/${jspPrefix}addUserGroupUser.jsp</result>
+            <result name="insert_fail" >/sam/userGroup/${jspPrefix}addUserGroup.jsp</result>
+            <result name="update_fail" >/sam/userGroup/${jspPrefix}editUserGroup.jsp</result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="msg">${redirectMessage}</param>
+            </result>
+            <result name="search">/projectsrc/action/systemSetup/userGroup/userGroup.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+        </action>
+        <!--MODULE SETUP-->
+        <action name="moduleAction" method="list" class="com.sains.framework.sam.web.ModuleAction">
+            <result name="success">/sam/module/module.jsp</result>
+        </action>
+        <!--SYSTEM PARAMETER SETUP-->
+        <action name="*Parameter" method="{1}" class="com.sains.framework.base.web.ParameterAction">
+            <result name="load_add_page" >/sam/parameter/${jspPrefix}copyParameter.jsp</result>
+            <result name="load_edit_page" >/sam/parameter/${jspPrefix}editParameter2.jsp</result>
+            <result name="update_fail" >/sam/parameter/${jspPrefix}editParameter2.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+                <param name="">${searchCondition}</param>
+            </result>
+            <result name="expired" type="redirectAction">
+                <param name="actionName">initLogin</param>
+                <param name="expired">y</param>
+            </result>
+            <result name="not_authorised" type="redirect">/unauthorised</result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <action name="/*EmailQueue"  method="{1}" class="com.sains.framework.sam.web.EmailQueueAction">
+        </action>
+        <action name="/*ErrLog"  method="{1}" class="com.sains.framework.sam.web.ErrLogAction">
+        </action>
+        <action name="/*Moal"  method="{1}" class="com.sains.framework.sam.web.MoalAction">
+        </action>
+        <!--APPLICATION SETUP-->
+        <action name="/*Application"  method="{1}" class="com.sains.framework.sam.web.ApplicationAction">
+            <result name="load_add_page" >/sam/application/${jspPrefix}addApplication.jsp</result>
+            <result name="insert_fail" >/sam/application/${jspPrefix}addApplication.jsp</result>
+            <result name="load_edit_page" >/sam/application/${jspPrefix}editApplication.jsp</result>
+            <result name="update_fail" >/sam/application/${jspPrefix}editApplication.jsp</result>
+            <result name="appToGroup" >/sam/application/editAppToGroup.jsp</result>
+            <result name="load_add_group_page" >/sam/application/addGroupToApplication.jsp</result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="retrieve">y</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <!--
+        <action name="applicationAction" method="list" class="projectsrc.action.systemSetup.application.ApplicationAction">
+            <result name="success">/projectsrc/action/systemSetup/application/application.jsp</result>
+        </action>
+        -->
+        <action name="*DqTemplate" method="{1}" class="com.sains.framework.base.web.DqTemplateAction">
+            <result name="load_add_page" >/dq/${jspPrefix}addTemplate.jsp</result>
+            <result name="add_step2" >/dq/${jspPrefix}addTemplate_step2.jsp</result>
+            <result name="load_edit_page" >/dq/${jspPrefix}editTemplate.jsp</result>
+            <result name="edit_step2" >/dq/${jspPrefix}editTemplate_step2.jsp</result>
+            <result name="showColumns" >/dq/${jspPrefix}dsColumns.jsp</result>
+        </action> 
+        <action name="*DqRptGen" method="{1}" class="com.sains.framework.base.web.DqGeneratorAction">
+            <result name="generatorPage" >/dq/${jspPrefix}generatorPage.jsp</result>
+            <result name="resultPage" >/dq/${jspPrefix}resultPage.jsp</result>
+        </action> 
+        <action name="/*Dynamic" method="{1}" class="com.sains.framework.base.web.DynamicAction">
+            <result name="load_add_page" >/pages/base/dynamicAdd.jsp</result>
+            <result name="insert_fail" >/pages/base/dynamicAdd.jsp</result>
+            <result name="load_edit_page" >/pages/base/dynamicEdit.jsp</result>
+            <result name="update_fail" >/pages/base/dynamicEdit.jsp</result>
+            <result name="search">/pages/base/dynamicControl.jsp</result>
+            <result name="search2">/pages/base/dynamicControl_ess.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <action name="dynamicAction" method="populateDynamicActionSetup" class="com.sains.framework.base.web.DynamicAction">
+            <result name="success">/pages/base/dynamicControl.jsp</result>
+        </action>
+        <!--LOOK UP POP UP DIALOG-->
+        <action name="*Loader" method="{1}" class="com.sains.framework.lookup.ItemChangeAction">
+            <result name="normalSelect">/pages/itemChange/normalSelect.jsp</result>
+            <result name="showImage">/pages/itemChange/showImage.jsp</result>
+            <result name="appIcon">/pages/itemChange/appIcon.jsp</result>
+        </action>
+        <action name="/*Lookup" method="{1}" class="com.sains.framework.lookup.LookupAction">
+            <result name="successTree">/pages/lookup/lookup_tree.jsp</result>
+            <result name="success">/pages/lookup/${jspPrefix}lookup_list.jsp</result>
+            <result name="success_modal">/pages/lookup/${jspPrefix}lookup_list_modal.jsp</result>
+            <result name="login">/pages/lookup/${jspPrefix}lookup_login.jsp</result>
+        </action>
+        <!--PRINT ACTION ON SEARCH PAGE-->
+        <action name="dynamicSearchRpt" method="dynamicSearchRpt" class="com.sains.framework.base.web.DynamicAction">
+            <result name="rpt">/pages/base/dynamicRpt.jsp</result>
+        </action>
+        <action name="changeLocale" method="changeLocale" class="com.sains.framework.base.web.LoginAction">
+            <result name="loadLoginPage">/pages/login.jsp</result>
+            <result name="success" >/pages/welcome.jsp</result>
+            <result name="error" >/pages/login.jsp</result>
+            <result name="public" type="redirectAction">
+                <param name="actionName">loginPublicRegistration</param>
+            </result>
+            <result name="expired">/pages/login.jsp</result>
+            <result name="configureMaintenanceMode">/pages/configureMaintenanceMode.jsp</result>
+        </action>
+        
+        <action name="/*Hibernate" method="{1}" class="com.sains.framework.base.web.HibernateInformationAction">
+            <result name="success">/admin/hibernateInformation.jsp</result>
+            <result name="forwardLoadInfor" type="redirectAction">loadInforHibernate</result>
+        </action>
+        
+        <action name="/*SN" method="{1}" class="com.sains.framework.base.web.SetupNotificationAction">
+            <result name="load_add_page" >/pages/setup/${jspPrefix}addSetupNotification.jsp</result>
+            <result name="insert_fail">/pages/setup/${jspPrefix}addSetupNotification.jsp</result>
+            <result name="load_edit_page" >/pages/setup/${jspPrefix}editSetupNotification.jsp</result>
+            <result name="update_fail" >/pages/setup/${jspPrefix}editSetupNotification.jsp</result>
+            <result name="search">/sam/user/user.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="">${searchCondition}</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <!--<result name="expired" type="redirectAction">/initLogin</result>-->
+            <!--<result name="not_authorised" type="redirect">/unauthorised</result>-->
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <action name="*AutoEmail" method="{1}" class="com.sains.framework.base.web.AutoEmailAction">
+            <result name="load_add_page" >/sam/emailTrigger/${jspPrefix}addAutoEmail.jsp</result>
+            <result name="insert_fail" >/sam/emailTrigger/${jspPrefix}addAutoEmail.jsp</result>
+            <result name="load_edit_page" >/sam/emailTrigger/${jspPrefix}editAutoEmail.jsp</result>
+            <result name="update_fail" >/sam/emailTrigger/${jspPrefix}editAutoEmail.jsp</result>
+            <result name="delete_fail" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="msg">${redirectMessage}</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        <action name="dynamicRptAction" method="loadSearchPage" class="com.sains.framework.base.web.DynamicRptAction">
+            <result name="success">/pages/base/dynamicRptControl.jsp</result>
+        </action>
+        <action name="dynamicViewPage" method="dynamicViewPage" class="com.sains.framework.base.web.DynamicRptAction">
+            <result name="success">/report/dynamicReportViewer.jsp</result>
+            <result name="success_pdf" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+            </result>
+        </action>
+        <action name="generateDynamicRpt" method="generateDynamicRpt" class="com.sains.framework.base.web.DynamicRptAction">
+            <result name="fail">/pages/base/dynamicRptSearch.jsp</result>
+            <result name="success_pdf" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">64</param>
+            </result>
+        </action>
+        <action name="exportToExcel" method="exportToExcel" class="com.sains.framework.base.web.DynamicRptAction">
+            <result name="fail">/pages/base/dynamicRptSearch.jsp</result>
+            <result name="success" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">64</param>
+            </result>
+        </action>
+        <action name="dataRetriever" method="retrieveData" class="com.sains.framework.lookup.LookupAction">
+            <result name="retrieveData">/pages/lookup/retrieveData.jsp</result>
+        </action>
+        <action name="unauthorised" class="com.sains.framework.base.web.UnauthorisedAction">
+            <result name="success" >/pages/unauthorised.jsp</result>
+            <result name="not_authorised">/pages/unauthorised.jsp</result>
+        </action>
+        <!--Sample-->
+        <action name="*Parent" method="{1}" class="com.sample.ParentAction">
+            <result name="load_add_page" >/sample/${jspPrefix}addParent.jsp</result>
+            <result name="load_edit_page" >/sample/${jspPrefix}editParent.jsp</result>
+        </action> 
+        <!--Added @2021Dec09 : FrameworkSample : START-->
+        <action name="*FrameworkSample" method="{1}" class="com.sample.web.FrameworkSampleAction">
+            <result name="load_add_page" >/sample/framework/addEditFrameworkSample.jsp</result>
+            <result name="load_edit_page" >/sample/framework/addEditFrameworkSample.jsp</result>
+        </action>
+        <!--Added @2021Dec09 : FrameworkSample : END-->
+        <action name="/uppyUpload_*" method="{1}" class="com.sample.SampleAction">
+            <result name="tryUppyUpload" >/sample/tryUppyUpload.jsp</result>
+        </action> 
+        <action name="*SampleApi" method="{1}" class="com.sample.SampleApiAction"/>
+        <action name="*Sample" method="{1}" class="com.sample.SampleAction">
+            <result name="tryUppyUpload" >/sample/tryUppyUpload.jsp</result>
+            <result name="tryTus" >/sample/tryTus.jsp</result>
+            <result name="template" >/template/template.html</result>
+            <result name="datatable" >/sample/datatable.jsp</result>
+            <result name="datatable_dtLoad" >/no_deco/datatable_dtLoad.jsp</result>
+            <result name="datatable2" >/sample/datatable2.jsp</result>
+            <result name="datatable_ajax_input" >/sample/datatable_ajax_input.jsp</result>
+            <result name="success" >/sample/${jspPrefix}sample1.jsp</result>
+            <result name="API_CALL" >/sample/api_call.jsp</result>
+            <result name="addItem" >/pages/no_decoration.jsp</result>
+            <result name="encryption" >/sample/sample2.jsp</result>
+            <result name="uppy" >/sample/uppy.jsp</result>
+            <result name="uppy2" >/sample/uppy2.jsp</result>
+            <result name="uppy3" >/sample/uppy3.jsp</result>
+            <result name="pulse" >/sample/samplePulse.jsp</result>
+            <result name="pulseIframeContent" >/sample/pulseIframeContent.jsp</result>
+            <result name="ftpImage" type="stream">
+                <!--<param name="contentType">${contentType}</param>-->
+                <param name="inputName">sampleImage</param>
+                <!--<param name="contentDisposition">${contentDisposition}</param>-->
+            </result>
+            <result name="pdf" type="stream">
+                <!--<param name="contentType">${contentType}</param>-->
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <!--<param name="bufferSize">64</param>-->
+            </result>
+            <result name="fileDownload" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <!--<param name="bufferSize">64</param>-->
+            </result>
+        </action>
+        <action name="*Entry" method="{1}" class="com.sample.GenerateEntryAction">
+            <result name="view" >/sample/view.jsp</result>
+            <result name="generate" >/sample/entry/${jspPrefix}generate.jsp</result>
+            <result name="auditLog" >/sample/entry/auditLog.jsp</result>
+            <result name="auditReport" >/sample/entry/auditReport.jsp</result>
+            <result name="viewGenerated" >/sample/entry/generatedEntry.jsp</result>
+            <result name="divSubmitForm">/no_deco/divSubmitForm.jsp</result>
+        </action>
+        <!--BubbleShell Sample : Start-->
+        <!--        <action name="goLoginPageBS" method="goLoginPage" class="com.sample.BubbleShellSampleAction">
+            <result name="goLoginPage" >/sample/bs/myLogin_bs.jsp</result>
+            <result name="success" >/sample/bs/landing_bs.jsp</result>
+        </action>-->
+        <action name="/*BS" method="{1}" class="com.sample.BubbleShellSampleAction">
+            <result name="goLoginPage" >/sample/bs/myLogin_bs.jsp</result>
+            <result name="success" >/sample/bs/landing_bs.jsp</result>
+            <result name="redirect" >/sample/bs/redirect_bs.jsp</result>
+            <result name="page1" >/sample/bs/page1_bs.jsp</result>
+            <result name="init" >/sample/bs/initBS.jsp</result>
+            <!--            <result name="uppy2" >/sample/bs/initBS.jsp</result>
+            <result name="uppy3" >/sample/bs/initBS.jsp</result>-->
+            <result name="pdf" type="stream">
+                <param name="contentLength">contentLength</param>
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">64</param>
+            </result>
+        </action>
+        <!--BubbleShell Sample : End-->
+        <!--Static Var Management : Start-->
+        <action name="/*StaticVar" method="{1}" class="com.sains.framework.base.web.StaticVarAction">
+            <result name="staticVarList">/pages/${jspPrefix}staticVarList.jsp</result>
+        </action>
+        <!--Static Var Management : End-->
+        <!--Schedular Management : Start-->
+        <action name="/*SysSchedular" method="{1}" class="com.sains.framework.base.web.SchedularMgmtAction">
+            <result name="timerJobList">/pages/${jspPrefix}timerJobList.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">loadEditPageSysSchedular</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+        </action>
+        <!--Schedular Management : End-->
+        <!--Audit Log Report : Start-->
+        <action name="/*AuditLog" method="{1}" class="com.sains.framework.base.web.AuditLogAction">
+            <result name="load" >/sam/auditLog/auditTrail.jsp</result>
+            <result name="generate" >/sam/auditLog/auditReport.jsp</result>
+        </action>
+        <!--Audit Log Report : End-->
+        <!--Uppy Upload : Start-->
+        <action name="/*Uppy" method="{1}" class="com.sains.framework.base.web.UppyUploadAction">
+            <result name="singleFile" >/sample/uppySingleFile.jsp</result>
+            <result name="multiFile" >/sample/uppyMultiFile.jsp</result>
+            <result name="fileDownload" type="stream">
+                <!--                <param name="contentType">${contentType}</param>-->
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <!--<param name="contentDisposition">${contentDisposition}</param>-->
+                <param name="contentDisposition">attachment;filename="1.pdf"</param>
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>
+        <!--        <action name="/upload_tus/*/*" method="upload_tus" class="com.sains.framework.base.web.UppyUploadAction"/>
+        <action name="/upload_tus/*" method="upload_tus" class="com.sains.framework.base.web.UppyUploadAction"/>-->
+        <action name="/upload_tus**" method="upload_tus" class="com.sains.framework.base.web.UppyUploadAction"/>
+        <!--Uppy Upload : End-->
+        <!--Project-->    
+        
+        <!--Added @2022Jan07 : ParentChildGcGE : START-->
+        <action name="*ParentChildGcGE" method="{1}" class="com.sample.web.ParentChildGcGEAction">
+            <result name="load_add_page" >/sample/framework/addEditParentChildGcGE.jsp</result>
+            <result name="load_edit_page" >/sample/framework/addEditParentChildGcGE.jsp</result>
+        </action>
+        <!--Added @2022Jan07 : ParentChildGcGE : END-->
+        <!--Added @2022Mar28 : TestUppy : START-->
+        <action name="*UppyGE" method="{1}" class="com.sample.web.TestUppyAction">
+            <result name="load_add_page" >/sample/uppy/addEditUppyGE.jsp</result>
+            <result name="load_edit_page" >/sample/uppy/addEditUppyGE.jsp</result>
+        </action>
+        <!--Added @2022Mar28 : TestUppy : END-->
+    
+        <action name="/*LoginUTiMAPS" method="{1}" class="com.sains.framework.base.web.LoginAction" >
+            <result name="success" type="redirectAction">
+                <param name="actionName">welcome</param>
+            </result>
+            <!--<result name="success" >/pages/welcome.jsp</result>-->
+            <result name="error" >/pages/login.jsp</result>
+            <result name="refererUrl" type="redirect">${refererUrl_}</result>
+        </action>
+        
+        <action name="/*LxgUTiMAPS" method="{1}" class="com.lxg.common.web.LxgAction">
+        </action>
+    
+        <action name="*UTiMAPSApi" method="{1}" class="com.utimaps.web.api.UtmApiAction"/> 
+    
+        <!--Added @15Feb2024 : Workflow Action-->
+        <action name="/*RouteJobMain" method="{1}" class="com.sains.workflow.web.RouteJobMainAction">
+            <result name="load_assign_page">/workflow/jobAssignRoute.jsp</result>
+            <result name="load_edit_page">/workflow/${jspPrefix}jobMainRoute.jsp</result>
+            <result name="load_group_list">/workflow/jobMainRoute_grp.jsp</result>
+            <result name="load_batch_sign_page">/workflow/jobMainRoute_batchSign.jsp</result>
+            <result name="load_job_content">/workflow/${jspPrefix}jobContentRoute.jsp</result>
+            <result name="load_unassignJob">/workflow/unassignJobRoute.jsp</result>
+            <result name="success">/workflow/jobMainRoute.jsp</result>
+            <result name="refresh_edit" type="redirectAction">
+                <param name="actionName">loadEditPageRouteJobMain</param>
+            </result>
+            <result name="insert_fail">/workflow/jobMainRoute.jsp</result>
+            <result name="load_search_page">/workflow/unassignJobRoute.jsp</result>
+            <result name="load_batch_endorse_page">/workflow/batchEndorseJobRoute.jsp</result>
+            <result name="load_batch_approval_page">/workflow/batchApprovalJobRoute.jsp</result>
+            <result name="load_endorse_gazette_page">/workflow/endorseGazetteJob.jsp</result>
+            <result name="load_user_task_history">/espa/noDeco/taskUserHistory.jsp</result>
+        </action>
+        
+        <action name="/*RouteJobAdmin" method="{1}" class="com.sains.workflow.web.RouteJobAdminAction">
+            <!--<result name="load_edit_page">/workflow/${jspPrefix}jobAdminRoute.jsp</result>-->
+            <result name="load_edit_page">/workflow/${jspPrefix}jobAdminRoute.jsp</result>
+            <result name="load_edit_fail">/workflow/${jspPrefix}jobAdminRoute.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">loadEditPageRouteJobAdmin</param>
+                <param name="id">${id}</param>
+                <param name="action">${action}</param>
+            </result>
+            <result name="update_fail">/workflow/${jspPrefix}jobAdminRoute.jsp</result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        
+        <!--Checklist Setup-->
+        <action name="*ChecklistSetup" method="{1}" class="com.utimaps.web.ChecklistSetupAction">
+            <result name="load_add_page">/utimaps/setup/addChecklistSetup.jsp</result>
+            <result name="load_edit_page">/utimaps/setup/editChecklistSetup.jsp</result>            
+            <result name="load_main_page">/utimaps/setup/viewChecklist.jsp</result>
+            <result name="success">/utimaps/setup/viewChecklist.jsp</result>
+            <result name="update_fail" >/utimaps/setup/editChecklistSetup.jsp</result>
+            <result name="insert_fail" >/utimaps/setup/addChecklistSetup.jsp</result>
+            <result name="edit_fail" >/utimaps/setup/editChecklistSetup.jsp</result>
+            <result name="load_add_checklist_item_page">/utimaps/setup/addChecklistItem.jsp</result>
+            <result name="redirect_to_checklist_page" type="redirectAction">
+                <param name="actionName">loadMainPageChecklistSetup</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="error" >/pages/login.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">${action}</param>
+                <param name="retrieve">y</param>
+                <param name="msg">${redirectMessage}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">dynamicAction</param>
+                <param name="action">USJ_ChecklistSetup</param>
+                <param name="retrieve">y</param>
+            </result>
+        </action>
+        
+        <action name="*USJ" method="{1}" class="com.utimaps.web.SurveyJobAction">
+            <result name="load_application_page">/utimaps/usj/new_application_verify.jsp</result>
+            <!--<result name="load_reject_application_page">/utimaps/usj/new_application_reject.jsp</result>-->
+            <result name="return_to_edit_page" type="redirectAction">
+                <param name="actionName">${actionName}</param>
+                <param name="caseId">${caseId_}</param>
+                <param name="id">${id}</param>
+                <param name="wfActivityCode">${wfActivityCode}</param>
+                <param name="taskId_">${taskId_}</param>
+            </result>
+            <result name="pdfViewer" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">64</param>
+            </result>
+            <result name="redirect_job" type="redirectAction">
+                <param name="actionName">loadEditPageRouteJobMain</param>
+            </result>
+            <result name="fileDownload" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <!--<param name="bufferSize">64</param>-->
+            </result>
+            <result name="no_deco" >/pages/no_decoration.jsp</result>
+            <result name="load_case_summary_page" >/utimaps/job_listing/caseSummary.jsp</result>
+        </action>
+        
+        <action name="*Issuance" method="{1}" class="com.utimaps.web.IssuanceJobAction">
+            <result name="load_edit_page">/utimaps/usj/issuance_survey_job.jsp</result>
+            <result name="return_to_edit_page" type="redirectAction">
+                <param name="actionName">${actionName}</param>
+                <param name="jobId">${jobId_}</param>
+                <param name="caseId">${caseId_}</param>
+                <!--<param name="id">${id}</param>-->
+                <param name="wfActivityCode">${wfActivityCode}</param>
+                <param name="taskId_">${taskId_}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="pdfViewer" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">64</param>
+            </result>
+            <result name="redirect_job" type="redirectAction">
+                <param name="actionName">loadEditPageRouteJobMain</param>
+            </result>
+            <result name="fileDownload" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <!--<param name="bufferSize">64</param>-->
+            </result>
+        </action>
+        <action name="*Submission" method="{1}" class="com.utimaps.web.SubmissionAction">
+            <result name="load_digital_verify_page">/utimaps/submission/verify_digi_sub.jsp</result>
+            <result name="load_hardcopy_verify_page">/utimaps/submission/verify_hard_sub.jsp</result>
+            <result name="load_survey_comp_page">/utimaps/submission/check_survey_comp.jsp</result>
+            <result name="load_plan_check_page">/utimaps/submission/check_detailed_plan.jsp</result>
+            <result name="load_uscs10_page">/utimaps/submission/prep_uscs10.jsp</result>
+            <result name="load_uscs10H_page">/utimaps/submission/prep_uscs10H.jsp</result>
+            <result name="load_uscs20_page">/utimaps/submission/prep_uscs20.jsp</result>
+            <result name="load_uscs30_page">/utimaps/submission/prep_uscs30.jsp</result>
+            <result name="load_uscs40_page">/utimaps/submission/prep_uscs40.jsp</result>
+            <result name="load_uscs50_page">/utimaps/submission/prep_uscs50.jsp</result>
+            <result name="load_uscs60_page">/utimaps/submission/prep_uscs60.jsp</result>
+            <result name="load_uscs70_page">/utimaps/submission/prep_uscs70.jsp</result>
+            <result name="load_uscs80_page">/utimaps/submission/prep_uscs80.jsp</result>
+            <result name="load_uscs90_page">/utimaps/submission/prep_uscs90.jsp</result>
+            <result name="redirect_job" type="redirectAction">
+                <param name="actionName">loadEditPageRouteJobMain</param>
+            </result>
+            <result name="return_to_edit_page" type="redirectAction">
+                <param name="actionName">${actionName}</param>
+                <param name="jobId">${jobId_}</param>
+                <param name="caseId_">${caseId_}</param>
+                <param name="caseId">${caseId_}</param>
+                <param name="wfActivityCode">${wfActivityCode}</param>
+                <param name="taskId_">${taskId_}</param>
+                <param name="actionMessages">${actionMessages}</param>
+            </result>
+            <result name="pdfViewer" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">64</param>
+            </result>
+            <result name="load_job_summary_page" >/utimaps/job_listing/jobSummary.jsp</result>
+            <result name="load_add_cmslot" >/utimaps/job_listing/searchJobs.jsp</result>
+            <result name="api_page" >/utimaps/submission/api_page.jsp</result>
+            <result name="no_deco" >/pages/no_decoration.jsp</result>
+            
+            <result name="load_assign_spatial" >/utimaps/submission/assign_spatial.jsp</result>
+            <result name="load_spatial_check_page">/utimaps/submission/check_spatial_data.jsp</result>
+        </action>
+        
+        <action name="*Hrdcpy" method="{1}" class="com.utimaps.web.HardcopyJobAction">
+            <result name="init_hardcopy_page">/utimaps/submission/init_hardcopy.jsp</result>
+        </action>
+        
+        <action name="*FieldQuery" method="{1}" class="com.utimaps.web.FieldQueryAction">
+            <result name="init_query_page">/utimaps/submission/field_query/init_field_query.jsp</result>
+            <result name="detail_query_page">/utimaps/submission/field_query/detail_query.jsp</result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">loadInitPageFieldQuery</param>
+            </result>
+        </action>
+        
+        <action name="*MapViewer" method="{1}" class="com.utimaps.web.MapViewerAction">
+            <result name="load_view_page">/utimaps/map/map_viewer.jsp</result>
+        </action>
+        
+        <action name="*MiscPlan" method="{1}" class="com.utimaps.web.MiscellaneousPlanAction">
+            <result name="load_add_page">/utimaps/misc_plan/new_misc_plan.jsp</result>
+            <result name="load_edit_page">/utimaps/misc_plan/new_misc_plan.jsp</result>
+            <result name="load_search_page">/utimaps/misc_plan/search_misc_plan.jsp</result>
+            <result name="cancel" type="redirectAction">
+                <param name="actionName">loadSearchPageMiscPlan</param>
+            </result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">loadEditPageMiscPlan</param>
+                <param name="id">${ID}</param>
+            </result>
+            <result name="insert_fail" >/utimaps/misc_plan/new_misc_plan.jsp</result>
+            <result name="edit_fail" type="redirectAction">
+                <param name="actionName">loadEditPageMiscPlan</param>
+                <param name="id">${ID}</param>
+            </result>
+        </action>
+        
+        <action name="*DBA" method="{1}" class="com.sains.framework.base.web.DbAction">
+            <result name="load_edit_page">/base/edit.jsp</result>
+            <result name="pageNotFound" >/base/pageNotFound.jsp</result>
+        </action>
+        
+        <action name="submit-application" method="submitApplication" class="com.utimaps.web.api.UtimapsSurveyJobApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-survey-job-submission" method="submitSJSubmission" class="com.utimaps.web.api.UtimapsSurveyJobApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="ack-hardcopy-submission" method="acknowledgeHardcopySubmit" class="com.utimaps.web.api.UtimapsSurveyJobApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-application-after-payment" method="submitApplicationAfterPayment" class="com.utimaps.web.api.UtimapsSurveyJobApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="call-workflow-after-precheck" method="callWorkflowAfterPrecheck" class="com.utimaps.web.api.UtimapsSurveyJobApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        
+        <action name="submit-application-test" method="submitApplicationTest" class="com.utimaps.web.api.UtimapsTestApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-application-test-after-payment" method="submitApplicationTestAfterPayment" class="com.utimaps.web.api.UtimapsTestApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-submission-test" method="submitUSJSubTest" class="com.utimaps.web.api.UtimapsTestApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-submission2-test" method="submitUSJSub2Test" class="com.utimaps.web.api.UtimapsTestApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-submission3-test" method="submitUSJNC" class="com.utimaps.web.api.UtimapsTestApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        
+        <action name="/*RouteApi" method="{1}" class="com.sains.workflow.web.WorkflowApiAction">
+            <interceptor-ref name="defaultStack"/>
+
+        </action>
+
+        <action name="update-misc-doc" method="updateMiscDoc" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="update-app-util" method="updateApplication" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="update-sj-sub" method="updateSJSubmission" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="update-notif-status" method="updateNotificationStatus" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="init-traverse-precheck" method="initTraversePrecheck" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>        
+        <action name="get-precheck-status" method="getPrecheckStatus" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>        
+        <action name="sign-dsp" method= "pbSignDigitalPlans" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">application/x-pkcs12</param>
+                <param name="maximumSize">2097152</param> <!-- 2MB -->
+            </interceptor-ref>
+        </action>
+        <action name="revoke-dsp" method="pbRevokeDigitalPlans" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        
+        <action name="get-app-util" method="getApplication" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-sj-sub" method="getSubmission" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="submit-app-util" method="submitApplication" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="new-app-util" method="newApplication" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="new-sj-submission" method="newJobSubmission" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-all-case-count" method="getAllCaseCount" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-all-notif-list" method="getAllNotifList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-all-case-list" method="getAllCaseList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-paymentcase-list" method="getPaymentCaseList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-pending-list" method="getPendingItemsList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-payment-details" method="retrievePayment" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="update-payment-details" method="updatePayment" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="load-select-list" method="loadSelectList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="load-dist-check-list" method="loadDistCheckList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-selected-dist" method="loadSelectedDist" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="/*Attachment" method="{1}" class="com.pb.web.AttachmentUploadAction">
+            <result name="singleFile" >/sample/uppySingleFile.jsp</result>
+            <result name="multiFile" >/sample/uppyMultiFile.jsp</result>
+            <result name="fileDownload" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">1024</param>
+                <!--<param name="bufferSize">64</param>-->
+            </result>
+        </action>
+
+    </package>
+    <package name="publicutimaps" namespace="/public-api" extends="json-default">
+        <interceptors>
+            <interceptor name="authentication"
+                         class="com.sains.framework.base.web.AuthenticationInterceptor">
+            </interceptor>
+            <interceptor-stack name="authStack">
+                <interceptor-ref name="authentication"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="authStack"></default-interceptor-ref>
+        <global-results>
+            <result type="json">
+                <param name="root">jsonMaps</param>
+            </result>
+            <result name="expired" type="chain">expired</result>
+        </global-results>
+        <action name="publicSessionInfo" method="retrieveSessionInfo" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="publicSessionInfo2" method="tempRetrieveSessionInfo" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-payment-listing" method="getPaymentCaseList" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <action name="get-payment-details" method="retrievePayment" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        <action name="retrievebalanceAcc" method="retrieveUserPrepaymentDetails" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        <action name="updateBillRefNo" method="updateBillRefNo" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        <action name="paymentAcknowledgement" method="paymentAcknowledgement" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="fileDownload" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="printT126" method="printT126" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">${contentDisposition}</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        <action name="sPayCancel" method="sPayCancel" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        
+        <action name="sPayDecrypt" method="sPayDecrypt" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param>
+            </interceptor-ref>
+        </action>
+        <action name="processPayViaPrepaymentAcc" method="processPayViaPrepaymentAcc" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        
+        <!--serene @20/11/2024 :: aiman 4/12/2024@eis :: for OTP verify prepayment-->
+        <action name="publicSendNotification" method="publicSendNotification" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <!--             <interceptor-ref name="json">
+               <param name="enableSMD">true</param> 
+            </interceptor-ref>-->
+        </action>
+        
+        <action name="searchPaymentCashtran" method="searchPaymentCashtran" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        <action name="publicLogin" method="publicLogin" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        <action name="publicLogout" method="publicLogout" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        
+        <action name="getElasisUserBySwkId" method="getElasisUserBySwkId" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        
+        <action name="checkValidSurveyor" method="checkValidSurveyor" class="com.pb.web.PbUtimapsApiAction">
+            <interceptor-ref name="defaultStack"/>
+            <interceptor-ref name="json">
+                <param name="enableSMD">true</param> 
+            </interceptor-ref>
+        </action>
+        
+        
+    </package>
+</struts>

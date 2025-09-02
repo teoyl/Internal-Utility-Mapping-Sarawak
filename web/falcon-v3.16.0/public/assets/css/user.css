@@ -1,0 +1,21 @@
+/* -------------------------------------------------------------------------- */
+/*                                Falcon Button                               */
+/* -------------------------------------------------------------------------- */
+/* prettier-ignore */
+/*# sourceMappingURL=user.css.map */
+.asterisk {
+  --falcon-text-opacity: 1;
+  color: rgba(var(--falcon-danger-rgb), var(--falcon-text-opacity)) !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.redBorder {
+    border: 2px solid #FF0000 !important;
+}
+
+.form-check label.redRequired::before {
+    border: 2px solid #FF0000;
+}

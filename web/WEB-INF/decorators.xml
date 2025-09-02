@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/decorators">
+    <excludes>
+        <pattern>/pages/scripts/validation.jsp*</pattern>
+        <pattern>/sample/bs/*</pattern> <!-- bubbleShell sample page-->
+        <pattern>/dq/dsColumns.jsp*</pattern>
+        <pattern>/dq/b4_dsColumns.jsp*</pattern>
+        <pattern>/dq/b5_dsColumns.jsp*</pattern>
+        <pattern>/pages/globalError_logout.jsp*</pattern>
+        <pattern>/pages/error403.jsp</pattern>
+        <pattern>/pages/error404.jsp</pattern>
+        <pattern>/pages/error500.jsp</pattern>
+        <pattern>/pages/undermaintenance.jsp*</pattern>
+        <pattern>/pages/lookup/bootstrapLookup_list.jsp*</pattern>
+        <pattern>/pages/login.jsp*</pattern>
+        <pattern>/pages/no_decoration.jsp*</pattern>
+        <pattern>/report/dynamicReportViewer*</pattern>
+        <pattern>/pages/lookup/lookup_list_modal.jsp*</pattern>
+        <pattern>/pages/lookup/lookup_login_modal.jsp*</pattern>
+        <pattern>/pages/lookup/b4_lookup_list_modal.jsp*</pattern>
+        <pattern>/pages/lookup/b4_lookup_login_modal.jsp*</pattern>
+        <pattern>/pages/lookup/b5_lookup_list_modal.jsp*</pattern>
+        <pattern>/pages/lookupError.jsp*</pattern>
+        <pattern>/pages/base/dynamicRpt.jsp*</pattern>
+        <pattern>/pages/map_sso_uid.jsp</pattern>
+        <!-- for workflow : start -->
+        <pattern>/workflow/jobContentRoute.jsp*</pattern>
+        <pattern>/workflow/b4_jobContentRoute.jsp*</pattern>
+        <pattern>/workflow/b5_jobContentRoute.jsp*</pattern>
+        <pattern>/workflow/unassignJobRoute.jsp*</pattern>
+        <pattern>/pages/itemChange/*</pattern>
+        <pattern>/no_deco/*</pattern>
+        <pattern>/admin/hibernateInformation.jsp*</pattern>
+        <!-- for workflow : end -->
+    </excludes>
+    <decorator name="popup" page="popup.jsp">
+        <pattern>/pages/lookup/*</pattern>
+    </decorator>
+    <decorator name="panel1" page="panel1.jsp">
+        
+    </decorator>
+    
+    <decorator name="public" page="b5_global_pb.jsp">
+        <pattern>/public/*</pattern>
+    </decorator>
+    <!--project-->
+    <decorator name="main" page="b5_global.jsp">
+    <!--<decorator name="main" page="b4_global.jsp">-->
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

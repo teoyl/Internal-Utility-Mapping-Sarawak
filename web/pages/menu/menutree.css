@@ -1,0 +1,159 @@
+.treeview2{
+margin: 0px;
+padding: 0px;  
+background:#F7F7F7;
+}
+
+.treeview2 .selected{
+  
+}
+
+.treeview2 li.leaf{ /*Style for LI elements in general (excludes an LI that contains sub lists)*/
+/*background: white url(images/leaf.gif) no-repeat left center;*/
+list-style-type: none;
+padding-left: 0px;
+/*margin-bottom: 3px;*/
+}
+
+.treeview2 ul{ /*CSS for Simple Tree Menu*/
+margin-left: 12px;
+padding: 0px;
+
+}
+
+.treeview2 li.submenu { /* Style for LI that contains sub lists (other ULs). */
+/*background: white url(images/plus.gif) no-repeat left 1px;*/
+list-style-type: none;
+cursor: hand !important;
+cursor: pointer !important;
+}
+
+.treeview2 li.submenu ul{ /*Style for ULs that are children of LIs (submenu) */
+display: none; /*Hide them by default. Don't delete. */
+
+}
+
+.treeview2 .submenu ul li{ /*Style for LIs of ULs that are children of LIs (submenu) */
+
+cursor: default;
+
+}
+
+.treeview2 span.img { /* Style for LI that contains sub lists (other ULs). */
+background: url(images/menu_arrow_close.gif) no-repeat;
+background-position: 0px 7px;
+display:block;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-left: 15px;
+cursor: hand !important;
+cursor: pointer !important;
+/*
+position:relative; 
+top:8px; */
+
+}
+
+.treeview2 span.imgLeaf { /* Style for LI that contains sub lists (other ULs). */
+background: url(images/menu_arrow_leaf.gif) no-repeat;
+background-position: 0px 7px;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-left: 15px;
+cursor: hand !important;
+cursor: pointer !important;
+display:block;
+/*
+position:relative; 
+top:8px; */
+}
+
+
+.treeview2 .text { 
+  font-size: 8pt; 
+  font-family: Verdana; 
+  vertical-align: middle; 
+  text-decoration: none; 
+  padding-left:0px;
+  display:block; 
+  width:95%;
+  height:5%;
+  /*position:relative; 
+  top:-6px; 
+  left:15px;*/
+}
+
+.treeview2 .textLeaf { 
+  font-size: 8pt; 
+  font-family: Verdana; 
+  vertical-align: middle; 
+  text-decoration: none;
+  display:block; 
+  width:95%;
+  height:5%;
+  /*position:relative; */
+  /*top:-3px; 
+  left:2px;*//*
+  top:-6px; 
+  left:15px;*/
+  
+}
+
+.treeview2 div
+{
+  display:inline;
+  /*margin-bottom:-15px; */
+}
+
+.treeview2 .toplevel { 
+  font-size: 8pt; 
+  display:block; 
+  /*background:#43908C; */
+  /*background:#0769AA; *//* Dark Blue */
+  background:#207B24; /*Dark Green */
+  
+  /*background:#4275B4; *//*Test*/
+  
+  color: white; 
+  font-family: Verdana;  
+  font-weight: bold;
+  text-decoration: none; 
+  /*
+  padding-top:2px; 
+  padding-bottom:4px; 
+  padding-left:2px
+  */
+}
+
+/*
+.treeview2 .toplevel .menutree, .menutree:visited, .menutree:active {
+  color: white; text-decoration: none
+}
+.treeview2 .toplevel .menutree:hover {
+	color: blue; text-decoration: none
+}
+
+.treeview2 .menutree, .menutree:visited, .menutree:active { 
+	color: black; text-decoration: none
+}
+.treeview2 .menutree:hover {
+	color: blue; text-decoration: none
+}
+*/
+
+.treeview2 .toplevel a, .toplevel a:visited, .toplevel a:active {
+  color: white; text-decoration: none
+}
+/*
+.treeview2 .toplevel a:hover {
+	color: blue; text-decoration: none
+}*/
+
+
+.treeview2 .menutree, .menutree:visited, .menutree:active {
+  color: black; text-decoration: none
+}
+.treeview2 .menutree:hover {
+	color: blue; text-decoration: none
+}
+

@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usjJobStatusReport" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41142cd7-305c-4f34-a972-b0ef2ffa2680">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="jobsBySurveyOrganisationDataset" uuid="a9487d14-3baf-42f9-85d6-56ef153d0af0">
+		<parameter name="pQualityLevel" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="pCategory" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="pProvider" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="pSurveyor" class="java.lang.String" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(uj.usj_submission_date, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pFilterCategory" class="java.lang.String">
+			<defaultValueExpression><![CDATA[( $P{pCategory} == null || $P{pCategory}.equals( "" ) ? "" : "AND uj.control_sv_flag = '"+$P{pCategory}+"'"  )]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pFilterQualityLevel" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pQualityLevel} == null || $P{pQualityLevel}.equals( "" ) ? "" : "AND uj.qual_level = '"+$P{pQualityLevel}+"'"  )]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pFilterSurveyor" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[($P{pSurveyor} == null || $P{pSurveyor}.equals( "" )? "" : "AND LOWER(uj.licensed_surveyor) LIKE lower('%"+$P{pSurveyor}+"%')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT uj.USJ_NO, uj.CONTROL_SV_FLAG, uj.QUAL_LEVEL,
+(SELECT code_desc FROM PUBCODE p WHERE code_type = 'SOC' AND code_1 = uj.US_SO_ID) AS surveyOrganisation,
+' ' AS utilityProvider, nvl(TO_CHAR(uj.USJ_SUBMISSION_DATE, 'dd/mm/yyyy'), '-') AS dateCompleted,
+' ' AS ssName,
+CASE WHEN uj.WF_STATUS_2 IS NULL THEN (SELECT code_desc FROM T_SETUP_CODE WHERE code_type = 'JWS' AND code_1 = uj.wf_status)
+	ELSE (SELECT code_desc FROM T_SETUP_CODE WHERE code_type = 'JWS' AND code_1 = uj.wf_status_2) END AS ssAction
+FROM US_JOBDETAIL uj
+WHERE uj.JOB_ID IS NOT NULL
+and uj.WF_STATUS_2 IN ('350', '351')
+$P!{pFilterCategory}
+$P!{pFilterDate}
+$P!{pFilterQualityLevel}
+$P!{pFilterSurveyor}]]>
+		</queryString>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="CONTROL_SV_FLAG" class="java.lang.String"/>
+		<field name="QUAL_LEVEL" class="java.lang.String"/>
+		<field name="SURVEYORGANISATION" class="java.lang.String"/>
+		<field name="UTILITYPROVIDER" class="java.lang.String"/>
+		<field name="DATECOMPLETED" class="java.lang.String"/>
+		<field name="SSNAME" class="java.lang.String"/>
+		<field name="SSACTION" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="completedJobDataset" uuid="bd556eb4-4a18-4a9a-9a19-b07b16ef70aa">
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(uj.usj_submission_date, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT uj.USJ_NO,
+TO_CHAR(uph.PROCESS_DATE, 'dd/mm/yyyy') AS date_completed,
+(SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = uph.PROCESS_BY) AS ssName FROM US_JOBDETAIL uj
+INNER JOIN US_PROCESSING_HISTORY uph ON uj.JOB_ID = uph.CASE_ID AND uph.PROCESS_CODE = '351'
+WHERE uj.WF_STATUS_2 = '351'
+$P!{pFilterDate}
+ORDER BY uj.USJ_YEAR, uj.USJ_SEQ asc]]>
+		</queryString>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="DATE_COMPLETED" class="java.lang.String"/>
+		<field name="SSNAME" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="kivJobDataset" uuid="53ae0b5c-f51d-4977-95e1-6d9ade122c86">
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(uj.usj_submission_date, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[SELECT uj.USJ_NO,
+TO_CHAR(uph.PROCESS_DATE, 'dd/mm/yyyy') AS date_completed,
+(SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = uph.PROCESS_BY) AS ssName FROM US_JOBDETAIL uj
+INNER JOIN US_PROCESSING_HISTORY uph ON uj.JOB_ID = uph.CASE_ID AND uph.PROCESS_CODE = '301'
+WHERE uj.WF_STATUS_2 = '310']]>
+		</queryString>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="DATE_COMPLETED" class="java.lang.String"/>
+		<field name="SSNAME" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="queryJobDataset" uuid="8dd4096e-e9a9-47bf-8fba-a928648f5a09">
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(uj.usj_submission_date, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT uj.USJ_NO,
+TO_CHAR(uph.PROCESS_DATE, 'dd/mm/yyyy') AS date_queried,
+(SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = uph.PROCESS_BY) AS ssName FROM US_JOBDETAIL uj
+INNER JOIN US_PROCESSING_HISTORY uph ON uj.JOB_ID = uph.CASE_ID AND uph.PROCESS_CODE = '301'
+WHERE uj.WF_STATUS_2 IN ('136', '146', '164', '202', '205', '222', '282')
+$P!{pFilterDate}
+ORDER BY uj.USJ_YEAR, uj.USJ_SEQ asc]]>
+		</queryString>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="DATE_QUERIED" class="java.lang.String"/>
+		<field name="SSNAME" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="outstandingJobDataset" whenResourceMissingType="Empty" uuid="ddedd457-565a-4cef-b7f8-0d977af42bbb">
+		<parameter name="pOfficer" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[$P{pOfficer}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pFilterOfficer" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pOfficer}.equals( " " )||$P{pOfficer} == null ? "" : "AND ujs.TASK_ASSIGN_TO LIKE '%"+$P{pOfficer}+"%'" )]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(uj.usj_submission_date, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT uj.USJ_NO, uj.JOB_ID ,
+TO_CHAR(ujs.STATUS_DATE, 'dd/mm/yyyy') AS date_assigned,
+nvl((SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = ujs.CREATED_BY), ujs.CREATED_BY) AS assign_from,
+nvl((SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = ujs.TASK_ASSIGN_TO), ujs.TASK_ASSIGN_TO) AS assign_to,
+(SELECT code_desc FROM T_SETUP_CODE WHERE code_type = 'JWS' AND code_1 = uj.wf_status_2 ) AS cc_action
+FROM US_JOBDETAIL uj
+INNER JOIN US_JOB_STATUS ujs ON uj.JOB_ID = ujs.CASE_ID AND ujs.CUR_STATUS = 'N'
+WHERE uj.WF_STATUS_2 NOT IN ('301', '310', '106', '136', '146', '164', '202', '205', '222', '282')
+ORDER BY uj.USJ_YEAR, uj.USJ_SEQ asc]]>
+		</queryString>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="JOB_ID" class="java.lang.String"/>
+		<field name="DATE_ASSIGNED" class="java.lang.String"/>
+		<field name="ASSIGN_FROM" class="java.lang.String"/>
+		<field name="ASSIGN_TO" class="java.lang.String"/>
+		<field name="CC_ACTION" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="officerJobDataset" uuid="74512ef5-5542-4229-a44a-95d7ee1032f5">
+		<parameter name="pOfficer" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pFilterOfficer" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pOfficer}==null || $P{pOfficer}.equals( "" ) ? "" : "AND lower(tsu.US_USER_NAME) LIKE LOWER('%"+$P{pOfficer}+"%')" )]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pDateFrom" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pDateTo" class="java.util.Date" isForPrompting="false"/>
+		<parameter name="pFilterDate" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[( $P{pDateTo}== null || $P{pDateTo}.equals( "" ) ? "" : "AND TO_DATE(to_char(ujs.STATUS_DATE, 'dd/MM/yyyy'),'dd/MM/yyyy') BETWEEN TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+"', 'dd/MM/yyyy') AND TO_DATE('"+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo})+"', 'dd/MM/yyyy')" )]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT TO_CHAR(ujs.STATUS_DATE , 'dd/mm/yyyy') AS dateAssigned,
+nvl((SELECT us_user_name FROM T_SETUP_USER WHERE us_user_id = ujs.STATUS_BY), ujs.status_by) AS assignedBy,
+nvl(tsu.US_USER_NAME, '-') as us_user_name,
+nvl(uj.USJ_NO, uap.CASE_REF) AS usj_no,
+(SELECT code_desc FROM T_SETUP_CODE WHERE code_type = 'JWS' AND code_1 = ujs.STATUS_CODE) AS cc_action
+FROM US_JOB_STATUS ujs
+LEFT JOIN US_JOBDETAIL uj ON ujs.CASE_ID = uj.JOB_ID OR ujs.CASE_ID = uj.CASE_ID
+LEFT JOIN US_APPLICATION_P uap ON ujs.CASE_ID = uap.CASE_ID
+LEFT JOIN T_SETUP_USER tsu ON ujs.TASK_ASSIGN_TO = tsu.US_USER_ID
+WHERE ujs.status_date IS NOT NULL
+$P!{pFilterOfficer}
+$P!{pFilterDate}
+ORDER BY uj.usj_no, ujs.STATUS_DATE asc]]>
+		</queryString>
+		<field name="DATEASSIGNED" class="java.lang.String"/>
+		<field name="ASSIGNEDBY" class="java.lang.String"/>
+		<field name="US_USER_NAME" class="java.lang.String"/>
+		<field name="USJ_NO" class="java.lang.String"/>
+		<field name="CC_ACTION" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="pReportType" class="java.lang.String"/>
+	<parameter name="pOfficer" class="java.lang.String"/>
+	<parameter name="pUsLoginId" class="java.lang.String"/>
+	<parameter name="pDateFrom" class="java.util.Date"/>
+	<parameter name="pDateTo" class="java.util.Date"/>
+	<parameter name="pSurveyor" class="java.lang.String"/>
+	<parameter name="pProvider" class="java.lang.String"/>
+	<parameter name="pCategory" class="java.lang.String"/>
+	<parameter name="pQualityLevel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select count(*) FROM US_JOBDETAIL]]>
+	</queryString>
+	<field name="COUNT(*)" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="106" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="0" y="0" width="103" height="103" uuid="1d04381c-057b-4568-b58f-12d19df91fcb"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "lns_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="257" y="0" width="288" height="20" uuid="429e0873-678b-4aae-888c-cbab46114eef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAND AND SURVEY DEPARTMENT SARAWAK]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="172" y="72" width="439" height="20" uuid="1bfb6c7c-3357-42da-8b79-11e92463b400"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $P{pReportType}.equals( "completedBySO" ) ? "Jobs completed by Survey Organisation / Utility Provider" :
+( $P{pReportType}.equals( "jobsByOfficer" ) ? "Show Jobs by Officer" :
+( $P{pReportType}.equals( "completedJob" ) ? "Number of Jobs Completed" :
+( $P{pReportType}.equals( "kivJob" ) ? "Number of Jobs KIV" :
+( $P{pReportType}.equals( "queryJob" ) ? "Number of Jobs Under Query" :
+( $P{pReportType}.equals( "outstandingJob" ) ? "Outstanding Jobs by Officer" : "" ))))))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="697" y="40" width="49" height="20" uuid="5741e354-cf28-403f-866e-4ff9e53e28f8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<text><![CDATA[User Id : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="697" y="0" width="49" height="20" uuid="bbe38db5-2ebc-4c6e-9860-5d9559f08ca4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date as at :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="697" y="20" width="49" height="20" uuid="ad1b569f-6f35-4c7d-a5a8-0f80397a69b6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="746" y="20" width="40" height="20" uuid="840ee6f9-d6c9-4e6d-91a5-1adf6db85e72"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="746" y="0" width="56" height="20" uuid="e5cbc573-a50a-4953-ab4e-aa755105d145"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="746" y="40" width="56" height="20" uuid="db7d2cf2-7e4f-43ed-9166-4857f0e78d4b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pUsLoginId}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="85" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="13" width="352" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="9b5abba3-b68e-4961-a12d-83529527ff05"/>
+				<textElement>
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{pDateFrom} == null && $P{pDateTo} == null)? "Date Completed : From - To As at Today"
+: ($P{pDateFrom} != null && $P{pDateTo} != null)? "Date Completed: From "+ new SimpleDateFormat("dd/MM/yyyy").format($P{pDateFrom})+" To "+new SimpleDateFormat("dd/MM/yyyy").format($P{pDateTo}): ""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="28" width="352" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c49a288b-4e0f-480d-91b7-ef9a046f814b">
+					<printWhenExpression><![CDATA[$P{pCategory} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["USJ Category: " + ( $P{pCategory}.equals( "Y" )? "With Traverse" : "Without Traverse" )]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="43" width="352" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="4faa8ef4-f89c-4733-8e5e-08671c5265ed">
+					<printWhenExpression><![CDATA[$P{pQualityLevel} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["USJ Quality Level: " + $P{pQualityLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="58" width="352" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b5a52725-829e-44b6-9319-34c61e96d11a">
+					<printWhenExpression><![CDATA[$P{pOfficer} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Officer's Name: " + $P{pOfficer}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{pReportType}.equals( "completedBySO" )]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="802" height="50" uuid="aaa39975-85eb-460b-bba9-a219e19e8b64"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="jobsBySurveyOrganisationDataset" uuid="cb7daeb2-6f2e-462d-b40c-91d6844b905b">
+						<datasetParameter name="pQualityLevel">
+							<datasetParameterExpression><![CDATA[$P{pQualityLevel}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pCategory">
+							<datasetParameterExpression><![CDATA[$P{pCategory}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pProvider">
+							<datasetParameterExpression><![CDATA[$P{pProvider}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pSurveyor">
+							<datasetParameterExpression><![CDATA[$P{pSurveyor}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateTo">
+							<datasetParameterExpression><![CDATA[$P{pDateTo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateFrom">
+							<datasetParameterExpression><![CDATA[$P{pDateFrom}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="27" uuid="211c05e2-a776-4ab6-b5ee-ff6c2546a286">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="27" height="30" uuid="36294209-d557-4175-a525-5bd1a5d92cdd"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="27" height="21" isPrintWhenDetailOverflows="true" uuid="88ddc02e-8396-4d5f-9160-caef0d640af3"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="52296600-ffec-428c-8187-0a75380f661d">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="04565a09-bbcc-434b-bc7a-0d06aa006fd5"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="986528a9-19c0-4b9d-811d-a9873b9d8f88"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{USJ_NO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ad906703-6c22-48f7-b5db-3eb06bffd2a3">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c745f6e4-dec7-48ee-b8ca-9e3fb0585fc4"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ Category]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="e2c21c26-1493-42f2-929b-2f2697ebc1f1"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[( $F{CONTROL_SV_FLAG}.equals( "Y" )? "With Traverse" : "Without Traverse" )]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="5c335726-89e1-43d6-b9d6-b2e9cdc5d5cb">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="49278c77-7dbc-4ea6-985d-a05d1ea5bbd7"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ Quality Level]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="fa2481bb-9b57-4e69-bdaf-ad46e6e300c3"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{QUAL_LEVEL}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="812a01fa-beec-417e-b62b-a86d8a6b0055">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="cc122248-1337-4605-ba74-8e6358590806"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Survey Organisation]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="e573985c-7b65-4ee6-b05c-1a752eab88ce"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SURVEYORGANISATION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="76650fbc-c421-4e05-b89d-4a7712e2b0b9">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="88944d7a-6942-44ea-89d0-a97dee4f1fd0"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Utility Provider]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="67302ff8-c2d4-4d31-be82-79ad099909e0"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{UTILITYPROVIDER}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ef1ee52c-815e-4494-9b0a-21a9752391e3">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f3cfd2e6-2d94-466d-b4bc-9b83242dfa73"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Date Completed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="4cd0853e-dc6c-46aa-a76e-157fa7ad34a3"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DATECOMPLETED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d2f6dbd0-0a2c-4dfc-a676-808176d24631">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="9b9ddb84-d159-4192-bb78-4f9a65f5f536"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[SS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="90" height="20" isPrintWhenDetailOverflows="true" uuid="1d26d1fb-4654-45bb-8a06-d7bf4dc32d77"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SSNAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="143" uuid="cf17c6f8-0367-4b8e-9c4e-a5b79983a614">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="143" height="30" uuid="8afbcc50-a17d-4908-ba3f-1ef84382b2bc"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Action]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement positionType="Float" x="0" y="0" width="143" height="20" isPrintWhenDetailOverflows="true" uuid="91a5f6b1-f211-4d43-8a95-cd675ccfd885"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SSACTION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="58">
+			<printWhenExpression><![CDATA[$P{pReportType}.equals( "jobsByOfficer" )]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="0" y="0" width="802" height="50" uuid="bb16374e-5743-4cc8-b264-7e469969bc86"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="officerJobDataset" uuid="0fb9545e-16e9-4a7e-8597-a02b25611e90">
+						<datasetParameter name="pOfficer">
+							<datasetParameterExpression><![CDATA[$P{pOfficer}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateTo">
+							<datasetParameterExpression><![CDATA[$P{pDateTo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateFrom">
+							<datasetParameterExpression><![CDATA[$P{pDateFrom}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="33" uuid="ebfd1323-d67b-4bb7-a214-194b178b066a">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="33" height="30" uuid="cfd0ad0b-d2ea-4ee9-91b1-b9e12287495b"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="33" height="20" uuid="c3c50132-4684-4164-a696-b49fb75e1352"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="112" uuid="99523d4f-152c-44ec-9a6b-ed3b5b51f0d2">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="112" height="30" uuid="099a03d7-48c5-4894-8ed2-44c74e2a24cf"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="112" height="20" uuid="5900c769-d871-40d7-8186-2799cdcf8630"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{USJ_NO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="179" uuid="d8a25754-0d33-42f8-8e75-cafbb4fcb3a0">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="179" height="30" uuid="5774178f-88f3-40e3-96c9-bae62355c0f7"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[From]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="179" height="20" uuid="9023f971-2d34-4ad5-9acf-83b18aa082f6"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ASSIGNEDBY}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="181" uuid="ccd640aa-597c-41f6-9708-562fb6cd0429">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="181" height="30" uuid="37ca4ff2-5f4e-4879-8d09-de2e6dd14954"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[To]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="181" height="20" uuid="71a49e27-71ce-47df-95d7-bfcaa3fda428"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{US_USER_NAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="42ef86a0-e317-4bb5-b9cd-63f4a932c8de">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="b73be6a1-2e11-4386-ab5b-a87ab0ba98b5"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="cc51c7b8-acf8-40fd-af6d-e021263ae2a6"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DATEASSIGNED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="208" uuid="48cfb767-e895-4f23-9f21-96e82a4c523c">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="208" height="30" uuid="ce7c5f24-6a4c-471d-b130-4abe86fe44a9"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Action]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="208" height="20" uuid="fd364c86-d8e3-4e77-9a02-a023e4545733"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CC_ACTION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="53">
+			<printWhenExpression><![CDATA[$P{pReportType}.equals( "completedJob" )]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="117" y="0" width="568" height="50" uuid="a2542522-c170-4c11-933d-5e593e7a7bb5"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="completedJobDataset" uuid="e5ef7156-b97a-473b-a37b-7c467988750c">
+						<datasetParameter name="pDateFrom">
+							<datasetParameterExpression><![CDATA[$P{pDateFrom}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateTo">
+							<datasetParameterExpression><![CDATA[$P{pDateTo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="33" uuid="448866ea-624c-4614-8bfb-a66daae62005">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="33" height="30" uuid="6e4416c2-e71c-4cfd-8ec0-93acd86ed4b6"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="33" height="20" uuid="27bd2649-6b0c-4148-be2b-2d987c0e7ff5"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="8eba130b-670f-4ea3-9457-45aba058dfcb">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="5225969d-4b73-4d44-8359-d40798889389"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ No. ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="4903cb04-bc50-47e5-b466-bbfd61f8e967"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{USJ_NO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="109" uuid="ff1a7ad8-c0e1-4cb5-94dc-5da5bbe716e5">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="109" height="30" uuid="b92e08ba-879a-4b34-8737-fefb4c3e84ae"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Date Completed]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="109" height="20" uuid="da6a5fc6-5621-4673-9c4e-5a56e5d35a9c"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DATE_COMPLETED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="295" uuid="eb628875-6282-4304-adac-e5a5184f17eb">
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="295" height="30" uuid="93f45d11-6e2c-4688-a259-0ec1e34bd214"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[By]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="295" height="20" uuid="aac86bd1-6bec-40a5-972a-d7100fabb756"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{SSNAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[$P{pReportType}.equals( "queryJob" )]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" x="118" y="0" width="567" height="50" uuid="0f9a528e-2661-4e34-89e0-88d9f8d019d7"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="queryJobDataset" uuid="b7d4b8b1-c1cd-4474-bfe0-a1cb6a619cf9">
+						<datasetParameter name="pDateFrom">
+							<datasetParameterExpression><![CDATA[$P{pDateFrom}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateTo">
+							<datasetParameterExpression><![CDATA[$P{pDateTo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="33" uuid="08c297b5-eee5-4787-9763-79288ac6e916">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="33" height="30" uuid="012c0244-f19a-4e73-8702-63799e6f7be5"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<text><![CDATA[No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="33" height="20" uuid="d8edcd38-e9e5-4da8-98ab-299919ecdf00"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="6f674b71-f5fd-4f87-965f-530f21c2916f">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="f7cfd521-873d-425d-8b02-563f9ba1a22b"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<text><![CDATA[USJ No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="045ebcfb-ecb3-437c-b782-6d3882b6fd9a"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textFieldExpression><![CDATA[$F{USJ_NO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="110" uuid="0a3bb182-6ad2-40d5-8642-fc32cdbc020f">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="30" uuid="db607935-186d-4312-9305-d9cb13961121"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<text><![CDATA[Date Queried]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="20" uuid="b50e8b69-37cf-4bc0-92f9-22f37877c7e9"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textFieldExpression><![CDATA[$F{DATE_QUERIED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="301" uuid="4cf75242-9039-4fd2-bb94-61a9c128d26d">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="300" height="30" uuid="00e4b8d3-8d42-4e3c-a18d-475ea26f3385"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<text><![CDATA[By]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="300" height="20" uuid="f7a2a6b8-0f57-439e-8edf-05a696201a72"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textFieldExpression><![CDATA[$F{SSNAME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="50">
+			<printWhenExpression><![CDATA[$P{pReportType}.equals( "outstandingJob_hide" )]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 3" style="table 3" x="0" y="0" width="802" height="50" uuid="7866e184-04d6-416a-be9d-42eaa4ae9c6d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="outstandingJobDataset" uuid="ed628895-b396-447b-875b-25ab0fcf1a84">
+						<datasetParameter name="pOfficer">
+							<datasetParameterExpression><![CDATA[$P{pOfficer}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateTo">
+							<datasetParameterExpression><![CDATA[$P{pDateTo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pDateFrom">
+							<datasetParameterExpression><![CDATA[$P{pDateFrom}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="33" uuid="76afc0f9-ea66-4475-a134-16947517cb97">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="33" height="30" uuid="53693095-6154-4dbf-9907-ac009faf4a2f"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="33" height="20" uuid="3a5f680b-1665-4776-a0b9-6e5b6aadf529"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="112" uuid="663033cc-6288-406a-a878-aa7e942d6f23">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="112" height="30" uuid="f8a53141-10ce-47e5-8669-5c9cad76d402"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[USJ No.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="112" height="20" uuid="158a1a69-5f90-4ac2-947e-ef1ef9f7cfe3"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{USJ_NO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="179" uuid="a56205b8-a244-4c3b-a6d0-f5212bad82dc">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="179" height="30" uuid="e33ac7dd-aaab-4932-bda6-e43892b25e57"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[From]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="179" height="20" uuid="f476a608-c546-48ad-87be-c9bb6dea9bb9"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ASSIGN_FROM}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="181" uuid="920c3df1-bdad-41bf-9aaa-4e2da896b5b4">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="181" height="30" uuid="9de47657-4dda-4c4f-8350-abc3e2c18e10"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[To]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="181" height="20" uuid="5a32dce6-7444-404f-8ffb-8a548ccf3b3f"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ASSIGN_TO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="26464205-7efa-4f88-aeec-fd6d93584f40">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="51367872-b29a-436d-88dd-dac1ce65fde6"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="dc598a84-8434-4002-ad3f-7e37d5e18379"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DATE_ASSIGNED}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="208" uuid="321adbad-5bab-42e9-b2d5-4af1af0cac19">
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="208" height="30" uuid="506fa902-0ac3-4d03-adfe-6b514c38cb01"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<text><![CDATA[Action]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="208" height="20" uuid="fa69d512-430c-4db1-b16b-6e9b7e9ceb7e"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement>
+									<font fontName="Calibri"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CC_ACTION}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<noData>
+		<band height="65">
+			<staticText>
+				<reportElement x="0" y="21" width="802" height="20" uuid="af7e94fb-5c63-48dc-82ec-afc482b4b781"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[No Record Found]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

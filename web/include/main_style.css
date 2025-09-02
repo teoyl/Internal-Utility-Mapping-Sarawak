@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 8, 2024, 11:26:27 AM
+    Author     : yonglai
+*/
+
+.h-3rem {
+    height: 3rem;
+}
+.w-3rem {
+    width: 3rem;
+}
+
+[data-bs-theme=light] {
+    --bg-green: #d5eeee;
+}
+
+[data-bs-theme=dark] {
+    --bg-green: #222727;
+}
+
+.end-50px {
+    right: 50px;
+}

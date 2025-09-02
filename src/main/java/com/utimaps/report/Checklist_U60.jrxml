@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Checklist_IssueUSCS10" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="511" leftMargin="42" rightMargin="42" topMargin="42" bottomMargin="42" uuid="3aca294a-2145-4219-aa0f-3ae0c9be6824">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="315"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ChecklistDataset" uuid="f4443fa8-0ef3-4dcd-bd72-f69bb39133d2">
+		<parameter name="pChecklistId" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{pChecklistId}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="pCaseId" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{pCaseId}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT tsci.CI_DESC, tsci.CI_NOTES, tsci.CI_SEQUENCE, uci2.CL_RESULT, uci2.CL_REMARKS FROM T_SETUP_CHECKLIST tsc
+INNER JOIN T_SETUP_CHECKLIST_ITEM tsci
+ON tsci.CHECKLIST_ID = tsc.CHECKLIST_ID AND tsci.CI_STATUS = 'Y'
+LEFT JOIN US_CHECKLIST_ITEM uci2
+ON uci2.CI_ID = tsci.CI_ID AND uci2.CASE_ID = $P{pCaseId}
+WHERE tsc.CHECKLIST_ID = $P{pChecklistId}
+ORDER BY tsci.CI_SEQUENCE]]>
+		</queryString>
+		<field name="CI_DESC" class="java.lang.String"/>
+		<field name="CI_NOTES" class="java.lang.String"/>
+		<field name="CI_SEQUENCE" class="java.math.BigDecimal"/>
+		<field name="CL_RESULT" class="java.lang.String"/>
+		<field name="CL_REMARKS" class="java.lang.String"/>
+		<group name="CI_SEQUENCE">
+			<groupExpression><![CDATA[$F{CI_SEQUENCE}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="pCaseId" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{pCaseId}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT nvl(uc.CHECK_COMMENT_OIC, '-') AS check_comment,
+nvl((SELECT us_user_name FROM t_setup_user WHERE us_id=uc.CHECK_BY_OIC), '-') AS check_by,
+nvl(TO_CHAR(uc.CHECK_DATE_OIC, 'dd.MM.yyyy'), '-') AS check_date,
+nvl(TO_CHAR(uc.CHECK_DATE_OIC, 'dd.MM.yyyy'), '-') AS check_date,
+nvl(uc.comment_ss, '-') AS comment_ss,
+nvl((SELECT us_user_name FROM t_setup_user WHERE us_id=uc.check_by_ss), '-') AS check_by_ss,
+nvl(TO_CHAR(uc.check_date_ss, 'dd.MM.yyyy'), '-') AS check_date_ss,
+nvl(uc.comment_verify_oic, '-') AS comment_verify_oic,
+nvl((SELECT us_user_name FROM t_setup_user WHERE us_id=uc.verify_by_oic), '-') AS verify_by_oic,
+nvl(TO_CHAR(uc.verify_date_oic, 'dd.MM.yyyy'), '-') AS verify_date_oic,
+tsci.CHECKLIST_ID, ('USP-'||uj.usj_div||'-'||uj.plan_no) as cc_plan_no,
+(uj.usj_job_type||'/'||ltrim(uj.usj_div,0)||'D/'||lpad(uj.usj_seq,4,'0')||'/'||uj.usj_year) as survey_job_number, uj.USJ_DESC, uap.PJ_NAME FROM US_CHECKLIST uc
+INNER JOIN US_CHECKLIST_ITEM uci
+ON uc.CHECK_ID = uci.CHECK_ID
+INNER JOIN T_SETUP_CHECKLIST_ITEM tsci
+ON uci.CI_ID = tsci.CI_ID
+INNER JOIN US_JOBDETAIL uj
+ON uj.JOB_ID = uc.CASE_ID
+INNER JOIN US_APPLICATION_P uap
+ON uj.CASE_ID = uap.CASE_ID
+WHERE uc.CHECK_TYPE = 'U60' AND uc.CASE_ID = $P{pCaseId}]]>
+	</queryString>
+	<field name="CHECK_COMMENT" class="java.lang.String"/>
+	<field name="CHECK_BY" class="java.lang.String"/>
+	<field name="CHECK_DATE" class="java.lang.String"/>
+	<field name="COMMENT_SS" class="java.lang.String"/>
+	<field name="CHECK_BY_SS" class="java.lang.String"/>
+	<field name="CHECK_DATE_SS" class="java.lang.String"/>
+	<field name="COMMENT_VERIFY_OIC" class="java.lang.String"/>
+	<field name="VERIFY_BY_OIC" class="java.lang.String"/>
+	<field name="VERIFY_DATE_OIC" class="java.lang.String"/>
+	<field name="CHECKLIST_ID" class="java.lang.String"/>
+	<field name="CC_PLAN_NO" class="java.lang.String"/>
+	<field name="SURVEY_JOB_NUMBER" class="java.lang.String"/>
+	<field name="USJ_DESC" class="java.lang.String"/>
+	<field name="PJ_NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="252" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="204" y="0" width="103" height="103" uuid="af571acd-3f50-46af-a667-875f96bae9a9"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "lns_logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="411" y="0" width="100" height="20" uuid="6c64e81b-4e22-4082-b592-deda499b3fa2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[U60]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="103" width="511" height="20" uuid="35089916-dff1-4591-b3a2-bc165bea5a22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LAND AND SURVEY DEPARTMENT SARAWAK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="128" width="511" height="20" uuid="716da2b4-82a6-407e-a91f-f8bbbb5605fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Checklist for Utility Plan ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="162" width="124" height="20" uuid="e0d1c142-748e-4095-bd10-5d30afe09088"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USJ No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="202" width="124" height="20" uuid="c30c6f8b-805a-4b02-89c7-2f071db6747e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USJ Description]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="162" width="126" height="20" uuid="84ef6416-b9db-4503-a16c-34fc148a1732"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SURVEY_JOB_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="133" y="202" width="378" height="20" isPrintWhenDetailOverflows="true" uuid="0635235a-a6e4-4d33-86d6-1c202601a5c8"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PJ_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="133" y="182" width="378" height="20" uuid="3160752e-c83d-4de8-a9c3-dd5ebdc87e72"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CC_PLAN_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="182" width="124" height="20" uuid="982adb13-0257-44e2-ab00-ff381bff1d67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USJ Plan No. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="202" width="9" height="20" uuid="507692e3-ee22-4d4c-8cb8-7517698aedf6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="182" width="9" height="20" uuid="70dcab60-c6c2-446a-a1e0-72c4d5ce7970"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="124" y="162" width="9" height="20" uuid="41cfcd44-8733-4d44-a9d1-930c1c6a7f89"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="124" y="222" width="9" height="20" uuid="dc6d15a7-dbf6-4e02-9dd8-b2af0045088c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="222" width="124" height="20" uuid="45d50534-5da1-488b-bd36-d43e5c1f3a85"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Check Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="133" y="222" width="85" height="20" uuid="129d2194-4023-4c5b-8d92-f280a0be2917"/>
+				<box leftPadding="5" rightPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHECK_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="28">
+			<componentElement>
+				<reportElement key="table 6" style="table 6" x="0" y="0" width="511" height="20" uuid="0dd9d852-13d1-4c95-a4b9-3f98a27ddc1d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ChecklistDataset" uuid="fac97284-0ea0-41fc-854a-ac018801c885">
+						<datasetParameter name="pChecklistId">
+							<datasetParameterExpression><![CDATA[$F{CHECKLIST_ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="pCaseId">
+							<datasetParameterExpression><![CDATA[$P{pCaseId}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="30" uuid="0bec6076-51e1-449a-adc9-2c5294e7fc44">
+						<jr:columnHeader height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="30" height="20" uuid="0bcb6bfc-793b-4835-a010-bb5e32d1d7ff"/>
+								<box topPadding="2" leftPadding="5">
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Item]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="30" height="20" uuid="1878b2e3-f0a6-4001-8867-c2424c6022a4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CI_SEQUENCE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="250" uuid="d6d38a08-ca80-4f69-bfb6-24a5e653cc24">
+						<jr:columnHeader height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="250" height="20" uuid="4787162c-17ad-4338-b97e-06a422a7f828"/>
+								<box topPadding="2" leftPadding="5">
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Subject]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="250" height="20" isPrintWhenDetailOverflows="true" uuid="6eb7527c-a22c-475f-80a3-f344977cf986"/>
+								<box leftPadding="5" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CI_DESC} + (($F{CI_NOTES}!= null) ? "\n" + $F{CI_NOTES} : "")]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="e66f12e3-23a1-4798-a485-609806cc3eda">
+						<jr:columnHeader height="20" rowSpan="1">
+							<box>
+								<pen lineWidth="1.0"/>
+								<topPen lineWidth="1.0"/>
+								<leftPen lineWidth="1.0"/>
+								<bottomPen lineWidth="1.0"/>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="20" uuid="c326cf8c-9c97-42f5-9a3d-35b7865d7ce0"/>
+								<box topPadding="2" leftPadding="5">
+									<topPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField pattern="">
+								<reportElement x="0" y="0" width="65" height="20" uuid="63309fbe-0f43-4d5e-9e30-4acf8cc87818"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[(($F{CL_RESULT}.equals( "C" )) ? "Complete" : (($F{CL_RESULT}.equals( "N" )) ? "Incomplete" : "-"))]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="166" uuid="b715129f-5064-49aa-a616-ae03cf318d2a">
+						<jr:columnHeader height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="166" height="20" uuid="ef69a156-8050-476d-b963-e7cc42154a51"/>
+								<box topPadding="2" leftPadding="5">
+									<topPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Remarks]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 6_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="166" height="20" isPrintWhenDetailOverflows="true" uuid="e66be7c9-647e-4d15-95a6-cffc1adeb215"/>
+								<box leftPadding="5" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{CL_REMARKS}!= null) ? $F{CL_REMARKS} : ""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="318">
+			<staticText>
+				<reportElement x="363" y="0" width="63" height="20" uuid="84354297-80de-4235-8759-410b03a0afa0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="426" y="0" width="85" height="20" uuid="61cf385c-07e6-40b0-b33e-8e8ff3277aff"/>
+				<box leftPadding="5" rightPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHECK_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="20" uuid="d00fd840-7f4c-4075-a9a2-7bf987af1d47"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comment by Processing Officer:]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="0" y="20" width="511" height="55" uuid="6ffa17e3-157e-416c-8aa6-101faa5149ca"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="5" width="511" height="20" isPrintWhenDetailOverflows="true" uuid="88b90bdd-9f5a-497e-b80d-48df8a51ab6a"/>
+					<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement markup="html">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CHECK_COMMENT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="0" y="25" width="510" height="20" uuid="aaaa59f7-0f98-4be4-8cde-b0446518ce90"/>
+					<box leftPadding="5" rightPadding="5"/>
+					<textElement verticalAlignment="Middle" markup="styled">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Comment By " + $F{CHECK_BY}+"</i></style>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="-1" y="116" width="511" height="55" uuid="332a8d56-1b71-431a-9cd8-a3e773a3ab36"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="5" width="511" height="20" isPrintWhenDetailOverflows="true" uuid="a7f9d3c2-4df8-4e2b-9ec7-cd85e345a909"/>
+					<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement markup="html">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMMENT_VERIFY_OIC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="0" y="25" width="510" height="20" uuid="a611c9b3-c4fa-4a81-baa5-848af5a95518"/>
+					<box leftPadding="5" rightPadding="5"/>
+					<textElement verticalAlignment="Middle" markup="styled">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Comment By " + $F{VERIFY_BY_OIC} +"</i></style>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="-1" y="96" width="185" height="20" uuid="4e9df69a-8ea5-43fe-86e8-e8e25e49022f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comment by Senior Draughtsman:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="195" width="85" height="20" uuid="0b35df37-6afc-4e57-af17-b9a84c183f4b"/>
+				<box leftPadding="5" rightPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHECK_DATE_SS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="195" width="63" height="20" uuid="04bc4eee-e68e-4383-b1af-dd5fd7d28f46"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="0" y="215" width="511" height="55" uuid="0c971214-1bfc-4222-97ee-c92cdfb5e96d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="5" width="511" height="20" isPrintWhenDetailOverflows="true" uuid="93340960-09a6-46b9-a5d7-add450b9b844"/>
+					<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement markup="html">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMMENT_SS}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="0" y="25" width="510" height="20" uuid="4274dd3e-4d77-4415-a21b-842aebe9918b"/>
+					<box leftPadding="5" rightPadding="5"/>
+					<textElement verticalAlignment="Middle" markup="styled">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Comment By " + $F{CHECK_BY_SS}+"</i></style>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement x="0" y="195" width="185" height="20" uuid="beb6f0c3-2fde-43c5-a54b-0da1ee31bd9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Comment by Staff Surveyorr:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="96" width="85" height="20" uuid="5cb5289f-78e5-4221-a938-c116b7919b80"/>
+				<box leftPadding="5" rightPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CHECK_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="96" width="63" height="20" uuid="ad5729d4-c3fa-40a7-b973-2fc700f537fc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Date: ]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="billT126Main" pageWidth="595" pageHeight="842" columnWidth="551" leftMargin="24" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2c4bba2-6c3b-4bf7-9b48-47e275e71aaa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="pSubmissionId" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR_MAIN" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Project\\TOL_LXG\\src\\main\\java\\com\\las\\report\\tol\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Project\\TOL_LXG\\src\\main\\java\\com\\las\\report\\tol\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT up.BILL_REF_NO, upi.ITEM_AMOUNT, upi.RVR_CODE, upi.PAYITEM_ID,
+uap.APP_SUBMIT_BY AS payee, up.DIV_CODE AS div_no,
+(SELECT code_desc FROM pubcode WHERE code_type = 'DIV' AND code_1 = up.DIV_CODE) AS div_desc,
+uap.CASE_ID, uap.CASE_REF
+FROM US_APPLICATION_P uap
+INNER JOIN US_PAYMENT up ON up.CASE_ID = uap.CASE_ID
+INNER JOIN US_PAYMENT_ITEM upi ON upi.PAYMENT_ID = up.PAYMENT_ID
+WHERE uap.CASE_ID = $P{pSubmissionId}]]>
+	</queryString>
+	<field name="BILL_REF_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BILL_REF_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="BILL_REF_NO"/>
+	</field>
+	<field name="ITEM_AMOUNT" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ITEM_AMOUNT"/>
+		<property name="com.jaspersoft.studio.field.label" value="ITEM_AMOUNT"/>
+	</field>
+	<field name="RVR_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="RVR_CODE"/>
+		<property name="com.jaspersoft.studio.field.label" value="RVR_CODE"/>
+	</field>
+	<field name="PAYITEM_ID" class="java.lang.String"/>
+	<field name="PAYEE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="PAYEE"/>
+		<property name="com.jaspersoft.studio.field.label" value="PAYEE"/>
+	</field>
+	<field name="DIV_NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DIV_NO"/>
+		<property name="com.jaspersoft.studio.field.label" value="DIV_NO"/>
+	</field>
+	<field name="DIV_DESC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DIV_DESC"/>
+		<property name="com.jaspersoft.studio.field.label" value="DIV_DESC"/>
+	</field>
+	<field name="CASE_ID" class="java.lang.String"/>
+	<field name="CASE_REF" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<detail>
+		<band height="162">
+			<subreport>
+				<reportElement x="-24" y="0" width="595" height="100" uuid="ca8f62ff-579b-47ce-8375-2be390eee397"/>
+				<subreportParameter name="pItemId">
+					<subreportParameterExpression><![CDATA[$F{PAYITEM_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR_MAIN} + "billT126Counterpayment.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<dynamic-config>
+    <dynamics>
+        <!--<dynamicAction name="Module_dynamic">
+            <property name="sample.checkbox_inputType" value="[^checkbox^ value='Y'/] [setText]sample.label[/setText]" />
+        </dynamicAction>-->
+        <!--<dynamicAction name="Module_dynamic">
+             dynamic Add/Edit Page setup
+            <property name="dynamicDescription" value="module" />
+            <property name="addPageLabels" value="module.type, module.code, module.name, parent.module" />
+            <property name="editPageLabels" value="asAddPage" />
+            <property name="addPageColumns" value="module_type, module_code, module_name, parentModule.module_name as parent_desc|parentModule.module_id as parent_module_id|parentModule.module_code as parent_code" />
+            <property name="editPageColumns" value="asAddPage" />
+            <property name="addPageRequired" value="module_type;module.type, module_code;module.code, module_name;module.name" />
+            <property name="addPageNoDuplicate" value="module_code;module.code, module_name;module.name" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="asAddPage" />
+            <property name="addPageRequiredWhen" value="parent_module_id;parent.module,module_type;module.type;module.type.S;S" />
+            <property name="editPageRequiredWhen" value="asAddPage" />
+            <property name="recursiveCheck" value="module_type:S, getParentModule, parent_module_id, parent.module" />
+            <property name="modelName" value="com.sains.framework.model.Module" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value="if (form.module_type.value == 'S'){
+            if (form.parent_code.value == ''){
+                errors[errors.length] = formatText(messageRequired, '[setText]parent.module[/setText]');
+            }
+        }"/>
+            <property name="pageJavascript" value="function valcheckType(form){
+                                                        if (form.module_type.value == 'S'){
+                                                                return true;
+                                                        }
+                                                    return false;
+                                                    }
+                                                    function typeChanged(moduleType){
+                                                        if (moduleType.value == 'M'){
+                                                                var form = moduleType.form;
+                                                                form.parent_module_id.value = '';
+                                                                form.parent_code.value = '';
+                                                                form.parent_desc.value = '';
+                                                                document.getElementById('lbparent_desc').innerHTML = '';
+                                                        }
+                                                }" />
+            <property name="module.type_inputType" value="^select;com.sains.framework.base.CommonList;getModuleOptions;option;keyData;valueData;none;onchange=typeChanged(this)^"/>
+            <property name="module.code_inputType" value="[^text^ maxlength='20'/]" />
+            <property name="module.name_inputType" value="[^text^ maxlength='100'/]" />
+            <property name="parent.module_inputType" value="[^hidden^ /][^hidden^ /][^text^ readonly/] [script language='javascript']lookup('Search Module', 'Module', 'module_code,module_id,module_name,module_name', 'parent_code,parent_module_id,lbparent_desc,parent_desc',
+                                'useSetup_Module', 'module_code,module_name', '', 'valcheckType(document.forms[0])');[/script][label class='label' id='lbparent_desc' for='lbparent_desc'] [set]parent_desc[/set][/label]" />
+        </dynamicAction>-->
+        <dynamicAction name="Module_dynamic">
+            <!-- dynamic Add/Edit Page setup -->
+            <property name="dynamicDescription" value="module" />
+            <property name="loadDescsUsed" value="true" />
+            <property name="addPageLabels" value="module.type, module.code, module.name, parent.module" />
+            <property name="editPageLabels" value="asAddPage" />
+            <property name="addPageColumns" value="module_type, module_code, module_name, parentModule.module_name as parent_desc|parentModule.module_id as parent_module_id|parentModule.module_code as parent_code" />
+            <property name="editPageColumns" value="asAddPage" />
+            <property name="addPageRequired" value="module_type;module.type, module_code;module.code, module_name;module.name" />
+            <property name="addPageNoDuplicate" value="module_code;module.code, module_name;module.name" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="asAddPage" />
+            <property name="addPageRequiredWhen" value="parent_module_id;parent.module,module_type;module.type;module.type.S;S" />
+            <property name="editPageRequiredWhen" value="asAddPage" />
+            <property name="recursiveCheck" value="module_type:S, getParentModule, parent_module_id, parent.module" />
+            <property name="modelName" value="com.sains.framework.model.Module" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value="if (form.module_type.value == 'S'){
+                      if (form.parent_code.value == ''){
+                      errors[errors.length] = formatText(messageRequired, '[setText]parent.module[/setText]');
+                      }
+                      }"/>
+            <property name="pageJavascript" value="
+                      function valcheckType(){
+                          form = document.getElementById('dynamicFormId');
+                            if (form.module_type.value == 'S'){
+                          return true;
+                          }
+                          return false;
+                      }
+                      function typeChanged(moduleType){
+                          var form = moduleType.form;
+                          if (moduleType.value == 'M'){
+                              form.parent_module_id.value = '';
+                              form.parent_code.value = '';
+                              document.getElementById('lbparent_desc').innerHTML = '';
+                              form.parent_code.readOnly = true;
+                          } else {
+                              form.parent_code.readOnly = false;
+                          }
+                      }" />
+            <property name="pageLoadedJavascript" value="
+                      var mt = document.getElementById('module_type');
+                      if (mt.value == 'M'){
+                        mt.form.parent_code.readOnly = true;
+                      } else {
+                        mt.form.parent_code.readOnly = false;
+                      }" />
+            <property name="module.type_inputType" value="^select;com.sains.framework.base.CommonList;getModuleOptions;option;keyData;valueData;none;onchange=typeChanged(this)^"/>
+            <!--<property name="module.code_inputType" value="[^text^ /]" />-->
+            <!--<property name="module.name_inputType" value="[^text^ maxlength='100'/]" />-->
+            <!--<property name="parent.module_inputType" value="[^hidden^ /][^hidden^ /][^text^ readonly onchange=%22loadDescs('useSetup_Module', 'module_code', this, 'module_id, module_code, module_name, module_name', 'parent_module_id, parent_code, lbparent_desc, parent_desc', '2', '', '', 'module_code,module_name_as_name')%22 /] [script language='javascript']lookup('Search Module', 'Module', 'module_code,module_id,module_name,module_name', 'parent_code,parent_module_id,lbparent_desc,parent_desc', 'useSetup_Module', 'module_code,module_name', '', 'valcheckType()');[/script][label class='label' id='lbparent_desc' for='lbparent_desc'] [set]parent_desc[/set][/label]" />-->
+            <property name="parent.module_inputType" value="[^hidden^ /][^hidden^ /][^text^ readonly onchange=%22loadDescs('useSetup_Module', 'module_code', this, 'module_id, module_code, module_name, module_name', 'parent_module_id, parent_code, lbparent_desc, parent_desc', '2')%22 /] [script language='javascript']lookup('Search Module', 'Module', 'module_code,module_id,module_name,module_name', 'parent_code,parent_module_id,lbparent_desc,parent_desc', 'useSetup_Module', 'module_code,module_name', '', 'valcheckType()');[/script][label class='label' id='lbparent_desc' for='lbparent_desc'] [set]parent_desc[/set][/label]" />
+        </dynamicAction>
+        <dynamicAction name="BuUser_dynamic">
+            <!-- dynamic Add/Edit Page setup -->
+            <property name="dynamicDescription" value="buUser" />
+            <property name="addPageLabels" value="buUser.userId, buUser.name, buUser.password, businessUnit" />
+            <property name="editPageLabels" value="buUser.userId, buUser.name, businessUnit" />
+            <property name="addPageColumns" value="bu_user_userid, bu_user_name, bu_user_pswd, businessUnit.bu_name as bu_name|businessUnit.bu_id as bu_id|businessUnit.bu_code as bu_code" />
+            <property name="editPageColumns" value="bu_user_userid, bu_user_name, businessUnit.bu_name as bu_name|businessUnit.bu_id as bu_id|businessUnit.bu_code as bu_code" />
+            <property name="addPageRequired" value="bu_user_name;buUser.name, bu_user_pswd;buUser.password, bu_code;businessUnit.code" />
+            <property name="addPageNoDuplicate" value="bu_user_userid;buUser.userId, bu_user_name;buUser.name" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="bu_user_name;buUser.name, bu_code;businessUnit.code" />
+            <property name="addPageRequiredWhen" value="parent_module_id;parent.module,module_type;module.type;module.type.S;S" />
+            <property name="editPageRequiredWhen" value="asAddPage" />
+            <property name="recursiveCheck" value="" />
+            <property name="modelName" value="com.sains.framework.model.BuUserModel" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value=""/>
+            <property name="pageJavascript" value="" />
+            <property name="buUser.userId_inputType" value="[^text^ maxlength='20'/]"/>
+            <property name="buUser.name_inputType" value="[^text^ maxlength='50'/]" />
+            <property name="buUser.password_inputType" value="[^password^ maxlength='20'/]" />
+            <property name="businessUnit_inputType" value="[^hidden^ /][^hidden^ /][^text^ readonly/] [script language='javascript']lookup('Search Business Unit', 'BuUser', 'bu_name,bu_id,bu_code,bu_name', 'bu_name,bu_id,bu_code,lbbu_desc',
+                      'useSetup_BusinessUnit', 'bu_code,bu_name', '', '');[/script][label class='label' id='lbbu_desc' for='lbbu_desc'] [set]bu_desc[/set][/label]" />
+        </dynamicAction>
+        <dynamicAction name="BuCategory_dynamic">
+            <!-- dynamic Add/Edit Page setup -->
+            <property name="dynamicDescription" value="buCategory" />
+            <property name="addPageLabels" value="buCategory.description, buCategory.parentCategory" />
+            <property name="editPageLabels" value="asAddPage" />
+            <property name="addPageColumns" value="bu_category_name, parentCategory.bu_category_name as parent_desc|parentCategory.bu_category_id as parent_category_id" />
+            <property name="editPageColumns" value="asAddPage" />
+            <property name="addPageRequired" value="bu_category_name;buCategory.description" />
+            <property name="addPageNoDuplicate" value="bu_category_name;buCategory.description" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="asAddPage" />
+            <property name="addPageRequiredWhen" value="" />
+            <property name="editPageRequiredWhen" value="" />
+            <property name="recursiveCheck" value=", getParentCategory, parent_bu_category_id, buCategory.parentCategory" />
+            <property name="modelName" value="com.sains.framework.model.BuCategory" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value=""/>
+            <property name="pageJavascript" value="" />
+            <property name="buCategory.description_inputType" value="[^text^ maxlength='50'/]" />
+            <property name="buCategory.parentCategory_inputType" value="^select;com.sains.framework.base.CommonList;getBuCategoryList;option;keyData;valueData;pleaseSelect;^"/>
+        </dynamicAction>
+        <dynamicAction name="ItemCategory_dynamic">
+            <property name="dynamicDescription" value="itemCategory" />
+            <property name="addPageLabels" value="itemCategory.description, itemCategory.code, itemCategory.parentCategory" />
+            <property name="editPageLabels" value="asAddPage" />
+            <property name="addPageColumns" value="item_category_name, item_category_code, parent_item_category_id" />
+            <property name="editPageColumns" value="asAddPage" />
+            <property name="addPageRequired" value="item_category_name;itemCategory.description, item_category_code;itemCategory.code" />
+            <property name="addPageNoDuplicate" value="item_category_name;itemCategory.description" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="asAddPage" />
+            <property name="addPageRequiredWhen" value="" />
+            <property name="editPageRequiredWhen" value="" />
+            <property name="recursiveCheck" value=", getParentCategory, parent_item_category_id, itemCategory.parentCategory" />
+            <property name="modelName" value="com.sains.framework.model.ItemCategory" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value=""/>
+            <property name="pageJavascript" value="" />
+            <property name="itemCategory.description_inputType" value="[^text^ maxlength='50'/]" />
+            <property name="itemCategory.code_inputType" value="[^text^ maxlength='10'/]" />
+            <property name="itemCategory.parentCategory_inputType" value="^select;com.sains.framework.base.CommonList;getItemCategoryList;option;keyData;valueData;pleaseSelect;^"/>
+        </dynamicAction>
+        <dynamicAction name="BusinessUnit_dynamic">
+            <!-- dynamic Add/Edit Page setup -->
+            <property name="popupCalanderUsed" value="true" />
+            <property name="labelWidth" value="170" />
+            <property name="dynamicDescription" value="businessUnit" />
+            <property name="addPageLabels" value="businessUnit.name, businessUnit.code, buCategory, businessUnit.expireDate, businessUnit.co_reg_no, businessUnit.address, businessUnit.postcode, businessUnit.state, businessUnit.division, businessUnit.description" />
+            <property name="editPageLabels" value="asAddPage" />
+            <property name="addPageColumns" value="bu_name, bu_code, bu_category_id, bu_expire_date, bu_co_reg_no, bu_address, bu_postcode, bu_state, bu_div, bu_description" />
+            <property name="editPageColumns" value="asAddPage" />
+            <property name="addPageRequired" value="bu_name;businessUnit.name, bu_code;businessUnit.code, bu_category_id;buCategory" />
+            <property name="addPageNoDuplicate" value="bu_name;businessUnit.name, bu_code;businessUnit.code" />
+            <property name="editPageNoDuplicate" value="asAddPage" />
+            <property name="editPageRequired" value="asAddPage" />
+            <property name="addPageRequiredWhen" value="" />
+            <property name="editPageRequiredWhen" value="" />
+            <property name="modelName" value="com.sains.framework.model.BusinessUnitModel" />
+            <property name="daoName" value="BaseDAO" />
+            <property name="localValidateFormJavascript" value=""/>
+            <property name="pageJavascript" value="" />
+            <property name="businessUnit.name_inputType" value="[^text^ maxlength='50'/]" />
+            <property name="businessUnit.code_inputType" value="[^text^ maxlength='16'/]" />
+            <property name="buCategory_inputType" value="^select;com.sains.framework.base.CommonList;getBuCategoryList;option;keyData;valueData;pleaseSelect;^"/>
+            <property name="businessUnit.code_inputType" value="[^text^ maxlength='16'/]" />
+            <property name="businessUnit.expireDate_inputType" value="[^popCalander^ /]" />
+            <property name="businessUnit.co_reg_no_inputType" value="[^text^ maxlength='20'/]" />
+            <property name="businessUnit.address_inputType" value="[^textarea^ cols='50' rows='3' maxlength='100']" />
+            <property name="businessUnit.postcode_inputType" value="[^text^ maxlength='10'/]" />
+            <property name="businessUnit.state_inputType" value="[^text^ maxlength='2'/]" />
+            <property name="businessUnit.division_inputType" value="[^text^ maxlength='2'/]" />
+            <property name="businessUnit.description_inputType" value="[^textarea^ cols='50' rows='3' maxlength='200']" />
+        </dynamicAction>
+    </dynamics>
+</dynamic-config>

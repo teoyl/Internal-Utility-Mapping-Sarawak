@@ -1,0 +1,42 @@
+<%-- 
+    Document   : prep_uscs20
+    Created on : May 31, 2024, 9:22:17 AM
+    Author     : yonglai
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@taglib uri="/struts-tags" prefix="s"%>
+
+<link href="styles/sub_styles.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <jsp:include page="include/submission_swiper.jsp"></jsp:include>
+    <jsp:include page="include/submission_header.jsp"></jsp:include>
+    <jsp:include page="/pages/base/actionError.jsp"></jsp:include>
+
+    <div class="row">
+        <div class="accordion accordion-flush" id="accordionFlushApplication">
+            <jsp:include page="pages/hardcopy_assess.jsp"></jsp:include>
+
+            <jsp:include page="letter/letter_uscs10H.jsp"></jsp:include>
+
+        </div>
+    </div>
+</div>
+
+<script nonce="r4DjhKbfO5ry">
+    $('.viewChecklistBtn').on('click', function (e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        var contentType = $(this).data('content-type');
+        divSubmitForm("viewPastChecklistSubmission?jobId=<s:property value="%{model.job_id}"/>&checklist=" + contentType, "pastChecklistForm", "pastChecklistDiv", "viewChecklist");
+    });
+    function closeChecklistModal() {
+        $('#pastChecklistModal').modal('hide');
+    }
+    function viewChecklist() {
+        $('#pastChecklistModal').modal('show');
+    }
+</script>

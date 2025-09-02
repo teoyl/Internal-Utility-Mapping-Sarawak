@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@taglib uri="/struts-tags" prefix="s"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Registration Page</title>
+<%--<s:head />--%>
+<style type="text/css">
+@import url(style.css);
+</style>
+</head>
+<body>
+	<form action="searchModule">
+		<s:textfield name="module_id" label="ID" value=""/>
+		<s:textfield name="module_code" label="Module Code" />
+		<s:textfield name="module_name" label="Module Name" />
+		<s:submit value="Search"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<dynamic-config>
+    <dynamics>
+        <dynamicAction name="sampleReport">
+            <!-- dynamic Search Page setup -->
+            
+            <!--If there are something to check before opening the report, add this line in, and write the function(ProductSatesCheck in this case) in ReportPreGenerate.java-->
+            <property name="preGenerateMethod" value="productSalesCheck"/>
+            <property name="searchDescription" value="reportName.productSales" />
+            <property name="jasperReport" value="/WEB-INF/classes/com/sample/report/testReport.jasper" />
+            <!--if don't have jasperReportXls, will use jasperReport as default to generate xls report-->
+            <!--<property name="jasperReportXls" value="/WEB-INF/classes/com/elasis/report/reportStatistic/reportName.jasper" />-->
+
+            <!--if pageColumn purchaseDate having following syntax
+            1. eg: _date_purchaseDate, then purchaseDate will become date picker
+            2. eg: _date_purchaseDate_fromTo, then the purchaseDate will become 2 columns, purchaseDateFrom and purchaseDateTo with date picker.-->
+            <property name="searchFields"      value="user_id, user_name, _date_purchaseDate, _date_abcDate_fromTo, pDivId, pDis" />
+            <property name="searchFieldsLabel" value="user.id, user.name, purchaseDate, abcDate, Division, District" />
+            <property name="pDivId_dd" value="com.sains.framework.base.CommonList;getDivisionList;option;keyData;valueData;pleaseSelect" />
+            <property name="pDivId_itemChange" value="'pDis','pDivId','DivDis'" />
+            <property name="pDis_dd" value="com.sains.framework.base.CommonList;getEmptyOption;option;keyData;valueData;pleaseSelect_div" />
+            <!--<property name="pageColumns" value="module_type, module_code, module_name, parentModule" />
+            <property name="pageLabels" value="module.type, module.code, module.name, parent.module" />-->
+            <property name="pageRequired" value="user_id;user.id" />
+            <property name="pageRequiredWhen" value="purchaseDate;Purchase Date;user_name;user.name;1::System Admin|2" />
+            <!--<property name="pageRequiredWhen" value="parent_module_id;parent.module,module_type;module.type;module.type.S;S" />-->
+
+            <!--<property name="pass_Session_Variable" value="loginId,userName" />
+            loginId     - iReport Parameter Name = pUsLoginId
+            userName    - iReport Parameter Name = pUsUserName
+            -->
+            <property name="pass_Session_Variable" value="loginId,userName" />
+            
+            <!--<property name="daoName" value="BaseDAO" />-->
+            <!--<property name="localValidateFormJavascript" value="if (form.module_type.value == 'S'){
+            if (form.parent_code.value == ''){
+            errors[errors.length] = formatText(messageRequired, '[setText]parent.module[/setText]');
+            }
+            }"/>-->
+            <!--wongkk4@5Jan15 Attention - pageJavascript cannot contain < or //-->
+            <property name="pageJavascript" value="function valcheckType(form){
+                                                        if (form.module_type.value == 'S'){
+                                                                return true;
+                                                        }
+                                                    return false;
+                                                    }
+                                                    function typeChanged(moduleType){
+                                                        if (moduleType.value == 'M'){
+                                                                var form = moduleType.form;
+                                                                form.parent_module_id.value = '';
+                                                                form.parent_code.value = '';
+                                                                form.parent_desc.value = '';
+                                                                document.getElementById('lbparent_desc').innerHTML = '';
+                                                        }
+                                                }" />
+            <!--<property name="column1_checkbox" value=""/>-->
+            <!--<property name="column2_dd" value="com.sains.framework.base.CommonList;getApproveRejectPendingList;option;keyData;valueData;all"/>-->
+            <!--<property name="column3_lookupSearch" value='lookup("Search Module", "Module", "module_code", "search_module_code",
+            "useSetup_Module", "module_code,module_name", "search_module_code");'/>-->
+        </dynamicAction>
+        <dynamicAction name="USJ_ProgressReport">
+            <property name="preGenerateMethod" value="preGenerateStatus"/>
+            <!--<property name="preSearchPageMethod" value=""/>-->
+            <property name="preSearchPageMethod" value="preLoad_usjReportDate"/>
+            <property name="searchDescription" value="Utility Survey Progress Report" />
+            <property name="jasperReport" value="/WEB-INF/report/usjProgressReport.jasper" />
+            <property name="searchFields" value="_date_pDateReceived_fromTo, _date_pHardcopyReceived_fromTo, _date_pStatusDate_fromTo, pDivId, pUsjYear,
+                                                 pStatus, pSurveyor, pProvider, pUspNo, pCategory, pQualityLevel, pLocality" />
+            <property name="searchFieldsLabel" value="Date Received, Hardcopy Received, Status Date, USJ Division, USJ Year, 
+                                                 Current Status, Licensed Surveyor, Utility Provider(s), USP No., USJ Category, USJ Quality Level, Locality" />
+            <property name="pDivId_dd" value="com.sains.framework.base.CommonList;getDivisionList;option;keyData;valueData;pleaseSelect_div" />
+            <property name="pUsjYear" value="com.sains.framework.base.CommonList;getCurrentYearDownTo2012;option;keyData;valueData;pleaseSelect" />
+            <property name="pStatus_dd" value="com.sains.framework.base.CommonList;getWorkflowStatusList11;option;keyData;valueData;pleaseSelect" />
+            <property name="pStatus_ddMultiple" value="Y" />
+            <property name="pSurveyor_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="pSurveyor_ddMultiple" value="Y" />
+            <property name="pQualityLevel_dd" value="com.sains.framework.base.CommonList;getQualitySurveyList;option;keyData;valueData;pleaseSelect" />
+            <property name="pCategory_dd" value="com.sains.framework.base.CommonList;getUSJCategoryOptions;option;keyData;valueData;all" />
+            <property name="searchPage" value="dynamicRptSearch" />   
+            <property name="pageRequired" value="pDivId;USJ Division,pUsjYear;USJ Year" /> 
+            <property name="pass_Session_Variable" value="loginId,userName" />
+        </dynamicAction>
+        <dynamicAction name="USJ_SummaryReport">
+            <property name="preGenerateMethod" value=""/>
+            <property name="preSearchPageMethod" value=""/>
+            <property name="searchDescription" value="Utility Survey Summary Report" />
+            <property name="jasperReport" value="/WEB-INF/report/usjSummaryReport.jasper" />
+            <property name="searchFields" value="_date_pDateReceived_fromTo, _date_pHardcopyReceived_fromTo, _date_pStatusDate_fromTo, pDivId, pUsjYear,
+                                                 pStatus, pSurveyor, pProvider, pCategory" />
+            <property name="searchFieldsLabel" value="Date Received, Hardcopy Received, Status Date, USJ Division, USJ Year, 
+                                                 Current Status, Licensed Surveyor, Utility Provider(s), USJ Category" />
+            <property name="pDivId_dd" value="com.sains.framework.base.CommonList;getDivisionList;option;keyData;valueData;pleaseSelect_div" />
+            <property name="pCategory_dd" value="com.sains.framework.base.CommonList;getUSJCategoryOptions;option;keyData;valueData;all" />
+            <property name="pStatus_dd" value="com.sains.framework.base.CommonList;getWorkflowStatusList11;option;keyData;valueData;pleaseSelect" />
+            <property name="pStatus_ddMultiple" value="Y" />
+            <property name="pSurveyor_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="pSurveyor_ddMultiple" value="Y" />
+            <property name="searchPage" value="dynamicRptSearch" />   
+            <property name="pageRequired" value="pDivId;USJ Division" /> 
+            <property name="pass_Session_Variable" value="loginId,userName" />
+        </dynamicAction>
+        <dynamicAction name="USJ_JobStatusReport">
+            <property name="preGenerateMethod" value=""/>
+            <property name="preSearchPageMethod" value=""/>
+            <property name="searchDescription" value="Utility Survey Job Status Report" />
+            <property name="jasperReport" value="/WEB-INF/report/usjJobStatusReport.jasper" />
+            <property name="searchFields" value="pReportType, _date_pDate_fromTo, pSurveyor, pProvider, pCategory, pQualityLevel, pOfficer" />
+            <property name="searchFieldsLabel" value="Report Type, Date Range, Survey Organisation, Utility Provider(s), USJ Category, USJ Quality Level, Officer's Name" />
+            <property name="pReportType_dd" value="com.sains.framework.base.CommonList;getJobStatusReportOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="pQualityLevel_dd" value="com.sains.framework.base.CommonList;getQualitySurveyList;option;keyData;valueData;pleaseSelect" />
+            <property name="pCategory_dd" value="com.sains.framework.base.CommonList;getUSJCategoryOptions;option;keyData;valueData;all" />
+            <property name="pReportType_itemChange" value="'pReportType'" />
+            <property name="searchPage" value="dynamicRptSearch" />   
+            <property name="pageRequired" value="pReportType;Report Type" /> 
+            <property name="pageJavascript" value="function itemChange(triggerBy){
+                if(triggerBy.value == 'completedBySO'){
+                    $('#pSurveyor_row').css('display', 'flex');
+                    $('#pProvider_row').css('display', 'flex');
+                    $('#pCategory_row').css('display', 'flex');
+                    $('#pQualityLevel_row').css('display', 'flex');
+                    $('#pOfficer_row').css('display', 'none');
+                    $('#search_pOfficer').val('');
+                } else if(triggerBy.value == 'jobsByOfficer' || triggerBy.value == 'outstandingJob'){
+                    $('#pSurveyor_row').css('display', 'none');
+                    $('#pProvider_row').css('display', 'none');
+                    $('#pCategory_row').css('display', 'none');
+                    $('#pQualityLevel_row').css('display', 'none');
+                    $('#search_pOfficer').val('');
+                    $('#search_pProvider').val('');
+                    $('#search_pCategory').val('');
+                    $('#search_pQualityLevel').val('');
+                    $('#pOfficer_row').css('display', 'flex');
+                } else if(triggerBy.value == 'completedJob' || triggerBy.value == 'kivJob' || triggerBy.value == 'queryJob'){
+                    $('#pSurveyor_row').css('display', 'none');
+                    $('#pProvider_row').css('display', 'none');
+                    $('#pCategory_row').css('display', 'none');
+                    $('#pQualityLevel_row').css('display', 'none');
+                    $('#pOfficer_row').css('display', 'none');
+                    $('#search_pOfficer').val('');
+                    $('#search_pProvider').val('');
+                    $('#search_pCategory').val('');
+                    $('#search_pQualityLevel').val('');
+                    $('#search_pOfficer').val('');
+                }else{
+                } 
+                }                                         
+            "
+            />
+            <property name="pass_Session_Variable" value="loginId,userName" />
+        </dynamicAction>
+        <dynamicAction name="USJ_StaffKpiReport">
+            <property name="preGenerateMethod" value=""/>
+            <property name="preSearchPageMethod" value=""/>
+            <property name="searchDescription" value="Staff KPI Report" />
+            <property name="jasperReport" value="/WEB-INF/report/staffKpiReport.jasper" />
+            <property name="searchFields" value="pKpiReportType, _date_pDate_fromTo, pDivId, pOfficer, pJobStatus, pSurveyor, pProvider, pCategory" />
+            <property name="searchFieldsLabel" value="KPI Type, Date, Division, User, Job Status, Survey Organisation, Utility Provider(s), USJ Category" />
+            <property name="pKpiReportType_dd" value="com.sains.framework.base.CommonList;getKpiReportOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="pJobStatus_dd" value="com.sains.framework.base.CommonList;getKpiJobStatusOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="pCategory_dd" value="com.sains.framework.base.CommonList;getUSJCategoryOptions;option;keyData;valueData;all" />
+            <property name="pSurveyor_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="pKpiReportType_itemChange" value="'pKpiReportType'" />
+            <property name="searchPage" value="dynamicRptSearch" />   
+            <property name="pageRequired" value="pKpiReportType;KPI Type" /> 
+            <property name="pageJavascript" value="function itemChange(triggerBy){
+                if(triggerBy.value == 'division'){
+                    $('#pDivId_row').css('display', 'flex');
+                    $('#pOfficer_row').css('display', 'none');
+                    $('#search_pOfficer').val('');
+                } else if(triggerBy.value == 'user'){
+                    $('#pDivId_row').css('display', 'none');
+                    $('#search_pDivId').val('');
+                    $('#pOfficer_row').css('display', 'flex');
+                    $('#search_pOfficer').val('');
+                }else{
+                } 
+                }                              
+            "
+            />
+            <property name="pass_Session_Variable" value="loginId,userName" />
+        </dynamicAction>
+        <dynamicAction name="USJ_DistanceSummaryReport">
+            <property name="preGenerateMethod" value=""/>
+            <property name="preSearchPageMethod" value=""/>
+            <property name="searchDescription" value="Distance Report on Completed Utility Survey" />
+            <property name="jasperReport" value="/WEB-INF/report/distanceSummaryReport.jasper" />
+            <property name="searchFields" value="pKpiReportType, _date_pDate_fromTo, pDivId, pOfficer, pJobStatus, pSurveyor, pProvider, pCategory" />
+            <property name="searchFieldsLabel" value="KPI Type, Date, Division, User, Job Status, Survey Organisation, Utility Provider(s), USJ Category" />
+            <property name="pKpiReportType_dd" value="com.sains.framework.base.CommonList;getKpiReportOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="pJobStatus_dd" value="com.sains.framework.base.CommonList;getKpiJobStatusOptions;option;keyData;valueData;pleaseSelect" />
+            <property name="pCategory_dd" value="com.sains.framework.base.CommonList;getUSJCategoryOptions;option;keyData;valueData;all" />
+            <property name="pSurveyor_dd" value="com.sains.framework.base.CommonList;getFirmList;option;keyData;valueData;pleaseSelect" />
+            <property name="pKpiReportType_itemChange" value="'pKpiReportType'" />
+            <property name="searchPage" value="dynamicRptSearch" />   
+            <property name="pageRequired" value="pKpiReportType;KPI Type" /> 
+            <property name="pageJavascript" value="function itemChange(triggerBy){
+                if(triggerBy.value == 'division'){
+                    $('#pDivId_row').css('display', 'flex');
+                    $('#pOfficer_row').css('display', 'none');
+                    $('#search_pOfficer').val('');
+                } else if(triggerBy.value == 'user'){
+                    $('#pDivId_row').css('display', 'none');
+                    $('#search_pDivId').val('');
+                    $('#pOfficer_row').css('display', 'flex');
+                    $('#search_pOfficer').val('');
+                }else{
+                } 
+                }                              
+            "
+            />
+            <property name="pass_Session_Variable" value="loginId,userName" />
+        </dynamicAction>
+    </dynamics>
+</dynamic-config>

@@ -1,0 +1,483 @@
+package com.sains.common.util;
+
+import java.io.*;
+import com.jcraft.jsch.*;
+import static com.sains.common.util.FtpsUtil.str;
+import com.sains.framework.base.CommonFunction;
+import com.sains.framework.base.Debug;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.stream.Stream;
+//import hrpay_bean.UtilBean;
+
+public class SFTPBean extends FtpInterface {
+
+    private String FTP_CONNECT_STRING = SystemConstants.DOMAIN.ftps_server;
+    private String FTP_USER_NAME = SystemConstants.DOMAIN.ftps_user;
+    private String FTP_PASSWORD = SystemConstants.DOMAIN.ftps_pass;
+    private int FTP_PORT = 8022;
+
+    private static Boolean init = Boolean.FALSE;
+    private JSch jsch;
+//    private static final String append = "/home/eqpdev/sftp/";
+    private static final String append = SystemConstants.DOMAIN.ftps_path;
+    private Session session = null;
+    private Channel channel = null;
+    private ChannelSftp channelSftp = null;
+
+    private void connectSSH() throws Exception {
+        jsch = new JSch();
+        try {
+
+//            System.out.println("----" + FTP_USER_NAME + "::" + FTP_CONNECT_STRING + "::" + FTP_PORT);
+            session = jsch.getSession(FTP_USER_NAME, FTP_CONNECT_STRING, FTP_PORT);
+            session.setPassword(str(FTP_PASSWORD));
+            java.util.Properties config = new java.util.Properties();
+            config.put("StrictHostKeyChecking", "no");
+            config.put("kex","diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256");
+            session.setConfig(config);
+//            session.setTimeout(20000); // if no set timeout, will try for 20 seconds if server down/not available
+            session.connect(20000);
+            if (session.isConnected()) {
+//                System.out.println("---Session connected.");
+            } else {
+                Debug.printDebug("---Fail login");
+            }
+//            channel = session.openChannel("sftp");
+//            channel.connect();
+//            
+//            channelSftp = (ChannelSftp) channel;
+        } catch (Exception e) {
+            Debug.printError("--connect ssh " + e);
+            throw e;
+        }
+
+    }
+
+    private Boolean isFromPool = Boolean.FALSE;
+    private Boolean pushed = Boolean.FALSE;
+    private void initSftp() throws Exception {
+        if (isFromPool) return;
+        synchronized (this) {
+            Map poolMap = getConnection();
+            if (poolMap != null) {
+                isFromPool = Boolean.TRUE;
+                channel = (Channel)poolMap.get("channel");
+                session = (Session)poolMap.get("session");
+                channelSftp = (ChannelSftp)poolMap.get("channelSftp");
+                if (!session.isConnected()) {
+                    session.connect(20000);
+                }
+            } else {
+                if (session == null || !session.isConnected()) {
+                    connectSSH();
+                }
+                //Open the SFTP channel
+                if (channel == null || channel.isClosed()) {
+        //            System.out.println("open................");
+        //            System.out.println("---open channel");
+                    channel = session.openChannel("sftp");
+                    channel.connect();
+                }
+                if (channelSftp == null || channelSftp.isClosed()) {
+        //            System.out.println("---open channel sftp");
+                    channelSftp = (ChannelSftp) channel;
+        //            channelSftp = new ChannelSftp();
+                }
+                isFromPool = pushConnection(session, channel, channelSftp);
+                pushed = Boolean.TRUE;
+            }
+        }
+        init = Boolean.TRUE;
+    }
+
+    public void disconnect() throws Exception {
+        if (!isFromPool) {
+            if (channelSftp != null) {
+                channelSftp.exit();
+                channelSftp = null;
+            }
+            if (channel != null) {
+                channel.disconnect();
+                channel = null;
+            }
+            if (session != null) {
+                session.disconnect();
+                session = null;
+            }
+        } else {
+            synchronized (this) {
+                if (!pushed) {
+                    pushConnection(session, channel, channelSftp);
+                    pushed = Boolean.TRUE;
+                }
+            }
+        }
+        init = Boolean.FALSE;
+    }
+
+    public Boolean isFileExists(String fileDir, Boolean closeSftp) throws Exception {
+        try {
+            initSftp();
+//            System.out.println("isFileExist = " + append + fileDir);
+
+            channelSftp.get(append + fileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+//            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            if (closeSftp) {
+                disconnect();
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    public InputStream getFile(String fileDir) throws Exception {
+
+        Debug.printDebug("---Get File fileDir "+append + fileDir);
+        InputStream inStream = null;
+        try {
+            initSftp();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+//            channelSftp.cd(append + fileDir);            
+            channelSftp.get(append + fileDir, out);
+            inStream = new ByteArrayInputStream(out.toByteArray());
+            
+//            Path p = Paths.get(append + fileDir);
+//            String fileName = p.getFileName().toString();
+//            Path path = p.getParent().toAbsolutePath();
+//            System.out.println("path "+path);
+//            System.out.println("filename = "+fileName);
+            
+//            channelSftp.cd(path.toString());
+//            inStream = channelSftp.get(fileName);
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+            Debug.printError("--error getting file :: "+append + fileDir);
+        } finally {
+            disconnect();
+        }
+        return inStream;
+    }    
+    
+    public Boolean createFile(String fileDir, File file, String fileName, String[] extWhiteList) throws Exception {
+        checkExtension(fileName, extWhiteList);
+        return createFile(fileDir, file);
+    }
+    public Boolean createFile(String fileDir, File file) throws Exception {
+        try {
+            initSftp();            
+            Debug.printDebug("---Create File fileDir "+append +fileDir);
+            channelSftp.put(new FileInputStream(file), append + fileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            disconnect();
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean createFile(String fileDir, InputStream file, String fileName, String[] extWhiteList) throws Exception {
+        checkExtension(fileName, extWhiteList);
+        return createFile(fileDir, file);
+    }
+    public Boolean createFile(String fileDir, InputStream file) throws Exception {
+        try {
+            initSftp();
+            //System.out.println("---Create File fileDir "+append +fileDir);
+            //client.storeFile(fileDir, file);
+            channelSftp.put(file, append + fileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            Debug.printError("### SFTP Error: File creation fail : "+append+fileDir);
+//            CommonFunction.exceptionStackTrace(e);
+            throw e;
+        } finally {
+            disconnect();
+        }
+//        return Boolean.FALSE;
+    }    
+    
+    public Boolean deleteFile(String fileDir) throws Exception {
+        try {
+            initSftp();
+//            if (isFileExists(append + fileDir, Boolean.FALSE)){
+            if (isFileExists(fileDir, Boolean.FALSE)){
+                Debug.printInfo("file exist");
+                channelSftp.rm(append + fileDir);
+                return Boolean.TRUE;
+                
+            }else{
+                Debug.printDebug("---File not exist = "+append+fileDir);
+            }
+//            System.out.println("file avaialble" + channelSftp.get(append + fileDir).available());
+//            if (channelSftp.get(append + fileDir).available() > 0) {
+//                channelSftp.rm(append + fileDir);
+//            }
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            disconnect();
+        }
+        return Boolean.FALSE;
+    }
+    public Boolean deleteFolder(String fileDir) throws Exception {
+        try {
+            initSftp();
+            if (isFileExists(fileDir, Boolean.FALSE)){
+                //System.out.println("file exist");
+                channelSftp.rmdir(append + fileDir);
+                return Boolean.TRUE;
+                
+            }else{
+                Debug.printDebug("---File not exist = "+append+fileDir);
+            }
+//            System.out.println("file avaialble" + channelSftp.get(append + fileDir).available());
+//            if (channelSftp.get(append + fileDir).available() > 0) {
+//                channelSftp.rm(append + fileDir);
+//            }
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            disconnect();
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean renameFile(String fileDir, String newFileDir) throws Exception {
+        try {
+            initSftp();
+            channelSftp.rename(append + fileDir, newFileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            disconnect();
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean isDirExists(String fileDir, Boolean closeSftp) throws Exception {
+        try {
+            initSftp();
+            SftpATTRS attrs = channelSftp.lstat(fileDir);
+            
+            if (attrs != null){
+                //System.out.println("dir exist");
+                return Boolean.TRUE;
+            }
+//            if (channelSftp.get(append + fileDir).available() > 1) {
+//                return Boolean.TRUE;
+//            }
+        } catch (Exception e) {
+//            CommonFunction.exceptionStackTrace(e);
+        } finally {
+            if (closeSftp) {
+                disconnect();
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    public Boolean createDirIfNotExists(String fileDir, Boolean closeAfterUse) throws Exception {
+        try {
+            Debug.printDebug("---createdirifnotexist = " + append + fileDir);
+            initSftp();
+            String appendFileDir = append + fileDir;
+            Path p = Paths.get(appendFileDir);
+            String fileName = p.getFileName().toString();
+            Path path = p.getParent().toAbsolutePath();
+//            System.out.println("path "+path);
+//            System.out.println("filename = "+fileName);
+            //appendFileDir = path.toString();
+//            System.out.println("--file path " +appendFileDir);
+            
+            
+            if (!isDirExists(appendFileDir, Boolean.FALSE)) {
+//                System.out.println("---create dir here");                
+                channelSftp.mkdir(appendFileDir);
+//                channelSftp.cd(appendFileDir);
+//                String[] arrDirectory = appendFileDir.split("/");
+//                String strCurDir = "";
+//                boolean isFirst = true;
+//                for (int a = 0; a < arrDirectory.length; a++) {
+//                    if (!arrDirectory[a].equals("")) {
+//                        strCurDir = isFirst ? "/" + arrDirectory[a] : arrDirectory[a];
+//                        try {
+//                            channelSftp.cd(strCurDir);  //System.out.println("Checking if "+strCurDir+" folder exist.");
+//                        } catch (SftpException e) {
+//                            // unable to access the folder means the folder not exist, so create it
+//                            channelSftp.mkdir(strCurDir); //System.out.println(strCurDir+" folder do not exist, create it.");
+//                            channelSftp.cd(strCurDir);    //System.out.println("Opening "+strCurDir+" folder");
+//                        }
+//                        isFirst = false;
+//                    }
+//                }
+                //System.out.println("---folder created");
+//                if (! makeDirectory(fileDir)) {
+//                    // ThoTH @ 4-Apr-2014 :: Support Sub-Directories
+//                    int intOccur = 0;
+//                    int intPost = CommonFunction.nthOccurrence(fileDir, File.separator, intOccur);
+//                    String strTemp = fileDir.substring(0, intPost);
+//                    while (intPost >=0  && intOccur < 10) {  // intOccur < 10 is to avoid endless Loop
+//                        // Check Directory here
+//                        if (! isDirExists(strTemp, Boolean.FALSE)) {
+//                            // Make Directory
+//                            if (! makeDirectory(strTemp)) throw new CustomBaseException("Create Directory Failed...");
+//                        }
+//
+//                        intOccur ++;
+//                        intPost = CommonFunction.nthOccurrence(fileDir, "\\", intOccur);
+//                        if (intPost >= 0)   strTemp = fileDir.substring(0, intPost);
+//                    }
+//
+//                }
+
+                return Boolean.FALSE;
+            }
+
+            return Boolean.TRUE;
+
+        } catch (Exception e) {
+            throw e;
+//            e.printStackTrace();
+        } finally {
+            if (closeAfterUse) {
+                disconnect();
+            }
+        }
+//        return Boolean.FALSE;
+    }
+
+    public Boolean copyFile(String fileDir, String targetFileDir) throws Exception {
+//        System.out.println("-------------------------------------------");
+//        System.out.println("1. doing copyFile:: fileDir = " + append + fileDir.trim());
+//        System.out.println("2. doing copyFile:: targetFileDir = " + append + targetFileDir.trim());
+//        System.out.println("-------------------------------------------");
+        try {
+            initSftp();
+//           try {
+            if (isFileExists(targetFileDir.trim(), Boolean.FALSE)) {
+                channelSftp.rm(append + targetFileDir.trim());
+            } else {
+                Debug.printDebug("---file not exist");
+            }
+//               List<SftpFile> sftpFileList = client.ls(targetFileDir);
+//               System.out.println("sftp file list size = "+sftpFileList.size());
+//               if (sftpFileList.size() > 0) {
+//                   client.rm(targetFileDir);
+//               }
+//           } catch (Exception e) {CommonFunction.exceptionStackTrace(e);}
+
+            channelSftp.rename(append + fileDir.trim(), append + targetFileDir.trim());
+//            client.put(new FileInputStream(file), fileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+//            CommonFunction.exceptionStackTrace(e);
+            throw e;
+        } finally {
+            disconnect();
+        }
+//        return Boolean.FALSE;
+    }
+    
+    //copy from sftp2util - ahmadni @ 20-Sept-2018
+    public InputStream getFile_noClose(String fileDir) throws Exception {
+
+        //System.out.println("---Get File fileDir "+append + fileDir);
+        InputStream inStream = null;
+        try {
+            initSftp();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            channelSftp.get(append + fileDir, out);
+            inStream = new ByteArrayInputStream(out.toByteArray());
+        } catch (Exception e) {
+            CommonFunction.exceptionStackTrace(e);
+        }
+        return inStream;
+    }
+    
+    public Boolean copyFile_noClose(String fileDir, String targetFileDir) throws Exception {
+//        System.out.println("-------------------------------------------");
+//        System.out.println("1. doing copyFile:: fileDir = " + append + fileDir.trim());
+//        System.out.println("2. doing copyFile:: targetFileDir = " + append + targetFileDir.trim());
+//        System.out.println("-------------------------------------------");
+        try {
+            initSftp();
+//           try {
+            if (isFileExists(targetFileDir.trim(), Boolean.FALSE)) {
+                channelSftp.rm(append + targetFileDir.trim());
+            } else {
+//                System.out.println("---file not exist");
+            }
+//               List<SftpFile> sftpFileList = client.ls(targetFileDir);
+//               System.out.println("sftp file list size = "+sftpFileList.size());
+//               if (sftpFileList.size() > 0) {
+//                   client.rm(targetFileDir);
+//               }
+//           } catch (Exception e) {CommonFunction.exceptionStackTrace(e);}
+            Debug.printDebug("aaaaaaaaa:"+getFile_noClose(fileDir));
+            Debug.printDebug("bbbbbbb :"+append + targetFileDir);
+            
+            channelSftp.put(getFile_noClose(fileDir), append + targetFileDir);
+//            client.put(new FileInputStream(file), fileDir);
+            return Boolean.TRUE;
+        } catch (Exception e) {
+//            CommonFunction.exceptionStackTrace(e);
+            throw e;
+        } finally {
+            
+        }
+//        return Boolean.FALSE;
+    }
+    
+    public void tryToConnect() {
+        try {
+            System.out.println("start : " + DateUtil.getCurrentTimestamp());
+            initSftp();
+            System.out.println("end : " + DateUtil.getCurrentTimestamp());
+        } catch (Exception e) {
+        }
+    }
+    public Boolean isConnected() {
+        try {
+            return session.isConnected();
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
+    }
+    
+    private static Stack<Map> connectionPool;
+    private static synchronized Map getConnection() {
+        if (connectionPool == null) {
+            connectionPool = new Stack();
+        }
+        System.out.println("getConnectionPool.size = " + connectionPool.size());
+        if (connectionPool.size() > 0) {
+            return connectionPool.pop();
+        }
+        return null;
+    }
+    
+    private static synchronized Boolean pushConnection(Session session, Channel channel, ChannelSftp channelSftp) {
+        if (connectionPool == null) {
+            connectionPool = new Stack();
+        }
+        System.out.println("pushConnectionPool.size = " + connectionPool.size());
+        if (connectionPool.size() < 10) {
+            Map map = new HashMap();
+            map.put("session", session);
+            map.put("channel", channel);
+            map.put("channelSftp", channelSftp);
+            connectionPool.push(map);
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+}

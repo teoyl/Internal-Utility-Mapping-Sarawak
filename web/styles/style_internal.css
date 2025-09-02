@@ -1,0 +1,1401 @@
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+
+   colors:
+   slate blue #357EC7
+   medium aquamarine #3E918B;
+
+*/
+html, body {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 8pt;
+    color: #444444;
+    height: 100%; width: 100%; border: 0; padding: 0; margin: 0;
+}
+
+table {
+	font-size: 8pt;
+}
+
+th {
+    padding: 4px;
+	/*BORDER-TOP      	: #e6e6ff 1px solid;
+	BORDER-BOTTOM   	: #e6e6ff 1px solid;
+	BORDER-RIGHT    	: #e6e6ff 1px solid;
+	BORDER-LEFT     	: #e6e6ff 1px solid;
+	BACKGROUND-COLOR	: #e6e6ff;
+	COLOR           	: BLACK;
+	TEXT-ALIGN      	: CENTER;
+	FONT-FAMILY         : Arial,Helvetica,Geneva,Swiss,SunSans-Regular;
+	FONT-WEIGHT     	: NORMAL;*/
+}
+
+
+
+hr{
+	height: 4px;
+        border: none;
+        border-bottom: 1px solid #AAAAAA;
+        /*border: 1px solid #AAAAAA;*/
+}
+
+/*input, select, textarea {
+    border: 1px #DDDDDD solid;
+    color: #454545;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 8pt;
+    background: url(../images/imp_menu_bar50_hover.png) repeat;
+    font-size: 10pt;
+    height: 20px;
+}*/
+
+/* Delvene @ 21-May-2013 :: set all input data field to uppercase*/
+input[type=text], textarea {
+    /*text-transform: uppercase;*/  /*ThoTH @ 30-May-2013 temp disabled*/
+}
+/* Delvene @ 21-May-2013 :: set all input data field to uppercase - END*/
+
+input:focus, textarea:focus, select:focus {
+    border: 1px #3E918B solid;
+}
+
+/*#banner_imp {
+    height: 100px;
+    background: white url('../images/imp_banner_bg.png') repeat;
+    Safari 4-5, Chrome 1-9
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BDE5B3), to(#ffffff));
+     Safari 5.1, Chrome 10+
+    background: -webkit-linear-gradient(top, #ffffff, #BDE5B3);
+     Firefox 3.6+
+    background: -moz-linear-gradient(top, #ffffff, #BDE5B3);
+     IE 10
+    background: -ms-linear-gradient(top, #ffffff, #BDE5B3);
+     Opera 11.10+
+    background: -o-linear-gradient(top, #ffffff, #BDE5B3); maroon: #E7BCBB
+}*/
+#banner_imp {
+    height: 100px;
+    /*background: white url('../images/imp_banner_bg.png') repeat;*/
+    /*Safari 4-5, Chrome 1-9*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99defd), to(#ffffff));
+     /*Safari 5.1, Chrome 10+*/
+    background: -webkit-linear-gradient(top, #ffffff, #99defd);
+     /*Firefox 3.6+*/
+    background: -moz-linear-gradient(top, #ffffff, #99defd);
+     /*IE 10*/
+    background: -ms-linear-gradient(top, #ffffff, #99defd);
+     /*Opera 11.10+*/
+    background: -o-linear-gradient(top, #ffffff, #99defd);
+}
+
+/* Delvene @ 23-Apr-2013 :: banner*/
+#imp_banner_text {
+    height: 100px;
+    /*height: 38px;*/
+    /*background-image: url('../images/imp_ess_banner.jpg');*/
+    /*background-image: url('../images/imp_banner.png');*/
+    /*background-image: url('../images/banner_em_new.png');*/
+    /*background: url('../images/impian_logo.png') no-repeat;*/
+    /*background-image: url('../images/banner_ess_new_1.png');*/
+    /*background-image: url('../images/banner_msen.png');*/
+}
+/* Delvene @ 23-Apr-2013 :: banner - END*/
+
+/*Delvene @ 11-Oct-2013 :: Breadcrumb Navigation*/
+.breadcrumb_normal {
+    background-image: url('../images/breadcrumb/normal_node.png');
+}
+
+.breadcrumb_active {
+    background-image: url('../images/breadcrumb/active_node.png');
+}
+
+.breadcrumb_active, .breadcrumb_normal {
+    background-repeat: no-repeat;
+    background-position: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.breadcrumb_normal_bar {
+    background-image: url('../images/breadcrumb/normal_bar.png');
+}
+
+.breadcrumb_active_bar {
+    background-image: url('../images/breadcrumb/active_bar.png');
+}
+
+.breadcrumb_normal_bar, .breadcrumb_active_bar {
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.breadcrumb_active_lbl {
+    font-weight: bold;
+    color: #000000;
+}
+/*Delvene @ 11-Oct-2013 :: Breadcrumb Navigation - END*/
+
+#footer_imp {
+    height: 70px;
+    background: url('../images/imp_footer.png') repeat;
+}
+
+#footer_imp .best_view {
+    font-size: 10px;
+}
+
+#footer_imp .copyright {
+    font-size: 10px;
+}
+
+#footer_imp .system_name {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#footer_imp .system_version {
+    font-size: 10px;
+}
+
+#logo_imp {
+    background: url('../images/banner.jpg') no-repeat;
+    height: 100px;
+    width: 990px;
+}
+
+#logout_imp {
+    border: 0;
+    height: 34px;
+    width: 34px;
+    background: url('../images/imp_logout.png') no-repeat;
+    cursor: pointer;
+}
+
+#menubar_imp {
+    margin: 0;
+    height: 50px;
+    /*background: url(../images/imp_menu_bar50_hover.png) repeat-x;*/
+    background: url(../images/menubar50_ess.png) repeat-x;
+    /*background: url(../images/menubar50green.png) repeat-x;*/
+    /*background: #4AA02C;#348017;*/
+    /*background-image: url(../../images/menubar50green.png);*/
+}
+#menubar_imp_public {
+    margin: 0;
+    height: 50px;
+    /*background: url(../images/imp_menu_bar50_hover.png) repeat-x;*/
+    /*background: url(../images/menubar50.png) repeat-x;*/
+    background: url(../images/menubar50blue.png) repeat-x;
+    /*background: #4258AB;*/
+    /*background-color: #4258AB;*/
+}
+#menubar_public_main {
+    margin: 0;
+    height: 30px;
+    /*background: url(../images/imp_menu_bar50_hover.png) repeat-x;*/
+    /*background: url(../images/menubar50.png) repeat-x;*/
+    background: url(../images/menubar50blue.png) repeat-x;
+    /*background: #4258AB;*/
+    /*background-color: #4258AB;*/
+}
+
+#menu_imp {
+    height: 50px;
+}
+
+.asterisk {
+    color: red;
+}
+
+.label_imp {
+    color: #444444;
+    font-weight: bold;
+}
+
+/*#menu_imp :hover {
+    background: url(../images/imp_menu_bar50hover.png) repeat;
+}*/
+
+#session_name_imp {
+    padding-top: 8px;
+    padding-right: 10px;
+    color: white;
+    font-size: 10pt;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/*Tile menu*/
+#menu-tile-container {
+    width: 1000px;
+    overflow: hidden;
+    padding: 10px 0 10px 0;
+    /*-moz-border-radius: 5px;*/
+    /*border-radius: 5px;*/
+    /*border: 1px solid #AAAAAA;*/
+}
+
+.menu-tile {
+    height: 100px;
+    width: 100px;
+    /*-moz-border-radius: 3px;*/
+    border: 0;
+    /*background:	url('../images/temp.png');*/
+    /*background-color: #357EC7;*/
+    /* fallback */
+    /*background-color: #3E918B;*/
+    /*background: url(images/linear_bg_2.png);
+    background-repeat: repeat-x;*/
+    /* Safari 4-5, Chrome 1-9 */
+    /*background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3E918B), to(#357EC7));*/
+    /* Safari 5.1, Chrome 10+ */
+    /*background: -webkit-linear-gradient(top, #357EC7, #3E918B);*/
+    /* Firefox 3.6+ */
+    /*background: -moz-linear-gradient(top, #357EC7, #3E918B);*/
+    /* IE 10 */
+    /*background: -ms-linear-gradient(top, #357EC7, #3E918B);*/
+    /* Opera 11.10+ */
+    /*background: -o-linear-gradient(top, #357EC7, #3E918B);*/
+    /*background:		url('../images/off.png');*/
+}
+
+/*.menu-tile:hover {
+    background:	url('../images/temp_hover.png');
+}*/
+
+.menu-tile-name {
+    width: 100px;
+}
+
+.menu-tile-name a{
+    font-size: 7pt;
+    color: #777777;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+/*#PR {
+    background:	url('../images/data_peribadi.png');
+    background:	url('../images/menu/profile_100.png');
+}
+
+#PR:hover {
+    background:	url('../images/data_peribadi_hover.png');
+    background:	url('../images/menu/profile_hover_100.png');
+}
+
+#CT {
+    background:	url('../images/cuti.png');
+    background:	url('../images/menu/leave_100.png');
+}
+
+#CT:hover {
+    background:	url('../images/cuti_hover.png');
+    background:	url('../images/menu/leave_hover_100.png');
+}
+
+#PRReport {
+    background:	url('../images/cuti.png');
+    background:	url('../images/menu/report_100.png');
+}
+
+#PRReport:hover {
+    background:	url('../images/cuti_hover.png');
+    background:	url('../images/menu/report_hover_100.png');
+}
+
+#TT {
+    background:	url('../images/cuti.png');
+    background:	url('../images/menu/claim_100.png');
+}
+
+#TT:hover {
+    background:	url('../images/cuti_hover.png');
+    background:	url('../images/menu/claim_hover_100.png');
+}
+
+#PRHR {
+    background:	url('../images/cuti.png');
+    background:	url('../images/menu/emp_records_100.png');
+}
+
+#PRHR:hover {
+    background:	url('../images/cuti_hover.png');
+    background:	url('../images/menu/emp_records_hover_100.png');
+}
+
+#JobMain {
+    background:	url('../images/cuti.png');
+    background:	url('../images/menu/task_100.png');
+}
+
+#JobMain:hover {
+    background:	url('../images/cuti_hover.png');
+    background:	url('../images/menu/task_hover_100.png');
+}*/
+/* end Tile menu*/
+
+/* default button*/
+.defaultButton {
+    padding-bottom: 2px;
+    font-family: "Segoe UI", Verdana;
+    font-weight: bold;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+    /*border-top: 2px solid #EEEEEE;
+    border-left: 2px solid #EEEEEE;
+    border-right: 2px solid #777777;
+    border-bottom: 2px solid #777777;*/
+    /*/background-color: #EEEEEE;*/
+    background-color: #5FB143;
+    /*blue*/
+    /*background-color: #4258ab;*/
+    height: 30px;
+    font-size: 9pt;
+    min-width: 70px;
+    /*color: #555555;*/
+    color: #ffffff;
+    vertical-align:top;
+    background-image: none;
+    /*background:		url('../images/button/b_orange_mid.gif');*/
+}
+
+.defaultButton:hover{
+    /*background-color: #CBF8C0;*/
+    color: #555555;
+    cursor: pointer;
+    /*Safari 4-5, Chrome 1-9*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#BDE5B3), to(#ffffff));
+     /*Safari 5.1, Chrome 10+*/
+    background: -webkit-linear-gradient(top, #ffffff, #BDE5B3);
+     /*Firefox 3.6+*/
+    background: -moz-linear-gradient(top, #ffffff, #BDE5B3);
+     /*IE 10*/
+    background: -ms-linear-gradient(top, #ffffff, #BDE5B3);
+     /*Opera 11.10+*/
+    background: -o-linear-gradient(top, #ffffff, #BDE5B3);
+    /*border-color: #c0504D;*/
+}
+
+.defaultButton:disabled{
+    background-color: #EEEEEE;
+    color: #999999;
+    cursor: default;
+}
+
+.button-container {
+    border-bottom: 1px dotted #AAAAAA;
+    /*padding-bottom: 3px;*/
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 45px;
+    vertical-align: middle;
+}
+
+.button-container-list {
+    border-bottom: 1px dotted #AAAAAA;
+    padding-bottom: 4px;
+    padding-right: 10px;
+}
+
+.button-container-bottom {
+    border-top: 1px dotted #AAAAAA;
+    padding: 8px 0 5px 26px;
+}
+/* default button*/
+
+/*master info*/
+.master-info {
+    /*background: #EFEFEF;*/
+    border: 1px solid #CCCCCC;
+    border-top: none;
+    border-bottom: 1px solid #AAAAAA;
+    background: url('../images/imp_footer.png') repeat;
+    padding: 5px 0 5px 0;
+    font-size: 7.5pt;
+}
+
+/*.master-info .label_imp {
+    font-family: "Segoe UI", Verdana;
+    font-size: 8pt;
+    font-weight:600;
+}*/
+
+/*modified by modified date info*/
+.modified-info {
+    border-top: 1px dotted #AAAAAA;
+    padding: 5px 20px 15px 25px;
+}
+
+/* tab menu for pr  */
+.menu-table {
+    margin-top: 10px;
+    /*border: 1px solid #999999;*/
+}
+
+.menu-table a {
+    width: 90px;
+    color: #444444;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menu-table td {
+    border-bottom: 1px solid #AAAAAA;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-top: 1px solid #EEEEEE;
+    /*background: url('../images/prMenuButton/mb1.png') repeat;*/
+    background: url('../images/prMenuButton/mb-normal2.png') repeat;
+    padding: 3px;
+    text-align: center;
+    /*border-bottom: 3px solid white;*/
+}
+
+.menu-table td:hover {
+    background: url('../images/prMenuButton/mb-hover.png') repeat;
+}
+
+.menu-table td a:hover {
+    color: #357EC7;
+}
+
+.menu-table .menuButton1 { /*current tab*/
+    border: 1px solid #357EC7;
+    /*background: url('../images/prMenuButton/mb4.png') repeat;*/
+    background: url('../images/prMenuButton/mb-current.png') repeat;
+}
+
+.menu-table .menuButton12  { /*current, modified, not yet submit*/
+    border: 1px solid #357EC7;
+    /*background: url('../images/prMenuButton/mb4.png') repeat;*/
+    background: url('../images/prMenuButton/mb-current.png') repeat;
+    /*color: #357EC7;*/
+    color: #c11b17;
+}
+
+.menu-table .menuButton12 a { /*current, modified, not yet submit*/
+    /*color: #357EC7;*/
+    color: #c11b17;
+}
+
+.menu-table .menuButton2 {
+    /*background: url('../images/prMenuButton/mb3.png') repeat;*/
+    background: url('../images/prMenuButton/mb-modified.png') repeat;
+}
+
+.menu-table .menuButton2 a {
+    /*color: #357EC7;*/
+    color: #c11b17;
+}
+
+/* Reuse menuButton2 until find a suitable one */
+.menu-table .menuButton5 {
+    /*background: url('../images/prMenuButton/mb3.png') repeat;*/
+    background: url('../images/prMenuButton/mb-modified.png') repeat;
+}
+
+.menu-table .menuButton5 a {
+    /*color: #357EC7;*/
+    color: #c11b17;
+}
+
+.small-button {
+    text-align: center;
+    width: 25px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+    cursor: pointer
+}
+
+.small-button:hover {
+    background-color: #B4CFEC;
+    color: #555555;
+}
+
+.small-button-disabled {
+    text-align: center;
+    width: 25px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+}
+
+#left-button {
+    width: 16px;
+    height: 16px;
+    background: url('../images/prMenuButton/left.png') repeat;
+    cursor: pointer;
+    border: none;
+}
+
+#right-button {
+    width: 16px;
+    height: 16px;
+    background: url('../images/prMenuButton/right.png') repeat;
+    cursor: pointer;
+    border: none;
+}
+
+/* end tab menu for pr  */
+
+/* pending verified icon*/
+.pending-icon {
+    min-height: 16px;
+    /*width: 300px;*/
+    padding-left: 20px;
+    padding-top: 1px;
+    background: url('../images/pending_16.png') no-repeat;
+}
+
+.verified-icon {
+    height: 16px;
+    width: 300px;
+    padding-left: 20px;
+    padding-top: 1px;
+    background: url('../images/verified_16.png') no-repeat;
+}
+/* pending verified icon end */
+
+
+
+.titleFramework {
+    height: 26px;
+    padding: 2px 0 0 10px;
+    display:block;
+    margin: 6px 0 0 0 ;
+    text-align: left;
+    /*background: url('../images/title_framework_bg.png') repeat;*/
+    /*background: url('../images/title-framework2.png') repeat;*/
+    background: #AAAAAA;
+    border: 1px solid #AAAAAA;
+    border-bottom: none;
+    /*border-top: none;*/
+}
+
+.titleText {
+    font-size: 13px; /*14pt; */
+    font-weight: bold;
+    padding-top: 1px;
+    /*color: rgb(192, 80, 77);*/
+    /*color: #C0504D;*/
+    /*color: #348017;*/
+    color: #060257;
+}
+
+
+.titleActionTypeText {  /*Delvene @ 05-Sep-2013*/
+    font-size: 8pt;
+    padding-top: 1px;
+}
+
+.step {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 10px 0 0 10px;
+}
+
+/* default table */
+
+.defaultTable {
+    /*font-size: 8pt;*/
+    border: #cde8fe 1px solid;
+}
+
+.defaultTable th {
+    font-family: Verdana;
+    /*background: url('../images/sorter/header-bg.gif');*/
+    /*background-color: #95a9be;*/
+    /*background-color: #5FB143;*/
+    background-color: #AAAAAA;
+    /*background-color: #E7BCBB;*/
+    color: white;
+    /*color: #AAAAAA;*/
+}
+
+.defaultTable td {
+    padding: 0 4px 0 4px;
+    height: 20px;
+}
+
+.defaultTable input {
+    font-size: 8pt;
+    color: #454545;
+}
+
+.CLASS_TABLE_HEADER {
+    font-family: Verdana;
+
+    /*background: url('../images/sorter/header-bg.gif');*/
+	/*BORDER-TOP		: #cde8fe 1px solid;
+	BORDER-BOTTOM	: #cde8fe 1px solid;
+	BORDER-RIGHT	: #cde8fe 1px solid;
+	BORDER-LEFT		: #cde8fe 1px solid;*/
+	/*BACKGROUND-COLOR: #3E918B;*/
+	/*MARGIN-LEFT		: 5px;*/
+	TEXT-ALIGN: LEFT;
+	FONT-WEIGHT: BOLD;
+	FONT-SIZE: 8pt;
+}
+
+.CLASS_TABLE_HEADER {
+    background: none;
+}
+
+td .label {
+    vertical-align: middle;
+}
+
+/* HyperLink*/
+.thLink {
+    /*color: #cfdce7;  Old:#595959 */
+    color: #eeeeee;
+    text-decoration: none;
+}
+
+.thLink:hover {
+    color: #fff;
+    /*font-weight: bold;*/
+}
+
+.defaultTable {
+    border: none;
+    border-top: #777777;
+    border-bottom: #777777;
+}
+
+.defaultTable td {
+    color: #444444;
+    /*padding: 2px;*/
+    /*border-bottom:1px solid #c6d5e1;
+    border-right:1px solid #c6d5e1;*/
+}
+
+.defaultTable td a {
+    color: #357EC7;
+}
+
+.odd {
+    /*background-color: #ecf2f6;*/  /*OLD: #FFFFFF */
+    background-color: #FFFFFF;
+    /*background-color: #D7FFCC;*/
+    /*background-color: #E1FFD6;*/
+    /*background-color: #EBFFE0;*/
+    /*background-color: #CAFFCA;*/
+}
+
+.even {
+    /*background-color: #fff;  Old: #D0CECA*/
+    background-color: #ecf2f6;/*#light blue*/
+    /*background-color: #CAFEB8;*/
+}
+
+/*end default table*/
+
+/*default paging*/
+.tablePaging td {
+   height: 30px;
+   border: 0 none;
+   font-size: 8pt; /*10pt;*/
+   font-weight: bold;
+   vertical-align: bottom;
+}
+
+.tablePaging td a{
+    color: #3E918B;
+}
+
+.tablePaging td a:hover {
+    font-size: 13px; /*11pt;*/
+}
+/*end default paging*/
+
+/* list table in pr */
+.pr-list th, .post-list th {
+    color: #444444;
+    border-bottom: 1px solid #444444;
+}
+
+.pr-list td, .post-list td {
+    padding: 0 4px 0 4px;
+    height: 20px;
+}
+
+.pr-list a, .post-list a {
+    color: #357EC7;
+    /*text-decoration: none;*/
+    /*font-weight: bold;*/
+}
+
+.pr-list input[type=text], .pr-list select, .post-list input[type=text], .post-list select {
+    width: 100%;
+    background: transparent;
+}
+/* list table in pr end*/
+
+/*job*/
+#jobProcessed {
+    background-color: #EBF9FF;
+    padding: 10px;
+}
+
+.imgArrowRight {
+    padding: 0;
+    background:	url('../images/arrows-ffffff.png') no-repeat -10px 3px;
+}
+
+.jobTable {
+    width:  100%;
+    text-align: left;
+    /*border: 1px solid #000000;*/
+}
+
+.jobListTable  {
+    border: 1px solid #000000;
+}
+
+.header_1 {
+    width: 100%;
+    color: #FFF;
+    background-color: #EEEEEE;
+    /*font-weight: bold;*/
+    /*border: 1px solid #000000;*/
+    padding: 3px;
+}
+
+.header_2 {
+    width: 98%;
+    height:25px;
+    color: #FFF;
+    /*background-color: #ACACA8;*/
+    background-color: #357EC7;
+    /*background-color: #4258ab;*/
+    font-weight: bold;
+    padding: 3px;
+}
+.header_2_div {
+    width: 100%;
+    height:25px;
+    color: #FFF;
+    /*background-color: #ACACA8;*/
+    background-color: #357EC7;
+    /*background-color: #4258ab;*/
+    font-weight: bold;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.header_2_no_width {
+    height:25px;
+    color: #FFF;
+    /*background-color: #ACACA8;*/
+    background-color: #357EC7;
+    font-weight: bold;
+    padding: 3px;
+}
+
+.header_2Text {
+    padding-left: 15px;
+}
+
+.jobProcessedtitle {
+  font-size: 9pt;
+  font-weight: bold;
+  color: #777777;
+  text-align: left;
+  margin: 1pt;
+  padding: 5px 9px 5px 9px;
+  height: 30px;
+  background-color: #EEEEEE;
+  /*padding-left: 20px;*/
+  /*background:	url('../images/arrows-ffffff.png') no-repeat -10px 3px;*/
+}
+
+.errortxt {
+    font-weight: bold;
+    color: red;
+}
+
+.jobColumns td {
+  font-size: 9pt;
+  font-weight: bold;
+  color: #777777;
+  margin: 1pt;
+  padding: 5px 9px 5px 9px;
+  height: 30px;
+  border-bottom: 1px solid black;
+}
+
+.jobHeader td {
+    border-bottom: 1px solid black;
+}
+
+.jobHeader_1 {
+    color : #595959;
+    /*background-color: #F4D779;*/
+}
+
+.jobHeader_2 {
+    color : #595959;
+    background-color: #D0CECA;
+}
+
+.jobDetailHeader {
+    /*color : #595959;*/
+    /*background-color: #F4D779;*/
+    /*width: 150px;*/
+    font-weight: bold;
+    padding: 3px;
+    vertical-align: top;
+}
+
+.masterLabel {  /* 100915: No more Using after commented by Kho */
+    color : #595959;
+    background-color: #F4D779;
+    padding: 3px;
+    vertical-align: top;
+}
+
+.masterTD {  /* 100915: No more Using after commented by Kho */
+    padding: 3px;
+    font-size: 8pt;
+    color: #595959;
+    text-decoration: none;
+    background-color: #fff;
+}
+
+.pageHeader{ 	font-weight: normal;
+		font-family: Verdana,Arial,Helvetica,Geneva,Swiss,SunSans-Regular;
+                color: rgb(0,0,255);
+	        font-size: 18px;
+                font-weight: bold;
+		text-align:left;
+		}
+
+.jobHeaderLabel {
+    padding-left: 3px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    height: 25px;
+    vertical-align: bottom;
+}
+
+.jobLabel {
+  padding: 3px;
+  /*font-size: 10px;  8pt;*/
+  color: #595959;
+  text-decoration: none;
+  /*background-color: #fff;*/
+}
+
+.jobLabel a {
+    color: #357EC7;
+}
+
+.jobGetLink {
+    font-size: 14px;  /*8pt;*/
+    color: #900B09;
+}
+
+.jobGetLink:hover {
+    color: blue;
+    text-decoration:underline;
+    font-weight:bolder;
+}
+
+/* Job  END */
+
+.xbox {
+    display:block;
+    /*margin: 2px 0 0 10px ;*/
+    /*padding: 2px;*/
+    text-align:left;
+    font-size:12px; /*9pt;*/
+    border:1px solid #AAAAAA;
+    height:auto;
+    width:990;
+}
+
+.xboxPopup {
+    display:block;
+    margin: 2px 10px 0 10px ;
+    padding: 2px;
+    text-align:left;
+    font-size:9pt;
+    /*border:0 solid #FBC313;*/
+    border-width:2px;
+    height:95%;
+}
+
+/* verification */
+.verification {
+    /*background-color:*/
+}
+
+.verification th {
+    text-transform: uppercase;
+    border-bottom: 1px solid #444444;
+    color: #000000;
+}
+
+.verification_data {
+    border-top: 1px solid #AAAAAA;
+}
+
+.verification_data tr:hover, .verification_data_top tr:hover {
+    /*background-color: #FFFF00;*/
+    background-color: #B8FFB8;
+}
+
+.verification td, .verification_data td, .verification_data_top td{
+    padding: 3px;
+    height: 20px;
+}
+
+.prDVNotSame {
+    /*color: maroon;*/
+    /*color: #E55451;*/
+    color: #F62817;
+    /*font-weight: bold;*/
+}
+
+.prDVNotSame a {
+    /*color: maroon;*/
+    /*color: #E55451;*/
+    color: #F62817;
+    /*font-weight: bold;*/
+}
+
+.newDataColumn {
+    /*background-color: #D7FFCC;*/
+    /*background-color: #E1FFD6;*/
+    /*background-color: #EBFFE0;*/
+    /*background-color: #CAFFCA;*/
+    background-color: #D8FFD8;
+}
+
+/*action message*/
+.actionMessage {
+    color: #3E918B;
+}
+
+
+
+/* Delvene @ 29-May-2013 :: For data_peribadi_hr Form */
+#addEditPeribadiForm input[type=text] {
+    width: 190px;
+}
+
+#addEditPeribadiForm select {
+    width: 198px;
+}
+
+#addEditPeribadiForm #short_input input[type=text] {
+    width: 130px;
+}
+
+#addEditPeribadiForm #short_input_ext input[type=text] {
+    width: 84px;
+}
+
+#addEditPeribadiForm #short_input select {
+    width: 138px;
+}
+
+#addEditPeribadiForm #short_input_ic_color select {
+    width: 92px;
+}
+
+#addEditPeribadiForm #input_email input[type=text] {
+    width: 540px;
+}
+
+#addEditPeribadiForm #input_name input[type=text] {
+    width: 600px;
+}
+
+#addEditPeribadiForm #input_cal input[type=text] {
+    width: 169px;
+}
+
+#addEditPeribadiForm #short_input_cal input[type=text] {
+    width: 109px;
+}
+
+.requiredField {    /*Delvene @ 30-May-2013 :: Make compulsory input border to be red*/
+    border-color: red;
+}
+/* Delvene @ 29-May-2013 :: For data_peribadi_hr Form - END */
+
+#input_cal input[type=text] {
+    width: 292px;
+}
+
+form.prForm input[type=text], form.postForm input[type=text] {
+    width: 314px;
+    padding: 1px 3px 1px 3px;
+}
+
+form.prForm select, form.postForm select {
+    width: 322px;
+}
+
+form.prForm textarea, form.postForm textarea {
+    resize: none;
+    /*width:  320px;*/
+    width: 314px;
+    padding: 0 3px 0 3px;
+}
+
+form.prHrForm input[type=text], form.postForm input[type=text] {
+    width: 314px;
+    padding: 1px 3px 1px 3px;
+}
+
+form.prHrForm select, form.postForm select {
+    width: 322px;
+}
+
+form.prHrForm textarea, form.postForm textarea {
+    resize: none;
+    /*width:  320px;*/
+    width: 314px;
+    padding: 0 3px 0 3px;
+}
+
+#imgCalTo1{
+    cursor: pointer;
+}
+
+#updated_log {
+    /*color: red;*/
+    color: blue; /*zhafari - just use blue. red is for modified field*/
+}
+
+#prViewForm #pendingData {
+    color: blue;
+}
+
+#pendingData {
+    color: blue;
+}
+
+a #pendingData {
+    font-weight: bold;
+}
+
+.pendingForVer {
+    color: #e18700; font-weight: bold;
+}
+
+#updated_bg {
+    background-color: #C3FDB8;
+    /*background-color: #ffc2c2;*/
+    border-top: 1px solid #AAAAAA;
+}
+/* Delvene @ 19-Apr-2013 :: For PR Form - END */
+
+/* Delvene @ 23-Apr-2013 :: Login Page */
+#loginTable {
+    height: 638px;
+    width:  1024px;
+    background-color: #f9f9f9;
+    border-style: none;
+}
+
+#table_bottom {
+    background-color: #5fb143;
+    /*background-color: #4258ab;*/
+    /*background-color: #C0504D;*/
+}
+
+#login_frame {
+    width: 440px;
+    height: 257px;
+    /*background-image: url('../images/login/login_frame.png');*/
+    background-repeat: no-repeat;
+    border-bottom-style: none;
+}
+
+#login_username, #login_password {
+    background-image: url('../images/login/textbox_bg.png');
+    height: 23px;
+    width: 219px;
+}
+
+#login_username input, #login_password input {
+    font-size: 10pt;
+    padding: 0 3px 0 3px;
+    width: 218px;
+}
+
+#login_username input:focus, #login_password input:focus {
+    border: 1px gray solid;
+}
+/* Delvene @ 23-Apr-2013 :: Login Page - END */
+
+/*Delvene @ 26-Apr-2013 :: For Keluarga Form*/
+#editEducationForm input[type=text]#edu_duration {
+    width: 30px;
+}
+
+select#edu_duration_unit{
+    width: 272px;
+}
+/* Delvene @ 26-Apr-2013 :: For Keluarga Form - END */
+
+/* Delvene @ 03-May-2013 :: For Pengalaman Bekerja Form */
+#jwt_cal input[type=text] {
+    width: 120px;
+}
+
+#jwt_specify textarea {
+    resize: none;
+    width: 260px;
+}
+/* Delvene @ 03-May-2013 :: For Pengalaman Bekerja Form - END */
+
+/*Delvene @ 05-Jun-2013 :: For Profail Perkhidmatan */
+/*#servProfTabColumn {
+    background-color: #D6F3FF;
+    background-color: #ffebeb;
+}
+
+#servProfLeftTabs {
+    border-collapse: collapse;
+}
+
+#servProfLeftTabs td{
+    border-bottom: 1px solid #eaa7a7;
+}
+
+#servProfLeftTabs tr td {
+    height: 55px;
+    font-weight: bold;
+    color: #de2b2b;
+}
+
+#servProfLeftTabs tr.selectedTab > td:first-child {  style tab indicator - selected
+    background-color: #ec2b2b;
+}
+
+#servProfLeftTabs tr.selectedTab > td:first-child+td {  style tab - selected
+    background-color: #FFFFFF;
+}
+
+#servProfLeftTabs tr.defaultTab > td:first-child {  style tab indicator - default
+    background-color: #ecb4b4;
+}
+
+#servProfLeftTabs tr > td:first-child+td:hover {   style tab - default
+    cursor: pointer;
+    background-color: #FFFFFF;
+}*/
+
+#servProfTable tr.defaultTab {
+    font-weight: bold;
+    color: #319a35;
+    cursor: pointer;
+    background-color: #dffddf;
+}
+
+#servProfTable tr.selectedTab {
+    font-weight: bold;
+    color: #dffddf;
+    cursor: pointer;
+    background-color: #319a35;
+}
+
+#servProfTable tr.defaultTab td, #servProfTable tr.selectedTab td {
+    border-top: 1px solid #a7eabd;
+    border-bottom: 1px solid #a7eabd;
+}
+
+#servProfTable tr.selectedTab:hover, #servProfTable tr.defaultTab:hover {
+    background-color: #319a35;
+    color: #dffddf;
+}
+
+#servProfTable tr.selectedTab > td:first-child {  /*style tab indicator - selected*/
+    /*background-color: #2B65EC;*/
+    background-image: url('../images/arrow_expand.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#servProfTable tr.defaultTab > td:first-child {  /*style tab indicator - default*/
+    /*background-color: #B4CFEC;*/
+    background-image: url('../images/arrow_collapse.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Delvene @ 05-Jun-2013 :: For Profail Perkhidmatan - END */
+
+/* Zhafari @ 22-05-2013 added Cuti Tahunan  */
+#viewCutiTahunan #subTitle {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #e3e3e3;
+    text-transform: uppercase;
+    background-color: #0a1c29;
+}
+
+#dottedLine hr {
+    border: 1px dotted blue;
+    border-style: none none dashed;
+    color: #fff;
+    background-color: #fff;
+}
+/* Delvene @ 09-May-2013 :: For Profail Perkhidmatan - END */
+
+/*Delvene @ 07-Jul-2013 :: Add New Rekod Pegawai*/
+.np_step2Table tr > td:first-child, .np_step3Table tr > td:first-child{
+    padding-left: 20px;
+}
+
+.np_step2Table #email_sent > td:first-child {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.np_step2Table #email_sent > td:first-child+td {
+    color: #444444;
+    font-weight: bold;
+}
+
+.np_step3Table input[type=text] {
+    width: 500px;
+}
+
+.sub_header_bg {
+    /*background-color: #C0504D;*/
+    background-color: #348017;
+    color: #FFFFFF;
+    font-weight: bold;
+    height: 26px;
+}
+
+.sub_label_bg {
+    background-color: #E5E5E5;
+}
+/*Delvene @ 07-Jul-2013 :: Add New Rekod Pegawai - END*/
+
+/*Delvene @ 27-Aug-2013 :: For Post Form*/
+#estPath_ {
+    color: #000000;
+    font-weight: bold;
+}
+/*Delvene @ 27-Aug-2013 :: For Post Form - END*/
+
+.prAttachmentField {
+    background-image: url('../images/impian_download.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    /*padding: 3px 3px 3px 20px;*/
+    display: inline-block;
+    padding-right: 20px;
+    height: 16px;
+}
+.coolmenu{
+    width: 200px;
+}
+
+.coolmenu td{
+    /*background-color: #D1D17A; bisque;*/
+    /*background-color: #e2e4fb; light blue;*/
+    background-color: #CAFEB8; /*light blue;*/
+    cursor:hand;
+    font-family:Arial;
+    font-weight:bold;
+}
+.coolmenu td:hover {
+    background-color: #E7BCBB;
+}
+
+.coolmenu td a{
+    text-decoration:none;
+    color:black;
+    color: #2D2D2D;
+}
+
+.coolmenu td#boxdescription{
+    background: #BABA21; /*ivory;*/
+    height: 25px;
+    font-weight: normal;
+}
+.ybox {
+    /*border:1px solid #a49e28; #8EB4E6;*/
+    border:1px solid #060257; /*blue;*/
+    border-top-style:none;
+    border-right-style:solid;
+    border-bottom-style:solid;
+    border-left-style:solid;
+    border-radius:5px;
+    background-color: #FFFFE3;
+    margin: 0;
+    padding: 6px;
+    text-align:left;
+    font-size:12px; /*9pt;*/
+    height:auto;
+}
+/******************************************************* Tab *******************************************************/
+ul#navlist {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul#navlist li {
+    float: left;
+    font-family: Arial,Helvetica,Geneva,Swiss,SunSans-Regular;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0 4px 0;
+    /*background-color: #3986b3;*/
+    background-color: #ffffff;
+}
+
+#navlist a, #navlist a:link {
+    font-family: Arial,Helvetica,Geneva,Swiss,SunSans-Regular;
+    font-size: 12px;
+    margin: 0;
+    padding: 5px 9px 4px 9px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #a3b1e1;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+ul#navlist li#active {
+    background-color: #ccccff;
+    color: #000;
+}
+
+.tr_entry_label {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 8pt;
+    color: #222222;
+    border-bottom: 1px dashed #357EC7;
+    border-left: 2px solid #357EC7;
+}
+
+.tr_entry_label_r {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 8pt;
+    color: #222222;
+    border-bottom: 1px dashed #357EC7;
+    border-left: 2px solid #f66;
+}

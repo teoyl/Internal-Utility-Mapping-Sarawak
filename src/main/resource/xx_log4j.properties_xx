@@ -1,0 +1,29 @@
+log4j.logger.com.opensymphony.xwork2.ognl=OFF
+
+log4j.rootLogger=OFF, console
+log4j.logger.com.sample=ERROR, file
+log4j.logger.com.sample=INFO, file
+log4j.logger.com.sample=DEBUG, file
+log4j.logger.com.sains=ERROR, file
+log4j.logger.com.sains=INFO, file
+log4j.logger.com.sains=DEBUG, file
+log4j.logger.com.impian=ERROR, file
+log4j.logger.com.impian=INFO, file
+log4j.logger.com.impian=DEBUG, file
+
+### file appender
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.maxFileSize=2MB
+log4j.appender.file.maxBackupIndex=30
+log4j.appender.file.File=c:\\sdilog\\FDS_MySql\\FDS_MySql.log
+#log4j.appender.file.File=/var/sdilog/FDS_MySql/FDS_MySql.log
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{dd-MMM-yy HH:mm:ss} %5p %c{1}:%L - %m%n
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{dd-MMM-yy HH:mm:ss} %5p %c{1}:%L - %m%n
+
+log4j.appender.console=org.apache.log4j.ConsoleAppender
+log4j.appender.console.layout=org.apache.log4j.PatternLayout
+log4j.appender.console.layout.ConversionPattern=%d{dd-MMM-yy HH:mm:ss} %5p %c{1}:%L - %m%n

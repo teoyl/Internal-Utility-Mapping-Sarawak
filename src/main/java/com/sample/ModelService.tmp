@@ -1,0 +1,53 @@
+package __replacePackage__;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import com.sains.common.util.DateUtil;
+import com.sains.common.util.Formatter;
+import com.sains.common.util.SystemConstants;
+import com.sains.common.util.Validator;
+import com.sains.framework.base.BaseDAOImpl;
+import com.sains.framework.base.CustomBaseException;
+import com.sains.framework.base.Debug;
+import com.sains.framework.base.ModelBase;
+import com.sains.framework.model.ItemCategory;
+import com.sains.framework.model.Module;
+import com.sains.framework.model.User;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import org.hibernate.Session;
+import org.hibernate.annotations.Where;
+
+public class __ReplaceModel__Service extends __ReplaceModel__ {
+    __ReplaceModel__ dbModel = null;
+    __ReplaceModel__ webModel = null;
+    public __ReplaceModel__Service(ModelBase dbModel, ModelBase webModel) {
+        this.dbModel = (__ReplaceModel__)dbModel;
+        this.webModel = (__ReplaceModel__)webModel;
+    }
+
+    public void getMyChildList_byOperation() {
+        System.out.println("getMyChildList_byOperation ------------- __ReplaceModel__, operation = " + get_operation());
+        if (get_operation() != null) {
+            if (get_operation().equals("")) {//empty = default
+                //Generated_By_GE::Start
+                __ReplaceChildList__
+                setupMyChildList("getChildList", ChildModel.class, "childDeleted", Boolean.FALSE);
+                setupMyChildList("getPropertyList", PropertyModel.class, "propertyDeleted", Boolean.FALSE);
+                //Generated_By_GE::End
+            }
+        }
+    }
+
+}

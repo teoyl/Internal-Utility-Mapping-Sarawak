@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+This file consists all the queries that are used to build up the lookups.
+NOTE:
+1. Only create a new query if none of the existing queries meet the requirements
+2. Try to make use of the optional parameters("filters") property
+3. Always append new filters to the last one, never delete, change/swap position of the filters except you are 100% sure that no other module
+   are using the "old" filters
+4. escape the special characters - greater(&gt;), less(&lt;)
+5. use aliases for the tables (join)
+6. specify the Name, Description, Parameter, CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
+
+-->
+<query-config>
+    <queries>
+        <!-- ################################# SAM ################################# -->
+        <!-- ### Module ### -->
+        <!-- 
+        Name		: Module
+        Description	: Get all Modules
+        Parameter	: -
+        Created By	: Then Sze Wee					Created Date	: 15 March 2010
+        Modified By	: -								Modified Date	: -
+        -->
+        <query name="Module">
+            <property name="fields" value="module_id, module_code, module_name, module_type"/>
+            <property name="tables" value="t_setup_module"/>
+            <property name="filters" value=""/>
+            <property name="searchFields" value="module_code, module_name" />
+            <property name="searchFieldsLabel" value="module.code, module.name" />
+        </query>  
+    </queries>
+</query-config>

@@ -1,0 +1,33 @@
+1. package.properties
+   - system.name: change to your system name
+
+2. log4j.properties
+   Add:
+   - log4j.logger.com.[any new folder name 1]=ERROR, file
+   - log4j.logger.com.[any new folder name 1]=INFO, file
+   - log4j.logger.com.[any new folder name 1]=DEBUG, file
+
+   - log4j.logger.com.[any new folder name 2]=ERROR, file
+   - log4j.logger.com.[any new folder name 2]=INFO, file
+   - log4j.logger.com.[any new folder name 2]=DEBUG, file
+
+   Edit: log4j.appender.file.File
+   IF OS = Window
+	log4j.appender.file.File=c:\\sdilog\\YourSystemName\\system.log
+   	#log4j.appender.file.File=/var/sdilog/YourSystemName/system.log
+   IF OS = Linus
+	#log4j.appender.file.File=c:\\sdilog\\YourSystemName\\system.log
+   	log4j.appender.file.File=/var/sdilog/YourSystemName/system.log
+
+3. SystemConstants.java
+   - TRACE_FOLDER (follow the instruction)
+   
+4. !!NEW!!
+   - env.properties 
+     - only 1 property in this file, prop.name=system [default]
+	 - it will tell framework which properties file to load from for your setup (default = system.properties), you can save-as system.properties to system_live.properties for example, then edit according to live's value, when deploy to live, just need to change prop.name=system_live
+   - refer to system.properties 
+     - some configuration move to this file
+     - refer to staticVarFilePath property, this file is used to setup variables that is stored at server's local file. Purpose is to support HA setup so that 1 server's setup won't affect other server
+   
+   

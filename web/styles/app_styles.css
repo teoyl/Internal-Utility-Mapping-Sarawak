@@ -1,0 +1,147 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 21, 2024, 2:40:20 PM
+    Author     : yonglai
+*/
+
+.floating-label {
+    margin-left: 5px;
+}
+
+.circle-div {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid #3d80cc;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    color: #3d80cc;
+}
+
+.checklist-file {
+    margin: 0;
+    color: blue;
+}
+
+.checklist-file-date, .checklist-file-size {
+    display: block;
+    color: grey;
+    font-size: smaller;
+}
+
+.checklist-supporting {
+    display: block;
+    font-size: smaller;
+}
+.card {
+    border: 1px solid #d1d1d1;
+}
+.bg-green {
+    background-color: var(--bg-green);
+}
+.word-green {
+    color: #009999;
+}
+.fs-smaller {
+    font-size: smaller;
+}
+.fs-larger {
+    font-size: larger;
+}
+.btn-search {
+    height: 98%;
+}
+.btn-search:first-child:active, .btn-search:hover{
+    color: #748194 !important;
+}
+.tox-tinymce {
+    border: 1px solid #d1d1d1 !important;
+}
+
+/* uppy override custom */
+.uppy-DragDrop-arrow {
+    width: 20px !important;
+    height: 20px !important;
+    margin-bottom: 0 !important;
+}
+
+button .uppy-Root,
+.uppy-u-reset,
+.uppy-DragDrop-container,
+.uppy-DragDrop--isDragDropSupported,
+.uppy-DragDrop-inner {
+   min-height: 3rem !important;
+   max-height: 100% !important;
+}
+
+.uppy-DragDrop-container,
+.uppy-DragDrop--isDragDropSupported,
+button .no-upload
+{
+   background-color: #009999 !important;
+   border: none !important;
+   margin-bottom: 0.3em !important;
+}
+
+.uppy-DragDrop--uploaded {
+   background-color: #F2F2F2 !important;
+   border: none !important;
+   margin-bottom: 0.3em !important;
+
+   display: flex !important;
+   flex-direction: row !important;
+   justify-content: center !important;
+   align-items: center !important;
+
+   min-height: 3rem !important;
+   max-height: 100% !important;
+
+   font-size: 1.15em;
+}
+
+button .uppy-DragDrop-inner {
+   padding: 0 !important;
+   font-size: 12px !important;
+   color: white !important;
+   font-weight: bold;
+
+   display: flex;
+   flex: row;
+   align-items: center;
+}
+
+button a .uppy-DragDrop-inner  {
+   color: white !important;
+   font-weight: bold;
+}
+
+.uppy-c-icon {
+   margin-right: 0.5rem;
+}
+
+.svg-upload-icon {
+   width: 15px !important;
+   height: 15px  !important;
+   margin-right: 5px !important;
+}
+
+.max-w-150 {
+    max-width: 150px;
+}
+
+.color-file-Y {
+    color: #8bc34a;
+}
+
+.color-file-N {
+    color: #eb4124;
+}
+
+.color-file-P {
+    color: #2c7be5;
+}

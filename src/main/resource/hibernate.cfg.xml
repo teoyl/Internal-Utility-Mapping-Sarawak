@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <!--
+        add 'instance=SQLEXPRESS' to the connection url 'hibernate.cfg' file
+        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=endeavour instance=SQLEXPRESS</property>
+        - Go to SQL Server Configuration Manager
+        a. Expand ‘SQL Server Network Congfiguration
+        b. Double click ‘Protocols for SQLEXPRESS’
+        c. Right click ‘TCP/IP’
+        d. Click on ‘Properties’
+        e. Click on ‘IP Addresses Tab’
+         f. Scroll to bottom for ‘IPAll’ segment
+        g. Change ‘TCP Dynamic Ports’ to 1433
+        h. Click Apply
+    -->
+  <session-factory name="">
+    <!--**LIVE **-->
+<!--    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@172.23.15.9:1521/LASISHQLXG</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
+    <property name="hibernate.connection.username">lxgeis</property>
+    <property name="hibernate.connection.password">lxg4#eis</property>
+    <property name="hibernate.connection.autocommit">false</property>-->
+      
+     <!--**TNT **--> 
+    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <!--<property name="hibernate.connection.url">jdbc:oracle:thin:@172.26.80.144:1521/MUDB</property>-->
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</property>
+    <!--<property name="hibernate.connection.username">mudb</property>-->
+    <!--<property name="hibernate.connection.password">mudb</property>-->
+    <property name="hibernate.connection.autocommit">false</property>
+
+    <property name="hibernate.connection.pool_size">200</property>
+    <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>-->
+    <!--<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>-->
+    <!--<property name="hibernate.connection.isolation">2</property>-->
+    <property name="show_sql">false</property>
+    <!--<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>-->
+    <!--<property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>-->
+    <!--<property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>-->
+    <property name="hibernate.connection.provider_class">org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.acquire_increment">1</property>
+    <property name="hibernate.c3p0.idle_test_period">1800</property>
+    <property name="hibernate.c3p0.dataSourceName">hibernate</property>
+    <property name="hibernate.c3p0.min_size">1</property>
+    <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+    <property name="hibernate.c3p0.preferredTestQuery">select 1 from dual</property>
+    <property name="hibernate.c3p0.numHelperThreads">6</property>
+    <property name="hibernate.c3p0.maxIdleTime">3600</property>
+    <property name="hibernate.c3p0.maxIdleTimeExcessConnections">3600</property>
+    <!--<property name="hibernate.c3p0.unreturnedConnectionTimeout">3600</property>-->
+    <property name="hibernate.c3p0.unreturnedConnectionTimeout">60</property>
+    <property name="hibernate.c3p0.debugUnreturnedConnectionStackTraces">true</property>
+    <property name="hibernate.c3p0.max_size">200</property>
+    <!--<property name="hibernate.c3p0.max_statements">0</property>-->
+    <!--<property name="hibernate.c3p0.maxStatementsPerConnection">0</property>-->
+    <property name="hibernate.c3p0.timeout">60</property>
+    <property name="hibernate.c3p0.acquireRetryAttempts">3</property>
+    <property name="hibernate.c3p0.acquireRetryDelay">250</property>
+    <!--<property name="hibernate.generate_statistics">true</property>  set true only to check the actual log of hibernate (not recommended for LIVE) -->
+  </session-factory>
+</hibernate-configuration>

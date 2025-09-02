@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AppCheck_USJ" pageWidth="595" pageHeight="842" columnWidth="451" leftMargin="72" rightMargin="72" topMargin="42" bottomMargin="42" uuid="3867b1a4-3f70-4952-aa51-1874030f35b0">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="135"/>
+	<parameter name="pCaseId" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select distinct (uj.usj_job_type||'/'||ltrim(uj.usj_div,0)||'D/'||lpad(uj.usj_seq,4,'0')||'/'||uj.usj_year) as survey_job_number, uj.land_desc, uj.usj_request,
+(select code_desc from pubcode where code_type = 'SOC' and code_1 = uj.us_so_id) as surveyFirm,
+(select initcap(code_desc) from pubcode where code_type = 'DIV' and code_1 = uj.usj_div) as divName,
+uj.related_file_ref, uap.case_ref,
+nvl(tcc.CO_REGISTERED_ADDRESS1, '') as cc_addr1, nvl(tcc.CO_REGISTERED_ADDRESS2, '') as cc_addr2, nvl(tcc.CO_REGISTERED_ADDRESS3, '') as cc_addr3,
+tcc.CO_REGISTERED_POSTCODE, tcc.CO_REGISTERED_CITY, nvl(tcc.CO_REGISTERED_ADDRESS4, '') as cc_addr4
+from us_jobdetail uj
+inner join us_application_p uap on uap.case_id = uj.case_id
+INNER JOIN US_SURVEY_FIRM_P usfp ON usfp.CASE_ID = uj.CASE_ID
+INNER JOIN T_SETUP_USER_P tsup ON tsup.US_USER_ID = uap.APP_SUBMIT_BY
+INNER JOIN T_USER_COMPANY tuc ON tuc.US_ID = tsup.US_ID
+INNER JOIN T_CUST_COMPANY tcc ON tcc.CO_ID = tuc.CO_ID AND tcc.PS_ID = usfp.FIRM_SOC
+where uj.case_id = $P{pCaseId}]]>
+	</queryString>
+	<field name="SURVEY_JOB_NUMBER" class="java.lang.String"/>
+	<field name="LAND_DESC" class="java.lang.String"/>
+	<field name="USJ_REQUEST" class="java.lang.String"/>
+	<field name="SURVEYFIRM" class="java.lang.String"/>
+	<field name="DIVNAME" class="java.lang.String"/>
+	<field name="RELATED_FILE_REF" class="java.lang.String"/>
+	<field name="CASE_REF" class="java.lang.String"/>
+	<field name="CC_ADDR1" class="java.lang.String"/>
+	<field name="CC_ADDR2" class="java.lang.String"/>
+	<field name="CC_ADDR3" class="java.lang.String"/>
+	<field name="CO_REGISTERED_POSTCODE" class="java.lang.String"/>
+	<field name="CO_REGISTERED_CITY" class="java.lang.String"/>
+	<field name="CC_ADDR4" class="java.lang.String"/>
+	<background>
+		<band height="758" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement mode="Transparent" x="61" y="205" width="389" height="334" uuid="06c46837-ef2c-4c95-84c4-37ed8c9f34bd"/>
+				<imageExpression><![CDATA["com" + System.getProperty("file.separator")
++ "reportImage" + System.getProperty("file.separator")
++ "lns_watermark.PNG"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="327" y="0" width="19" height="20" uuid="0f19951b-d715-4160-8773-4d6dc23a3907"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[No. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="346" y="0" width="104" height="20" uuid="c1c154a3-8a4c-435a-b8cd-fb5742d1bcb2"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SURVEY_JOB_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="450" height="32" uuid="c2d38c35-0861-49fd-ab31-c4df142d697d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UTILITY SURVEY JOB ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="218" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="99" height="14" uuid="dd01ecac-77bf-426b-bc91-4011a31bfc0c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[File reference:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="99" height="14" uuid="bcfbbeaa-9847-4ef6-b8ca-96ed52f28fc7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Requested by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="84" width="17" height="14" uuid="676a7074-6f58-4475-9c7d-05b5b87e2589"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="126" width="99" height="14" uuid="51aa3f39-f430-46b6-a58b-c327c4edde22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Description of land: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="168" width="98" height="14" uuid="0f7ea8e7-c1e3-4f01-aae2-1111d7ad7180"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Details of request:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="99" y="126" width="351" height="28" uuid="39ebcdbb-fb69-4c41-927f-557ef817e75d"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LAND_DESC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="99" y="164" width="352" height="14" isPrintWhenDetailOverflows="true" uuid="5c168735-0b79-4fd8-86bc-cd3664c1fd01"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial" size="9"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{USJ_REQUEST}.replaceAll("<strong>", "<b>").replaceAll("</strong>", "</b>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="42" width="352" height="14" uuid="78b4af2b-9efa-4d57-89cf-8ba9ff962d9e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SURVEYFIRM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="0" width="352" height="14" uuid="6e986106-b7cd-4dae-a37f-5a52fe8f4a59"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CASE_REF}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="99" y="84" width="352" height="28" isPrintWhenDetailOverflows="true" uuid="245a6fac-3462-440d-9664-88bf4267e3ef"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($F{CC_ADDR1}!=null) ? (($F{CC_ADDR1}.endsWith( "," ))?$F{CC_ADDR1}+" " : $F{CC_ADDR1} + ", ") : "")+
+(($F{CC_ADDR2}!=null) ? (($F{CC_ADDR2}.endsWith( "," ))?$F{CC_ADDR2}+" " : $F{CC_ADDR2} + ", ") : "")+
+(($F{CC_ADDR3}!=null) ? (($F{CC_ADDR3}.endsWith( "," ))?$F{CC_ADDR3}+" " : $F{CC_ADDR3} + ", ") : "")+
+(($F{CC_ADDR4}!=null) ? (($F{CC_ADDR4}.endsWith( "," ))?$F{CC_ADDR4}+" " : $F{CC_ADDR4} + ", ") : "")+
+$F{CO_REGISTERED_POSTCODE} + " " + $F{CO_REGISTERED_CITY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="14" width="100" height="14" uuid="a24afe3d-6e7f-4a42-adb9-a89a113bb478"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Bahagian fail:</i></style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="56" width="100" height="14" uuid="9ff3d7fb-2ac0-4167-b03c-2340372b9a7f"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Permintaan dari:</i></style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="98" width="100" height="14" uuid="0abe5a75-1584-4a30-b656-13bbd60d736b"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>beralamat</i></style>"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="140" width="100" height="14" uuid="3af8e6bb-8bdd-4c58-9c4f-b5eb224d9606"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Penjelasan tanah:</i></style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="-1" y="182" width="100" height="14" isPrintWhenDetailOverflows="true" uuid="2ffbf1c1-f1d9-459f-b5dd-cfc60cf7d4d9"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<style isItalic='true' pdfFontName='Helvetica-Oblique'><i>Butiran terperinci permintaan:</i></style>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="82" splitType="Prevent">
+			<line>
+				<reportElement x="268" y="46" width="180" height="1" uuid="ac7c3218-c298-4468-9b20-a3918aff8928"/>
+			</line>
+			<staticText>
+				<reportElement mode="Transparent" x="266" y="47" width="183" height="14" uuid="bba2d8ad-176f-4324-9e27-431f03c7a56c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[b.p Penguasa Tanah Dan Survei]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="268" y="61" width="181" height="14" uuid="f08d8c4c-f9c8-43b8-b4b7-35298d79fc17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bahagian "+$F{DIVNAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

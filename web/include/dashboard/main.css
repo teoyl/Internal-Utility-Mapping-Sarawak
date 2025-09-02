@@ -1,0 +1,1622 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    /*font-size: 100%;
+    font: inherit;*/
+    /*vertical-align: baseline;*/
+}
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (max-width: 750px) {
+    #full {
+        display: none;
+    }
+    #phone {
+        display: block;
+        background: #c80a07;
+        height: 1000px;
+        padding: 20px;
+    }
+    #phone h3 {
+        font-weight: 300;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+    #phone h1 {
+        font-weight: 300;
+        font-size: 1.8em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #FFF;
+        margin-bottom: 15px;
+    }
+    #phone h1 span {
+        font-weight: 700;
+    }
+    #phone h2 {
+        font-weight: 300;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        padding-bottom: 15px;
+        color: #fff;
+    }
+    #phone li {
+        font-size: .8em;
+        color: #fff;
+    }
+}
+
+/* ==========================================================================
+   SLIDER MENU
+   ========================================================================== */
+
+
+/* General styles for all menus */
+.cbp-spmenu {
+    position: absolute;
+}
+.cbp-spmenu div#showTop {
+    margin: 0 auto;
+    display: block;
+    width: 40px;
+    height: 0;
+    background: #fff;
+    cursor: pointer;
+}
+.cbp-spmenu div#showTop img {
+    margin-top: 0;
+}
+div.slide-back {
+    background: #424242;
+    height: 165px;
+}
+
+.cbp-spmenu h3 {
+    color: #fff;
+    font-size: 1.4em;
+    line-height: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
+}
+.cbp-spmenu h3 span {
+    font-weight: 700;
+}
+.cbp-spmenu h3 em {
+    letter-spacing: 0em;
+    text-transform: none;
+    font-size: .7em;
+    line-height: .8em;
+}
+
+.cbp-spmenu a {
+    display: block;
+    color: #fff;
+    font-size: .8em;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+.cbp-spmenu a.red:hover {
+    background: #c80a07;
+}
+
+.cbp-spmenu a.red:active {
+    background: #FFC1BF;
+    color: #c80a07;
+}
+.cbp-spmenu a.blue1:hover {
+    background: #007095;
+}
+
+.cbp-spmenu a.blue1:active {
+    background: #A6E9FF;
+    color: #007095;
+}
+.cbp-spmenu a.green1:hover {
+    background: #79C789;
+}
+.cbp-spmenu a.green1:active {
+    background: #A5FFB9;
+    color: #79C789;
+}
+.cbp-spmenu a.green2:hover {
+    background: #009999;
+}
+.cbp-spmenu a.green2:active {
+    background: #A5FFFF;
+    color: #009999;
+}
+.cbp-spmenu a.blue2:hover {
+    background: #31639D;
+}
+.cbp-spmenu a.blue2:active {
+    background: #A6CEFF;
+    color: #31639D;
+}
+
+
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-horizontal {
+    width: 100%;
+    height: 190px;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.cbp-spmenu-horizontal h3 {
+    height: 100%;
+    width: 20%;
+    float: left;
+}
+
+.cbp-spmenu-horizontal a {
+    float: left;
+    width: 25%;
+    padding: 0.8em;
+    border-left: 1px solid #fff;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+    top: -165px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+    top: 0px;
+}
+
+/* Transitions */
+
+.cbp-spmenu {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+    .cbp-spmenu-horizontal {
+        font-size: 85%;
+    }
+
+}
+
+
+
+/* ==========================================================================
+   IE8 detect
+   ========================================================================== */
+
+#detected {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #C80A07;
+    padding: 20px;
+}
+
+#detected h3 {
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #fff;
+}
+#detected h1 {
+    font-weight: 300;
+    font-size: 1.8em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #FFF;
+    margin-bottom: 15px;
+}
+#detected h1 span {
+    font-weight: 700;
+}
+#detected h2 {
+    font-weight: 300;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    padding-bottom: 15px;
+    color: #fff;
+}
+#detected li {
+    font-size: .8em;
+    color: #fff;
+}
+
+/* ==========================================================================
+   ISOTOPE styles
+   ========================================================================== */
+
+.isotope-item {
+    z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -ms-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+}
+
+.isotope {
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -ms-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+
+.isotope .isotope-item {
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property:    -moz-transform, opacity;
+    -ms-transition-property:     -ms-transform, opacity;
+    -o-transition-property:      -o-transform, opacity;
+    transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
+
+/* ==========================================================================
+   VISION HOME STYLES
+   ========================================================================== */
+
+/*body {
+    font: 16px/22px 'Lato', sans-serif;
+}*/
+
+/**** HEADER ****/
+
+.ncc-site {
+    float: right;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+    text-align: center;
+    margin: 20px 30px 0 0;
+}
+.ncc-site a {
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    color: #c80a07;
+    font-size: .8em;
+    line-height: 1.4em;
+}
+
+div.red-back {
+    background-color: #c80a07;
+}
+
+div.header-container {
+    width: 725px;
+    padding: 15px 0 0 15px;
+}
+div.header-container h3 {
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #fff;
+}
+div.header-container h1 {
+    font-weight: 300;
+    font-size: 2.4em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #FFF;
+    margin-bottom: 15px;
+}
+div.header-container a {
+    text-decoration: none;
+}
+div.header-container h1 span {
+    font-weight: 700;
+}
+div.header-container h2 {
+    font-weight: 300;
+    font-size: 1.6em;
+    line-height: 1.2em;
+    padding-bottom: 15px;
+    color: #fff;
+}
+div.intro {
+    padding: 15px;
+    background-color: #F5F5F5;
+}
+div.intro p {
+    font-size: 1.1em;
+    line-height: 1.3em;
+    font-weight: 300;
+}
+div.click-filter {
+    background-color: #424242;
+    padding-left: 23px;
+    margin-bottom: 5px;
+}
+div.click-filter span {
+    color: #fff;
+    text-transform: uppercase;
+    word-spacing: .2em;
+    font-size: .7em;
+}
+
+/**** HOME NAVIGATION ****/
+
+nav#home ul {
+    width: 100%;
+    margin: 0 0 0 15px;
+    padding: 0;
+}
+
+nav#home a {
+    float: left;
+    width: 21%;
+    min-height: 34px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1.4em;
+    text-transform: uppercase;
+}
+nav#home a.blue1 {
+    background: #007095;
+    color: white;
+    transition: background 0.3s ease;
+    transition: color 0.3s ease;
+}
+nav#home a.blue1:hover {
+    background: #A6E9FF;
+    color: #007095;
+}
+nav#home a.green1 {
+    background: #79C789;
+    color: white;
+    transition: background 0.3s ease;
+    transition: color 0.3s ease;
+}
+nav#home a.green1:hover {
+    background: #A5FFB9;
+    color: #79C789;
+}
+nav#home a.green2 {
+    background: #009999;
+    color: white;
+    transition: background 0.3s ease;
+    transition: color 0.3s ease;
+}
+nav#home a.green2:hover {
+    background: #A5FFFF;
+    color: #009999;
+}
+nav#home a.blue2 {
+    background: #31639D;
+    color: white;
+    transition: background 0.3s ease;
+    transition: color 0.3s ease;
+}
+nav#home a.blue2:hover {
+    background: #A6CEFF;
+    color: #31639D;
+}
+
+
+/**** HOME CONTENT GRID ****/
+.main-container {
+    padding: 0 0 0 15px;
+    margin-bottom: 50px;
+}
+.main-container p {
+    font-size: .9em;
+    line-height: 1.3em;
+    font-weight: 300;
+}
+.main-container p.larger {
+    font-size: 1em;
+    margin-top: 10px;
+}
+.main-container h3 {
+    font-size: .9em;
+    line-height: 1.3em;
+    font-weight: 900;
+    margin-bottom: 5px;
+    color:black;
+}
+.shout h3 {
+    font-size: .8em;
+    color: #fff;
+}
+.shout p {
+    font-size: .8em;
+    color: #fff;
+}
+.shout span {
+    font-weight: 500;
+}
+
+
+/**** Education home page ****/
+div.edu-line {
+    width: 390px;
+    height: 190px;
+    background: url(../img/edu-line.png) no-repeat;
+    margin-top: 15px;
+}
+.education h4.larger {
+    font-size: 4em;
+    font-weight: 900;
+    padding: 50px 0 20px 0;
+
+}
+div.edu-pie {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: url(../img/edu-pie.png) no-repeat;
+    margin: -15px 0 0 20px;
+}
+span.edu-pie-nc {
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: 900;
+    float: right;
+    text-align: right;
+    margin-top: 15px;
+}
+span.edu-pie-us {
+    position: relative;
+    float: right;
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: 900;
+    text-align: right;
+    margin: 85px 30px 0 0;
+}
+.main-container .edu-link a {
+    margin: -20px 0 0 -20px;
+    padding: 30px 20px;
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+    background: #007095;
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    transition: color 0.3s ease;
+}
+.main-container .edu-link a:hover {
+    background: #A6E9FF;
+    color: #007095;
+}
+
+/**** Business home page ****/
+
+div.bis-bar {
+    width: 390px;
+    height: 170px;
+    background: url(../img/bc-bar.png) no-repeat;
+    margin-top: 15px;
+}
+.business h4.larger {
+    font-size: 4em;
+    font-weight: 900;
+    padding: 50px 0 20px 0;
+}
+div.bc-pie {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: url(../img/bc-pie.png) no-repeat;
+    margin: -5px 0 0 20px;
+}
+span.bc-pie-employee {
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: 900;
+    float: right;
+    text-align: right;
+    margin: 0 -20px 0 0;
+}
+
+.main-container .bus-link a {
+    margin: -20px 0 0 -20px;
+    padding: 30px 20px;
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+    background: #79C789;
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    transition: background 0.3s ease;
+}
+.main-container .bus-link a:hover {
+    color: #79C789;
+    background: #A5FFB9;
+}
+
+/**** Entrepreneurship home page ****/
+div.ei-bar {
+    width: 390px;
+    height: 170px;
+    background: url(../img/ei-bar.png) no-repeat;
+    margin-top: 20px;
+}
+.entrepreneurship h4.larger {
+    font-size: 4em;
+    font-weight: 900;
+    padding: 50px 0 20px 0;
+}
+.entrepreneurship h4.almost-larger {
+    font-size: 2.5em;
+    font-weight: 900;
+    padding: 15px 0 0 0;
+}
+ul.ei-big-number {
+    font-size: .7em;
+    line-height: 1.3em;
+    font-weight: 300;
+    margin-top: 5px;
+}
+ul.ei-big-number li {
+    width: 110px;
+    float: left;
+    margin-right: 10px;
+}
+ul.ei-big-number li span {
+    color: #009999;
+}
+div.ei-pie {
+    width: 200px;
+    height: 200px;
+    background: url(../img/ei-pie.png) no-repeat;
+    margin: 0 0 0 20px;
+}
+span.inn-pie-nc {
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: 900;
+    float: right;
+    text-align: right;
+    margin-right: 5px;
+}
+span.inn-pie-us {
+    position: relative;
+    float: right;
+    font-size: .8em;
+    line-height: 1.2em;
+    font-weight: 900;
+    text-align: right;
+    margin: 65px 30px 0 0;
+}
+
+.main-container .ent-link a {
+    margin: -20px 0 0 -20px;
+    padding: 30px 20px;
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+    background: #009999;
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    transition: background 0.3s ease;
+}
+.main-container .ent-link a:hover {
+    color: #009999;
+    background: #A5FFFF;
+}
+
+/**** Infrastructure home page ****/
+
+div.inf-bar {
+    width: 390px;
+    height: 170px;
+    background: url(../img/inf-bar.png) no-repeat;
+    margin-top: 5px;
+}
+.infrastructure h4.larger {
+    font-size: 4em;
+    font-weight: 900;
+    padding: 50px 0 20px 0;
+}
+.main-container .inf-link a {
+    margin: -20px 0 0 -20px;
+    padding: 20px 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #31639D;
+    text-align: center;
+    display: block;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    transition: background 0.3s ease;
+}
+.main-container .inf-link a:hover {
+    color: #31639D;
+    background: #A6CEFF;
+}
+.main-container .remove-link a {
+    background: #c80a07 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    font-weight: 500;
+    height: 100px;
+    line-height: 1;
+    margin: -20px 0 0 -20px;
+    padding-top: 35px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease 0s;
+    width: 100px;
+}
+.main-container .remove-link a:hover {
+    color: #c80a07;
+    background: #FFC1BF;
+}
+.main-container .hide {
+    display: none;
+}
+.main-container h4 {
+    font-size: 2.5em;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+div.blue1 {
+    background: #007095;
+}
+div.green1 {
+    background: #79C789;
+}
+div.green2 {
+    background: #009999;
+}
+div.blue2 {
+    background: #31639D;
+}
+div.opener {
+    color: #fff;
+}
+div.opener h1 {
+    font-size: 1.6em;
+    line-height: 1.2em;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.item1 {
+    width: 350px;
+    height: 310px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #dddddd;
+}
+.item2 {
+    width: 350px;
+    height: 310px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #4AC9AD;
+}
+.item3 {
+    width: 101px;
+    height: 101px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #F5F5F5;
+}
+.item4a {
+    width: 101px;
+    height: 101px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #007095;
+}
+.item4b {
+    width: 101px;
+    height: 101px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #79C789;
+}
+.item4c {
+    width: 101px;
+    height: 101px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #009999;
+}
+.item4d {
+    width: 101px;
+    height: 101px;
+    padding: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #31639D;
+}
+
+
+/**** INDICATOR ACCORDION NAV ****/
+
+#accordian-wrapper {
+    width: 712px;
+    margin-left: 15px;
+}
+.accordionButton {
+    width: 712px;
+    height: 40px;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+.accordionButton img {
+    float: left;
+    margin: 10px 0 0 10px;
+}
+.accordionButton h3 {
+    font-size: .7em;
+    line-height: 3.5em;
+    padding-left: 45px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.education  .accordionButton h3 {
+    color: #007095;
+}
+.business  .accordionButton h3 {
+    color: #79c789;
+}
+.innovation  .accordionButton h3 {
+    color: #009999;
+}
+.infrastructure  .accordionButton h3 {
+    color: #31639D;
+}
+.indicator  .accordionButton h3 {
+    color: #C80A07;
+}
+.accordionContent {
+    width: 712px;
+    background: #f5f5f5;
+    display: none;
+}
+.accordionContent ul {
+    width: 712px;
+    padding: 0 0 15px 20px;
+}
+.accordionContent li {
+    width: 300px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    float: left;
+    padding: 5px 10px;
+}
+.accordionContent li a {
+    display: block;
+    text-decoration: none;
+    font-size: .8em;
+    font-weight: 500;
+    color: #fff;
+}
+.education  .accordionContent li {
+    background-color: #007095;
+}
+.business  .accordionContent li {
+    background-color: #79c789;
+}
+.innovation  .accordionContent li {
+    background-color: #009999;
+}
+.infrastructure  .accordionContent li {
+    background-color: #31639D;
+}
+.indicator  .accordionContent li.education  {
+    background-color: #007095;
+}
+.indicator  .accordionContent li.business  {
+    background-color: #79c789;
+}
+.indicator  .accordionContent li.innovation {
+    background-color: #009999;
+}
+.indicator  .accordionContent li.infrastructure {
+    background-color: #31639D;
+}
+
+
+/**** INDICATOR ACCORDION EXTRA DATA ****/
+
+#baccordian-wrapper {
+    width: 712px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+.baccordionButton {
+    width: 712px;
+    height: 40px;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+.baccordionButton h3 {
+    font-size: .7em;
+    line-height: 3.5em;
+    padding-left: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.education .baccordionButton h3 {
+    color: #007095;
+}
+.business .baccordionButton h3 {
+    color: #79c789;
+}
+.innovation .baccordionButton h3 {
+    color: #009999;
+}
+.infrastructure .baccordionButton h3 {
+    color: #31639D;
+}
+.indicator .baccordionButton h3 {
+    color: #C80A07;
+}
+.baccordionContent {
+    width: 712px;
+    background: #f5f5f5;
+    display: none;
+}
+
+/* ==========================================================================
+   INDICATOR STYLES
+   ========================================================================== */
+
+#wide-nav-wrapper {
+    display: none;
+}
+
+/**** NAV ****/
+
+.menu {
+    width:380px;
+    list-style-type:none;
+    padding-left: 15px;
+    margin-top: 15px;
+}
+.toplevel {
+    display:block;
+    height: 20px;
+    padding: 5px 15px;
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: .8em;
+    line-height: 1.6em;
+    text-transform: uppercase;
+    color: #fff;
+    background: url(../img/arrow.png) 355px no-repeat #424242;
+    text-decoration:none;
+}
+
+/* Dropdowns */
+.dropdown {
+    position:relative;
+    /*z-index:200;*/
+}
+.submenu {
+    position:absolute;
+    top:0;
+    right:0;
+    display:none;
+    width:380px;
+    list-style-type:none;
+    padding-top:30px;
+    z-index:200;
+}
+.hover .submenu {
+    display:block;
+}
+.submenu a {
+    display:block;
+    padding: 8px 10px 8px 0;
+    font-weight: bold;
+    font-size: .8em;
+    line-height: 1.6em;
+    text-transform: uppercase;
+    text-align: right;
+    color:#fff;
+    text-decoration:none;
+    background: #424242;
+}
+.submenu a.red:hover {
+    background: #c80a07;
+}
+.submenu a.blue1:hover {
+    background: #007095;
+}
+.submenu a.green1:hover {
+    background: #79C789;
+}
+.submenu a.green2:hover {
+    background: #009999;
+}
+.submenu a.blue2:hover {
+    background: #31639D;
+}
+
+/* D3 Template */
+
+.indicator-back {
+    position: absolute;
+    width: 380px;
+    height: 375px;
+    background-color: #424242;
+    z-index: -9999;
+}
+#template {
+    width: 712px;
+    margin-left: 30px;
+    background-color: #f5f5f5;
+    border-top: #fff 5px solid;
+    margin-bottom: 5px;
+}
+#template .title-info {
+    padding: 20px;
+}
+#template .title-info h3 {
+    width: 300px;
+    padding: 4px 0 5px 15px;
+    color: #fff;
+    margin-left: -35px;
+}
+#template div.education h3 {
+    background-color: #007095;
+}
+#template div.business h3 {
+    background-color: #79c789;
+}
+#template div.innovation h3 {
+    background-color: #009999;
+}
+#template div.infrastructure h3 {
+    background-color: #31639D;
+}
+#template div.indicator h3 {
+    background-color: #C80A07;
+}
+#template .title-info h5 {
+    font-size: 1em;
+    line-height: 1.4em;
+    font-weight: 700;
+    width: 350px;
+    margin-top: 15px;
+}
+#template .title-info p {
+    font-size: 1em;
+    line-height: 1.4em;
+    font-weight: 300;
+    width: 440px;
+}
+#template .NCMap {
+    /*   margin-top: -70px;*/
+}
+
+#template .map img {
+    width: 650px;
+    padding: 0 30px;
+}
+#template div.hawaii {
+    width: 15%;
+    height: 60px;
+    margin: -20% 0 1% 3%;
+}
+#template div.alaska {
+    width: 30%;
+    height: 80px;
+    margin: 0 0 2% 8%;
+}
+
+/*** to remove also remove from html **/
+#template .inno {
+    border: 1px solid #000;
+}
+
+#template .chart img {
+    width: 672px;
+    padding: 0 20px 0 20px;
+    margin-top: -40px;
+}
+#template .context {
+    float: right;
+    width: 190px; /*was 150*/
+    margin-top: -220px;
+    margin-right: 20px;
+}
+#template #context.mapOnlyContext {
+    margin-top: -25px;
+}
+#template #context.waterSupplyContext {
+    margin-top: 25px;
+}
+#template .context h3 {
+    font-weight: 300;
+    font-size: .7em;
+    text-transform: uppercase;
+
+}
+#template .context h4 {
+    font-weight: 900;
+    font-size: 2.5em;
+    padding: 10px 0;
+}
+#template .context p {
+    font-weight: 700;
+    font-size: .9em;
+    line-height: 1.3em;
+}
+#template .contextNoData {
+    font-weight: 900;
+    font-size: .7em;
+    padding: 10px 0;
+}
+#template .source p {
+    padding: 0;
+}
+#template .source a {
+    float: right;
+    padding: 15px 15px 10px 0;
+    font-size: .7em;
+    color: #8f8f8f;
+    font-style: italic;
+}
+
+#template .stackedBarChart {
+    /*margin-top: -80px;*/
+}
+
+#iconLinks {
+    clear: both;
+}
+
+/* ==========================================================================
+   ABOUT
+   ========================================================================== */
+.about-top {
+    margin: 30px 0;
+    max-width: 1100px;
+}
+.about-top h1 {
+    text-transform: uppercase;
+    font-size: 3em;
+    line-height: 1em;
+    font-weight: 300;
+    color: #c80a07;
+    margin: 20px 0;
+}
+.about-top span {
+    font-weight: 500;
+}
+.about-top h1 span {
+    font-weight: 900;
+}
+.about-top h2 {
+    font-size: 2em;
+    line-height: 1em;
+    font-weight: 300;
+    padding: 30px 0 15px 0;
+    color: #c80a07;
+}
+.about-top h3 {
+    font-size: 1.1em;
+    line-height: 1em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin: 20px 0 15px 0;
+}
+.about-top h4 {
+    font-size: 1em;
+    line-height: 1em;
+    font-weight: 900;
+    margin: 10px 0 15px 0;
+}
+.about-top p {
+    max-width: 85%;
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
+.about-top a {
+    color: #424242;
+    font-weight: 500;
+}
+.about-top em {
+    font-style: italic;
+}
+ul.advisors li {
+    margin: 10px;
+    font-weight: 300;
+}
+ul.advisors li span {
+    margin: 10px;
+    font-weight: 500;
+}
+ul.pillars {
+    width: 85%;
+    padding: 20px;
+    margin-top: 25px;
+    background-color: #F5F5F5;
+}
+.pillars li {
+    margin-top: 30px;
+    padding: 20px;
+}
+.pillars li:first-child {
+    margin-top: 0;
+}
+.about-top .pillars li h3 {
+    margin-top: 0;
+    color: #fff;
+}
+.about-top .pillars li p {
+    max-width: 100%;
+    color: #fff;
+}
+.pillars li.education {
+    background-color: #007095;
+}
+.pillars li.business  {
+    background-color: #79C789;
+}
+.pillars li.innovation  {
+    background-color: #009999;
+}
+.pillars li.infrastructure  {
+    background-color: #31639D;
+}
+div.geo-table {
+    width: 585px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #F5F5F5;
+}
+.small-about p {
+    max-width: 75%;
+    font-size: .8em;
+    margin-bottom: 8px;
+}
+
+.clear {clear: both;}
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+    /* ====================
+        INTERMEDIATE: Menu
+       ==================== */
+
+    nav li:first-child a {
+        margin-left: 0;
+    }
+
+    nav li:last-child a {
+        margin-right: 0;
+    }
+}
+
+
+
+
+@media only screen and (min-width: 750px) {
+
+    #phone {
+        display: none;
+    }
+
+
+
+}
+
+
+@media only screen and (min-width: 1150px) {
+
+    /* ===============
+        Maximal Width
+       =============== */
+
+
+    div.intro p {
+        max-width: 75%;
+    }
+
+    nav#home a {
+        width: 22%;
+        padding: 5px 10px;
+        margin-right: 5px;
+    }
+
+    #accordian-wrapper {
+        display: none;
+    }
+    #wide-nav-wrapper {
+        float: left;
+        display: block;
+    }
+    #wide-nav-wrapper ul {
+        width: 289px;
+        padding: 5px 15px 15px 15px;
+        background-color: #f5f5f5;
+        margin-left: 5px;
+    }
+    #wide-nav-wrapper ul h3 {
+        font-size: .7em;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+    #wide-nav-wrapper ul.education h3 {
+        color: #007095;
+    }
+    #wide-nav-wrapper ul.business h3 {
+        color: #79c789;
+    }
+    #wide-nav-wrapper ul.innovation h3 {
+        color: #009999;
+    }
+    #wide-nav-wrapper ul.infrastructure h3 {
+        color: #31639D;
+    }
+    #wide-nav-wrapper ul.indicator h3 {
+        color: #C80A07;
+    }
+    #wide-nav-wrapper li {
+        margin-bottom: 2px;
+        padding: 3px 3px 3px 6px;
+    }
+    #wide-nav-wrapper li a {
+        display: block;
+        text-decoration: none;
+        width: 280px;
+        font-size: .8em;
+        font-weight: 500;
+        color: #fff;
+    }
+    #wide-nav-wrapper ul.education li {
+        background: url(../img/top-corner.png) top right no-repeat #007095;
+    }
+    #wide-nav-wrapper ul.business li {
+        background: url(../img/top-corner.png) top right no-repeat #79c789;
+    }
+    #wide-nav-wrapper ul.innovation li {
+        background: url(../img/top-corner.png) top right no-repeat #009999;
+    }
+    #wide-nav-wrapper ul.infrastructure li {
+        background: url(../img/top-corner.png) top right no-repeat #31639D;
+    }
+    #wide-nav-wrapper ul.indicator li.education {
+        background: url(../img/top-corner.png) top right no-repeat #007095;
+    }
+    #wide-nav-wrapper ul.indicator li.business {
+        background: url(../img/top-corner.png) top right no-repeat #79c789;
+    }
+    #wide-nav-wrapper ul.indicator li.innovation {
+        background: url(../img/top-corner.png) top right no-repeat #009999;
+    }
+    #wide-nav-wrapper ul.indicator li.infrastructure {
+        background: url(../img/top-corner.png) top right no-repeat #31639D;
+    }
+    #baccordian-wrapper {
+        clear: both;
+    }
+    #template {
+        max-width: 1100px;
+        float: left;
+        border-top: none;
+        width: 68%;
+    }
+    #template .map img {
+        width: 91.292135%;
+        padding: 0 4.2134831%;
+    }
+    #template div.hawaii {
+        width: 15%;
+        height: 60px;
+        margin: -15% 0 1% 3%;
+    }
+    #template div.alaska {
+        width: 30%;
+        height: 80px;
+        margin: 0 0 2% 8%;
+    }
+    #template .chart img {
+        width: 94.382022%;
+        padding: 0 2.8089888%;
+        margin-top: -40px;
+    }
+    #template .context {
+        float: right;
+        width: 190px; /* was 150*/
+        margin-top: -32%;
+        margin-right: 2.8089888%;
+    }
+    #template .context h3 {
+        font-weight: 300;
+        font-size: .7em;
+        text-transform: uppercase;
+    }
+    #template .context h4 {
+        font-weight: 900;
+        font-size: 2.5em;
+        padding: 10px 0;
+    }
+    #template .context p {
+        font-weight: 700;
+        font-size: .9em;
+        line-height: 1.3em;
+    }
+    #template .source p {
+        padding: 0;
+    }
+    #template .source a {
+        float: right;
+        text-decoration: none;
+        padding: 15px 15px 10px 0;
+        font-size: .7em;
+        color: #8f8f8f;
+        font-style: italic;
+    }
+    #template .source a:hover {
+        text-decoration: underline;
+    }
+
+    #template .stackedBarChart {
+        /*  margin-top: 0;*/
+    }
+    #template #context.waterSupplyContext {
+        margin-top: -10px;
+    }
+
+
+}
+
+
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    /*    display: none !important;*/
+    visibility: hidden;
+    width: 70%;
+    margin: -75px 0 0 0;
+    float: left;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    span.upArrow,
+    span.downArrow {
+        font-size: 1em !important;
+        color: #F5F5F5;
+        margin: 5px 5px 0 0;
+    }
+
+    span.noChange {
+        display: block;
+        width: 70px !important;
+        font-size: .8em !important;
+        color: #F5F5F5;
+        margin: 5px 5px 0 0;
+    }
+
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+
+nav ul,nav ol {
+    list-style:none;
+    list-style-image:none;
+}

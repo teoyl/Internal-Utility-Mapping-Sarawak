@@ -1,0 +1,75 @@
+.scrollToTop{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    /*background: rgba(0, 0, 0, 0.7);*/ 
+    background:rgba(164, 210, 23, 0.0);
+    width: 70px;
+    height: 70px;
+    display: block;
+    font-size:7pt;
+    font-weight: bold;
+    /*color:#fff;*/
+    color:#8d8d8d;
+    /*line-height:20px;*/
+    text-spacing: none; 
+    text-align: center;
+    vertical-align: middle;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+}
+
+.scrollToTop2 {
+    border-radius: 5px 5px 5px 5px;
+    bottom: 48px;
+    cursor: pointer;
+    height: 48px;
+    opacity: 0.8;
+    position: fixed;
+    right: 48px;
+    text-align: center;
+    width: 48px;
+    z-index: 100;
+    background: #6C0;
+    color: #ffffff;
+}
+
+
+.scrollToTop i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.scrollToTop:hover{
+	text-decoration:none;
+        background:rgba(164, 210, 23, 0.7);
+}
+.scrollToTop:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+/*.wrapper {
+    display: table-cell;
+    width: 200px;
+    height: 150px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px dotted #656565;
+  }*/
