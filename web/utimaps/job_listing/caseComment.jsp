@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib uri="/struts-tags" prefix="s"%>
+
 <div class="card mb-3">
     <div class="card-header border-bottom bg-light">
         <i class="far fa-comment-alt me-2"></i><label class="form-label fw-bold text-dark mb-0">Comments</label>
